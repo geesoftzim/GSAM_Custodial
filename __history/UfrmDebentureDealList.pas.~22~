@@ -1,0 +1,218 @@
+unit UfrmDebentureDealList;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Data.Win.ADODB, System.Actions,
+  Vcl.ActnList, AdvToolBar, cxGraphics, cxControls, cxLookAndFeels,
+  cxLookAndFeelPainters, dxSkinsCore, dxSkinBlack, dxSkinBlue, dxSkinBlueprint,
+  dxSkinCaramel, dxSkinCoffee, dxSkinDarkRoom, dxSkinDarkSide,
+  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinFoggy,
+  dxSkinGlassOceans, dxSkinHighContrast, dxSkiniMaginary, dxSkinLilian,
+  dxSkinLiquidSky, dxSkinLondonLiquidSky, dxSkinMcSkin, dxSkinMetropolis,
+  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
+  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
+  dxSkinPumpkin, dxSkinSeven, dxSkinSevenClassic, dxSkinSharp, dxSkinSharpPlus,
+  dxSkinSilver, dxSkinSpringTime, dxSkinStardust, dxSkinSummer2008,
+  dxSkinTheAsphaltWorld, dxSkinsDefaultPainters, dxSkinValentine,
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark,
+  dxSkinVisualStudio2013Light, dxSkinVS2010, dxSkinWhiteprint,
+  dxSkinXmas2008Blue, cxSplitter, Vcl.ExtCtrls, System.ImageList, Vcl.ImgList,
+  dxSkinscxPCPainter, dxBarBuiltInMenu, cxPC, Vcl.Menus, AdvMenus;
+
+type
+  TfrmDebentureDealList = class(TForm)
+    spDebentureDealAllocationList: TADOStoredProc;
+    spFormOrderFields: TADOStoredProc;
+    spDebentureDealList: TADOStoredProc;
+    spFormGroupFields: TADOStoredProc;
+    dsFormGroupFields: TDataSource;
+    dsFormOrderFields: TDataSource;
+    spFormGroupFieldsID: TAutoIncField;
+    spFormGroupFieldsForm: TStringField;
+    spFormGroupFieldsName: TStringField;
+    spFormGroupFieldsFieldName: TStringField;
+    spFormGroupFieldsGroupBy: TBooleanField;
+    spFormGroupFieldsOrderBy: TBooleanField;
+    spFormOrderFieldsID: TAutoIncField;
+    spFormOrderFieldsForm: TStringField;
+    spFormOrderFieldsName: TStringField;
+    spFormOrderFieldsFieldName: TStringField;
+    spFormOrderFieldsGroupBy: TBooleanField;
+    spFormOrderFieldsOrderBy: TBooleanField;
+    spDebentureDealAllocationListID: TAutoIncField;
+    spDebentureDealAllocationListDealNo: TStringField;
+    spDebentureDealAllocationListAccountID: TIntegerField;
+    spDebentureDealAllocationListAccountNo: TStringField;
+    spDebentureDealAllocationListStockBroker: TStringField;
+    spDebentureDealAllocationListDebentureName: TStringField;
+    spDebentureDealAllocationListDebentureShortName: TStringField;
+    spDebentureDealAllocationListClientNo: TStringField;
+    spDebentureDealAllocationListUserID: TIntegerField;
+    spDebentureDealAllocationListUserName: TStringField;
+    spDebentureDealAllocationListInstrumentID: TIntegerField;
+    spDebentureDealAllocationListValueDate: TDateTimeField;
+    spDebentureDealAllocationListFaceValue: TFMTBCDField;
+    spDebentureDealAllocationListPrice: TFMTBCDField;
+    spDebentureDealAllocationListTotalPrice: TFMTBCDField;
+    spDebentureDealAllocationListTax: TFMTBCDField;
+    spDebentureDealAllocationListVAT: TFMTBCDField;
+    spDebentureDealAllocationListWitholdingTax: TFMTBCDField;
+    spDebentureDealAllocationListCounterpartyFee: TFMTBCDField;
+    spDebentureDealAllocationListStampDuty: TFMTBCDField;
+    spDebentureDealAllocationListCharge: TFMTBCDField;
+    spDebentureDealAllocationListConfirmed: TBooleanField;
+    spDebentureDealAllocationListRejected: TBooleanField;
+    spDebentureDealAllocationListPaymentReferenceNo: TIntegerField;
+    spDebentureDealAllocationListSettled: TBooleanField;
+    spDebentureDealAllocationListSettlementConfirmed: TBooleanField;
+    spDebentureDealAllocationListSettlementDate: TDateTimeField;
+    spDebentureDealAllocationListCreationDate: TDateTimeField;
+    spDebentureDealAllocationListCommissionPercentage: TFMTBCDField;
+    spDebentureDealAllocationListCommission: TFMTBCDField;
+    spDebentureDealAllocationListSellCommission: TFMTBCDField;
+    spDebentureDealAllocationListVATOnCommission: TFMTBCDField;
+    spDebentureDealAllocationListVATOnSellCommission: TFMTBCDField;
+    spDebentureDealAllocationListSourceAllocationOrderID: TIntegerField;
+    spDebentureDealAllocationListSourceAllocationOrderItemID: TIntegerField;
+    spDebentureDealAllocationListCurrencyID: TIntegerField;
+    spDebentureDealAllocationListCurrCode: TStringField;
+    spDebentureDealAllocationListInstrumentTypeName: TStringField;
+    spDebentureDealAllocationListInstrumentLimit: TFMTBCDField;
+    spDebentureDealAllocationListInstrumentActualLimit: TFMTBCDField;
+    spDebentureDealAllocationListDealTypeName: TStringField;
+    spDebentureDealAllocationListPaymentTypeName: TStringField;
+    spDebentureDealAllocationListSummary: TStringField;
+    spDebentureDealAllocationListStatus: TIntegerField;
+    spDebentureDealAllocationListOrderNo: TStringField;
+    spDebentureDealAllocationListHandlingFee: TFMTBCDField;
+    spDebentureDealListID: TAutoIncField;
+    spDebentureDealListDealNo: TStringField;
+    spDebentureDealListAccountID: TIntegerField;
+    spDebentureDealListAccountNo: TStringField;
+    spDebentureDealListBrokerName: TStringField;
+    spDebentureDealListDebentureName: TStringField;
+    spDebentureDealListDebentureShortName: TStringField;
+    spDebentureDealListUserID: TIntegerField;
+    spDebentureDealListUserName: TStringField;
+    spDebentureDealListInstrumentID: TIntegerField;
+    spDebentureDealListValueDate: TDateTimeField;
+    spDebentureDealListFaceValue: TFMTBCDField;
+    spDebentureDealListPrice: TFMTBCDField;
+    spDebentureDealListTotalPrice: TFMTBCDField;
+    spDebentureDealListTax: TFMTBCDField;
+    spDebentureDealListVAT: TFMTBCDField;
+    spDebentureDealListWitholdingTax: TFMTBCDField;
+    spDebentureDealListCounterpartyFee: TFMTBCDField;
+    spDebentureDealListStampDuty: TFMTBCDField;
+    spDebentureDealListCharge: TFMTBCDField;
+    spDebentureDealListConfirmed: TBooleanField;
+    spDebentureDealListRejected: TBooleanField;
+    spDebentureDealListPaymentReferenceNo: TIntegerField;
+    spDebentureDealListSettled: TBooleanField;
+    spDebentureDealListSettlementConfirmed: TBooleanField;
+    spDebentureDealListSettlementDate: TDateTimeField;
+    spDebentureDealListCreationDate: TDateTimeField;
+    spDebentureDealListCommissionPercentage: TFMTBCDField;
+    spDebentureDealListCommission: TFMTBCDField;
+    spDebentureDealListSellCommission: TFMTBCDField;
+    spDebentureDealListVATOnCommission: TFMTBCDField;
+    spDebentureDealListVATOnSellCommission: TFMTBCDField;
+    spDebentureDealListSourceAllocationOrderID: TIntegerField;
+    spDebentureDealListSourceAllocationOrderItemID: TIntegerField;
+    spDebentureDealListCurrencyID: TIntegerField;
+    spDebentureDealListCurrCode: TStringField;
+    spDebentureDealListInstrumentTypeName: TStringField;
+    spDebentureDealListInstrumentLimit: TFMTBCDField;
+    spDebentureDealListInstrumentActualLimit: TFMTBCDField;
+    spDebentureDealListDealTypeName: TStringField;
+    spDebentureDealListPaymentTypeName: TStringField;
+    spDebentureDealListSummary: TStringField;
+    spDebentureDealListStatus: TIntegerField;
+    spDebentureDealListOrderNo: TStringField;
+    spDebentureDealListHandlingFee: TFMTBCDField;
+    spDebentureDealListSold: TBooleanField;
+    dsDebentureDealAllocationList: TDataSource;
+    dsDebentureDealList: TDataSource;
+    ActionList1: TActionList;
+    actSettlePlacement: TAction;
+    Action2: TAction;
+    Action3: TAction;
+    Action4: TAction;
+    Action5: TAction;
+    Action6: TAction;
+    Action7: TAction;
+    Action8: TAction;
+    Action9: TAction;
+    Action10: TAction;
+    Action11: TAction;
+    Action12: TAction;
+    Action13: TAction;
+    Action14: TAction;
+    Action15: TAction;
+    Action16: TAction;
+    Action17: TAction;
+    Action18: TAction;
+    Action19: TAction;
+    Action20: TAction;
+    Action21: TAction;
+    Action22: TAction;
+    Action23: TAction;
+    Action24: TAction;
+    Action25: TAction;
+    AdvDockPanel1: TAdvDockPanel;
+    AdvToolBar1: TAdvToolBar;
+    AdvToolBarButton1: TAdvToolBarButton;
+    AdvToolBarButton2: TAdvToolBarButton;
+    AdvToolBarButton3: TAdvToolBarButton;
+    AdvToolBarButton4: TAdvToolBarButton;
+    AdvToolBarButton5: TAdvToolBarButton;
+    AdvToolBarButton6: TAdvToolBarButton;
+    AdvToolBarSeparator1: TAdvToolBarSeparator;
+    AdvToolBarSeparator2: TAdvToolBarSeparator;
+    AdvToolBarSeparator3: TAdvToolBarSeparator;
+    cxSplitter1: TcxSplitter;
+    ImageList1: TImageList;
+    Panel1: TPanel;
+    cxPageControl1: TcxPageControl;
+    AdvPopupMenu1: TAdvPopupMenu;
+    AdvPopupMenu2: TAdvPopupMenu;
+    AdvPopupMenu3: TAdvPopupMenu;
+    AdvPopupMenu4: TAdvPopupMenu;
+    AdvPopupMenu5: TAdvPopupMenu;
+    procedure actSettlePlacementExecute(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmDebentureDealList: TfrmDebentureDealList;
+
+implementation
+uses UfrmMain, UdtmMain,
+    UfrmMMQuickReports, UfrmEmailer,
+    UfrmDebentureDealSettlement, UdtmMMHelper, UfrmMMBondDeal2AllocationOrder,
+  UfrmDebentureAllocationOrderList;
+
+{$R *.dfm}
+
+procedure TfrmDebentureDealList.actSettlePlacementExecute(Sender: TObject);
+begin
+begin
+    if not Assigned(frmDebentureDealSettlement) then begin
+        frmDebentureDealSettlement := TfrmDebentureDealSettlement.Create(Self);
+    end;
+    frmMMBondDealSettlement.PopupParent := Self;
+    frmMMBondDealSettlement.PopupMode := pmExplicit;
+    frmMMBondDealSettlement.Display(spMMBondDealListID.Value);
+
+    actRefresh.Execute;
+end;
+
+end.

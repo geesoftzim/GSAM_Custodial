@@ -1,0 +1,131 @@
+object frmLock: TfrmLock
+  Left = 202
+  Top = 122
+  AlphaBlendValue = 235
+  BorderIcons = []
+  BorderStyle = bsNone
+  Caption = 'Locked'
+  ClientHeight = 220
+  ClientWidth = 500
+  Color = clWhite
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  KeyPreview = True
+  OldCreateOrder = False
+  Position = poMainFormCenter
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object CurvyPanel1: TCurvyPanel
+    Left = 0
+    Top = 0
+    Width = 500
+    Height = 220
+    Align = alClient
+    TabOrder = 0
+    ExplicitLeft = 104
+    ExplicitTop = 72
+    ExplicitWidth = 200
+    ExplicitHeight = 100
+    object Label1: TLabel
+      Left = 0
+      Top = 91
+      Width = 498
+      Height = 23
+      Alignment = taCenter
+      AutoSize = False
+      Caption = 'The application has been locked by'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMedGray
+      Font.Height = -19
+      Font.Name = 'Calibri'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lblUserName: TLabel
+      Left = 0
+      Top = 118
+      Width = 498
+      Height = 23
+      Alignment = taCenter
+      AutoSize = False
+      Caption = 'USERNAME'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMedGray
+      Font.Height = -19
+      Font.Name = 'Calibri'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label2: TLabel
+      Left = 101
+      Top = 147
+      Width = 59
+      Height = 18
+      Caption = 'Password'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMenu
+      Font.Height = -15
+      Font.Name = 'Calibri'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label4: TLabel
+      Left = -2
+      Top = 7
+      Width = 500
+      Height = 41
+      Alignment = taCenter
+      AutoSize = False
+      Caption = 'GS Custodial'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMedGray
+      Font.Height = -27
+      Font.Name = 'Calibri'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lblVer: TLabel
+      Left = -2
+      Top = 54
+      Width = 500
+      Height = 23
+      Alignment = taCenter
+      AutoSize = False
+      Caption = 'version'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMedGray
+      Font.Height = -19
+      Font.Name = 'Calibri'
+      Font.Style = []
+      ParentFont = False
+    end
+    object edtPassword: TcxTextEdit
+      Left = 166
+      Top = 147
+      Cursor = crIBeam
+      ParentFont = False
+      Properties.EchoMode = eemPassword
+      Properties.PasswordChar = '*'
+      Style.StyleController = frmMain.escEdits
+      TabOrder = 0
+      OnKeyDown = edtPasswordKeyDown
+      Width = 193
+    end
+    object btnOK: TcxButton
+      Left = 220
+      Top = 179
+      Width = 75
+      Height = 25
+      Caption = 'OK'
+      OptionsImage.Spacing = 1
+      TabOrder = 1
+      OnClick = btnOKClick
+    end
+  end
+end

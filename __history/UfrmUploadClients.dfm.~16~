@@ -1,0 +1,203 @@
+object frmUpLoadClients: TfrmUpLoadClients
+  Left = 0
+  Top = 0
+  Caption = 'UpLoad Clients'
+  ClientHeight = 402
+  ClientWidth = 758
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  FormStyle = fsMDIChild
+  OldCreateOrder = False
+  Position = poDefault
+  Visible = True
+  PixelsPerInch = 96
+  TextHeight = 13
+  object AdvDockPanel1: TAdvDockPanel
+    Left = 0
+    Top = 0
+    Width = 758
+    Height = 42
+    MinimumSize = 3
+    LockHeight = False
+    Persistence.Location = plRegistry
+    Persistence.Enabled = False
+    UseRunTimeHeight = False
+    Version = '6.3.3.2'
+    object AdvToolBar1: TAdvToolBar
+      Left = 3
+      Top = 1
+      Width = 38
+      Height = 27
+      AllowFloating = True
+      Caption = ''
+      CaptionFont.Charset = DEFAULT_CHARSET
+      CaptionFont.Color = clWindowText
+      CaptionFont.Height = -11
+      CaptionFont.Name = 'Tahoma'
+      CaptionFont.Style = []
+      CompactImageIndex = -1
+      TextAutoOptionMenu = 'Add or Remove Buttons'
+      TextOptionMenu = 'Options'
+      ParentOptionPicture = True
+      ToolBarIndex = -1
+      object btnRefresh: TAdvToolBarButton
+        Left = 9
+        Top = 2
+        Width = 15
+        Height = 23
+        Appearance.CaptionFont.Charset = DEFAULT_CHARSET
+        Appearance.CaptionFont.Color = clWindowText
+        Appearance.CaptionFont.Height = -12
+        Appearance.CaptionFont.Name = 'Segoe UI'
+        Appearance.CaptionFont.Style = []
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        Position = daTop
+        Version = '6.3.3.2'
+      end
+    end
+  end
+  object cxPageControl1: TcxPageControl
+    Left = 0
+    Top = 42
+    Width = 758
+    Height = 360
+    Align = alClient
+    TabOrder = 1
+    Properties.ActivePage = tshAutoClients
+    Properties.CustomButtons.Buttons = <>
+    ClientRectBottom = 358
+    ClientRectLeft = 2
+    ClientRectRight = 756
+    ClientRectTop = 28
+    object tshAutoClients: TcxTabSheet
+      Caption = 'Clients'
+      ImageIndex = 0
+      object RzPanel1: TRzPanel
+        Left = 0
+        Top = 0
+        Width = 754
+        Height = 41
+        Align = alTop
+        TabOrder = 0
+        object RzButton1: TRzButton
+          Left = 16
+          Top = 9
+          Action = actUpLoad
+          TabOrder = 0
+        end
+      end
+      object RzPanel2: TRzPanel
+        Left = 0
+        Top = 41
+        Width = 754
+        Height = 289
+        Align = alClient
+        TabOrder = 1
+        object cxGrid1: TcxGrid
+          Left = 2
+          Top = 2
+          Width = 750
+          Height = 285
+          Align = alClient
+          TabOrder = 0
+          object cxGrid1DBTableView1: TcxGridDBTableView
+            Navigator.Buttons.CustomButtons = <>
+            DataController.DataSource = dsFlexClientDetail
+            DataController.Summary.DefaultGroupSummaryItems = <>
+            DataController.Summary.FooterSummaryItems = <>
+            DataController.Summary.SummaryGroups = <>
+            object cxGrid1DBTableView1clientno: TcxGridDBColumn
+              DataBinding.FieldName = 'clientno'
+            end
+            object cxGrid1DBTableView1status: TcxGridDBColumn
+              DataBinding.FieldName = 'status'
+            end
+            object cxGrid1DBTableView1comment: TcxGridDBColumn
+              DataBinding.FieldName = 'comment'
+            end
+            object cxGrid1DBTableView1clientno1: TcxGridDBColumn
+              DataBinding.FieldName = 'clientno'
+            end
+            object cxGrid1DBTableView1Name: TcxGridDBColumn
+              DataBinding.FieldName = 'Name'
+            end
+            object cxGrid1DBTableView1IdentificationNo: TcxGridDBColumn
+              DataBinding.FieldName = 'IdentificationNo'
+            end
+            object cxGrid1DBTableView1Corporate: TcxGridDBColumn
+              DataBinding.FieldName = 'Corporate'
+            end
+            object cxGrid1DBTableView1status1: TcxGridDBColumn
+              DataBinding.FieldName = 'status'
+            end
+            object cxGrid1DBTableView1comment1: TcxGridDBColumn
+              DataBinding.FieldName = 'comment'
+            end
+          end
+          object cxGrid1Level1: TcxGridLevel
+            GridView = cxGrid1DBTableView1
+          end
+        end
+      end
+    end
+  end
+  object aclToolbar: TActionList
+    Left = 48
+    Top = 176
+    object actUpLoad: TAction
+      Caption = 'UpLoad'
+      OnExecute = actUpLoadExecute
+    end
+  end
+  object spFlexyClientCreateEx: TADOStoredProc
+    Connection = dtmMain.cnnMain
+    ProcedureName = 'spFlexyClientCreateEx;1'
+    Parameters = <>
+    Left = 144
+    Top = 160
+  end
+  object spFlexClientDetail: TADOStoredProc
+    Connection = dtmMain.cnnMain
+    CursorType = ctStatic
+    ProcedureName = 'spFlexyClientDetails;1'
+    Parameters = <>
+    Left = 248
+    Top = 136
+    object spFlexClientDetailclientno: TStringField
+      FieldName = 'clientno'
+      Size = 200
+    end
+    object spFlexClientDetailName: TStringField
+      FieldName = 'Name'
+      Size = 200
+    end
+    object spFlexClientDetailIdentificationNo: TStringField
+      FieldName = 'IdentificationNo'
+      Size = 50
+    end
+    object spFlexClientDetailCorporate: TBooleanField
+      FieldName = 'Corporate'
+    end
+    object spFlexClientDetailstatus: TBooleanField
+      FieldName = 'status'
+    end
+    object spFlexClientDetailcomment: TStringField
+      FieldName = 'comment'
+      Size = 200
+    end
+  end
+  object dsFlexClientDetail: TDataSource
+    DataSet = spFlexClientDetail
+    Left = 184
+    Top = 200
+  end
+end

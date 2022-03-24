@@ -1,0 +1,260 @@
+object frmDebentureCouponRedeem: TfrmDebentureCouponRedeem
+  Left = 535
+  Top = 258
+  BorderStyle = bsSingle
+  Caption = 'Debenture Coupon Redeem'
+  ClientHeight = 236
+  ClientWidth = 482
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poMainFormCenter
+  OnClose = FormClose
+  PixelsPerInch = 96
+  TextHeight = 13
+  object AdvPanel1: TAdvPanel
+    Left = 0
+    Top = 122
+    Width = 482
+    Height = 114
+    Align = alBottom
+    TabOrder = 0
+    UseDockManager = True
+    Version = '2.4.2.0'
+    Caption.Color = clHighlight
+    Caption.ColorTo = clNone
+    Caption.Font.Charset = DEFAULT_CHARSET
+    Caption.Font.Color = clWindowText
+    Caption.Font.Height = -11
+    Caption.Font.Name = 'MS Sans Serif'
+    Caption.Font.Style = []
+    DoubleBuffered = True
+    StatusBar.Font.Charset = DEFAULT_CHARSET
+    StatusBar.Font.Color = clWindowText
+    StatusBar.Font.Height = -11
+    StatusBar.Font.Name = 'Tahoma'
+    StatusBar.Font.Style = []
+    Text = ''
+    FullHeight = 200
+    object cxButton1: TcxButton
+      Left = 80
+      Top = 40
+      Width = 75
+      Height = 25
+      Action = actSave
+      TabOrder = 0
+    end
+    object cxButton2: TcxButton
+      Left = 120
+      Top = 96
+      Width = 75
+      Height = 25
+      Action = actCancel
+      TabOrder = 1
+    end
+  end
+  object Panel1: TPanel
+    Left = 0
+    Top = 0
+    Width = 482
+    Height = 41
+    Align = alTop
+    Caption = 'Panel1'
+    TabOrder = 1
+    object AdvPanel2: TAdvPanel
+      Left = 1
+      Top = 1
+      Width = 480
+      Height = 10
+      Align = alTop
+      TabOrder = 0
+      UseDockManager = True
+      Version = '2.4.2.0'
+      Caption.Color = clHighlight
+      Caption.ColorTo = clNone
+      Caption.Font.Charset = DEFAULT_CHARSET
+      Caption.Font.Color = clWindowText
+      Caption.Font.Height = -11
+      Caption.Font.Name = 'MS Sans Serif'
+      Caption.Font.Style = []
+      DoubleBuffered = True
+      StatusBar.Font.Charset = DEFAULT_CHARSET
+      StatusBar.Font.Color = clWindowText
+      StatusBar.Font.Height = -11
+      StatusBar.Font.Name = 'Tahoma'
+      StatusBar.Font.Style = []
+      Text = ''
+      FullHeight = 10
+    end
+    object cxDBTextEdit1: TcxDBTextEdit
+      Left = 200
+      Top = 8
+      TabOrder = 1
+      Width = 121
+    end
+    object cxDBTextEdit2: TcxDBTextEdit
+      Left = 208
+      Top = 16
+      TabOrder = 2
+      Width = 121
+    end
+    object cxDBTextEdit3: TcxDBTextEdit
+      Left = 216
+      Top = 24
+      TabOrder = 3
+      Width = 121
+    end
+    object cxDBTextEdit4: TcxDBTextEdit
+      Left = 224
+      Top = 32
+      TabOrder = 4
+      Width = 121
+    end
+    object cxLabel1: TcxLabel
+      Left = 232
+      Top = 40
+      Caption = 'cxLabel1'
+    end
+    object cxLabel2: TcxLabel
+      Left = 240
+      Top = 48
+      Caption = 'cxLabel2'
+    end
+    object cxLabel3: TcxLabel
+      Left = 248
+      Top = 56
+      Caption = 'cxLabel3'
+    end
+    object cxLabel4: TcxLabel
+      Left = 256
+      Top = 64
+      Caption = 'cxLabel4'
+    end
+  end
+  object Panel2: TPanel
+    Left = 0
+    Top = 41
+    Width = 482
+    Height = 81
+    Align = alClient
+    Caption = 'Panel2'
+    TabOrder = 2
+    object AdvPanel3: TAdvPanel
+      Left = 1
+      Top = 1
+      Width = 480
+      Height = 10
+      Align = alTop
+      TabOrder = 0
+      UseDockManager = True
+      Version = '2.4.2.0'
+      Caption.Color = clHighlight
+      Caption.ColorTo = clNone
+      Caption.Font.Charset = DEFAULT_CHARSET
+      Caption.Font.Color = clWindowText
+      Caption.Font.Height = -11
+      Caption.Font.Name = 'MS Sans Serif'
+      Caption.Font.Style = []
+      DoubleBuffered = True
+      StatusBar.Font.Charset = DEFAULT_CHARSET
+      StatusBar.Font.Color = clWindowText
+      StatusBar.Font.Height = -11
+      StatusBar.Font.Name = 'Tahoma'
+      StatusBar.Font.Style = []
+      Text = ''
+      FullHeight = 10
+    end
+    object cxLabel5: TcxLabel
+      Left = 200
+      Top = 32
+      Caption = 'cxLabel5'
+    end
+    object cxTextEdit1: TcxTextEdit
+      Left = 208
+      Top = 40
+      TabOrder = 2
+      Text = 'cxTextEdit1'
+      Width = 121
+    end
+  end
+  object spDebentureCouponView: TADOStoredProc
+    Connection = dtmMain.cnnMain
+    CursorType = ctStatic
+    ProcedureName = 'spDebentureCouponView;1'
+    Parameters = <
+      item
+        Name = '@DebentureCouponID'
+        DataType = ftLargeint
+        Value = Null
+      end>
+    Left = 184
+    Top = 144
+    object spDebentureCouponViewID: TAutoIncField
+      FieldName = 'ID'
+      ReadOnly = True
+    end
+    object spDebentureCouponViewDebentureID: TIntegerField
+      FieldName = 'DebentureID'
+    end
+    object spDebentureCouponViewRate: TFMTBCDField
+      FieldName = 'Rate'
+      Precision = 38
+      Size = 2
+    end
+    object spDebentureCouponViewPeriod: TIntegerField
+      FieldName = 'Period'
+    end
+    object spDebentureCouponViewPaymentDate: TDateTimeField
+      FieldName = 'PaymentDate'
+    end
+    object spDebentureCouponViewRedemptionDate: TDateTimeField
+      FieldName = 'RedemptionDate'
+    end
+    object spDebentureCouponViewRedeemable: TBooleanField
+      FieldName = 'Redeemable'
+    end
+    object spDebentureCouponViewRedeemed: TBooleanField
+      FieldName = 'Redeemed'
+    end
+    object spDebentureCouponViewSettled: TBooleanField
+      FieldName = 'Settled'
+    end
+    object spDebentureCouponViewStartDate: TDateTimeField
+      FieldName = 'StartDate'
+    end
+    object spDebentureCouponViewValue: TFMTBCDField
+      FieldName = 'Value'
+      Precision = 38
+      Size = 2
+    end
+    object spDebentureCouponViewEdited: TBooleanField
+      FieldName = 'Edited'
+    end
+    object spDebentureCouponViewMatured: TBooleanField
+      FieldName = 'Matured'
+    end
+    object spDebentureCouponViewDebentureName: TStringField
+      FieldName = 'DebentureName'
+      Size = 200
+    end
+  end
+  object dsDebentutureView: TDataSource
+    DataSet = spDebentureCouponView
+    Left = 256
+    Top = 128
+  end
+  object ActionList1: TActionList
+    Left = 152
+    Top = 96
+    object actSave: TAction
+      Caption = 'Save'
+    end
+    object actCancel: TAction
+      Caption = 'Cancel'
+    end
+  end
+end

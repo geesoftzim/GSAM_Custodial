@@ -1,0 +1,768 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{0503B100-1C8C-4691-A2B6-715E08DB7511}</ProjectGuid>
+        <MainSource>GSAM.dpr</MainSource>
+        <Base>True</Base>
+        <Config Condition="'$(Config)'==''">Debug</Config>
+        <AppType>Application</AppType>
+        <FrameworkType>VCL</FrameworkType>
+        <DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
+        <ProjectVersion>18.1</ProjectVersion>
+        <Platform Condition="'$(Platform)'==''">Win32</Platform>
+        <TargetedPlatforms>1</TargetedPlatforms>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Base)'=='true') or '$(Base_Win32)'!=''">
+        <Base_Win32>true</Base_Win32>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win64' and '$(Base)'=='true') or '$(Base_Win64)'!=''">
+        <Base_Win64>true</Base_Win64>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_1)'!=''">
+        <Cfg_1>true</Cfg_1>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_2)'!=''">
+        <Cfg_2>true</Cfg_2>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_2)'=='true') or '$(Cfg_2_Win32)'!=''">
+        <Cfg_2_Win32>true</Cfg_2_Win32>
+        <CfgParent>Cfg_2</CfgParent>
+        <Cfg_2>true</Cfg_2>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base)'!=''">
+        <SanitizedProjectName>GSAM</SanitizedProjectName>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_Build>34</VerInfo_Build>
+        <VerInfo_Keys>CompanyName=9;FileDescription=;FileVersion=0.5.6.34;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=GSAM.exe;ProductName=GS Asset Manager;ProductVersion=0.5.6.34;Comments=</VerInfo_Keys>
+        <DCC_Namespace>Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;System;Xml;Data;Datasnap;Web;Soap;Winapi;Data.Win;System.Win;VCLTee;$(DCC_Namespace)</DCC_Namespace>
+        <VerInfo_MajorVer>0</VerInfo_MajorVer>
+        <VerInfo_MinorVer>5</VerInfo_MinorVer>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <VerInfo_Release>6</VerInfo_Release>
+        <DCC_UsePackage>vcl;rtl;dbrtl;adortl;vcldb;vclx;bdertl;vcldbx;ibxpress;dsnap;cds;bdecds;qrpt60;teeui;teedb;tee;dss;teeqr;visualclx;visualdbclx;dsnapcrba;dsnapcon;VclSmp;vclshlctrls;vclie;xmlrtl;inet;inetdbbde;inetdbxpress;inetdb;nmfast;webdsnap;websnap;soaprtl;dbexpress;dbxcds;indy;dclOffice2k;dxcomnd6;EQTLD6;dxEdtrD6;ECQDBCD6;EQGridD6;dxExELD6;dxELibD6;dxDBEdD6;dxInsD6;dxObjInsD6;dxBarD6;dxBarDBNavD6;dxBarExtItemsD6;dxBarExtDBItemsD6;dxsbD6;VolgaPD6;CR_AUTO;dxExRwD6;EQDBTLD6;dxGrEdD6;acntD6_R;L207_r60;Rz30Ctls60;Rz30DBCtls60;PsQRD60;$(DCC_UsePackage)</DCC_UsePackage>
+        <DCC_SymbolReferenceInfo>1</DCC_SymbolReferenceInfo>
+        <DCC_ImageBase>00400000</DCC_ImageBase>
+        <DCC_ExeOutput>bin</DCC_ExeOutput>
+        <DCC_N>true</DCC_N>
+        <DCC_S>false</DCC_S>
+        <DCC_K>false</DCC_K>
+        <DCC_E>false</DCC_E>
+        <DCC_F>false</DCC_F>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base_Win32)'!=''">
+        <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <Icon_MainIcon>GSAM_Icon3.ico</Icon_MainIcon>
+        <DCC_Namespace>Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
+        <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base_Win64)'!=''">
+        <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
+        <Icon_MainIcon>GSAM_Icon3.ico</Icon_MainIcon>
+        <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_1)'!=''">
+        <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
+        <DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
+        <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+        <DCC_DebugInformation>0</DCC_DebugInformation>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2)'!=''">
+        <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
+        <DCC_Optimize>false</DCC_Optimize>
+        <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
+        <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=0.5.6.35;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=0.5.6.35;Comments=</VerInfo_Keys>
+    </PropertyGroup>
+    <ItemGroup>
+        <DelphiCompile Include="$(MainSource)">
+            <MainSource>MainSource</MainSource>
+        </DelphiCompile>
+        <DCCReference Include="UfrmMain.pas">
+            <Form>frmMain</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmTransferSecretary.pas">
+            <Form>frmTransferSecretary</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmEQOrders.pas">
+            <Form>frmEQOrders</Form>
+        </DCCReference>
+        <DCCReference Include="UdtmMain.pas">
+            <Form>dtmMain</Form>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="UfrmEQBatchList.pas">
+            <Form>frmEQBatchList</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmUTAdmin.pas">
+            <Form>frmUTAdmin</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmUTDealCreate.pas">
+            <Form>frmUTDealCreate</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmSettlement.pas">
+            <Form>frmSettlement</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmEQCounters.pas">
+            <Form>frmEQCounters</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmEQPortfolio.pas">
+            <Form>frmEQPortfolio</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmTransactionSetup.pas">
+            <Form>frmTransactionSetup</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmSetup.pas">
+            <Form>frmSetup</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmLogin.pas">
+            <Form>frmLogin</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmChangePassword.pas">
+            <Form>frmChangePassword</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmAccountDetails.pas">
+            <Form>frmAccountDetails</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMDealList.pas">
+            <Form>frmMMDealList</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmUTTransaction.pas">
+            <Form>frmUTTransaction</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmEQBatchCreate.pas">
+            <Form>frmEQBatchCreate</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmEQOrderCreate.pas">
+            <Form>frmEQOrderCreate</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmSelectModule.pas">
+            <Form>frmSelectModule</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmEQTransactionList.pas">
+            <Form>frmEQTransactionList</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmEQScripSplit.pas">
+            <Form>frmEQScripSplit</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmUTPricing.pas">
+            <Form>frmUTPricing</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmEQReports.pas">
+            <Form>frmEQReports</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmEQSplitsConsolidations.pas">
+            <Form>frmEQSplitsConsolidations</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmEQSwapsConversions.pas">
+            <Form>frmEQSwapsConversions</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmEQScripRegistration.pas">
+            <Form>frmEQScripRegistration</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmEQScripSearch.pas">
+            <Form>frmEQScripSearch</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmUTClientReinvest.pas">
+            <Form>frmUTClientReinvest</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmUTDistributions.pas">
+            <Form>frmUTDistributions</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmEQDividends.pas">
+            <Form>frmEQDividends</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmEQDividendAllocate.pas">
+            <Form>frmEQDividendAllocate</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMBulkDealAllocation.pas">
+            <Form>frmMMBulkDealAllocation</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmEndOfMonth.pas">
+            <Form>frmEndOfMonth</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmEQScripRegistrationScrip.pas">
+            <Form>frmEQScripRegistrationScrip</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMTransaction.pas">
+            <Form>frmMMTransaction</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmUTDeals.pas">
+            <Form>frmUTDeals</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMTransactionList.pas">
+            <Form>frmMMTransactionList</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmEQDividendAllocConfirm.pas">
+            <Form>frmEQDividendAllocConfirm</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmEQTakeOn.pas">
+            <Form>frmEQTakeOn</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmSplash.pas">
+            <Form>frmSplash</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmCalendar.pas">
+            <Form>frmCalendar</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmEQScripSplitCreate.pas">
+            <Form>frmEQScripSplitCreate</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmEQAnalysis.pas">
+            <Form>frmEQAnalysis</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmUTTransferCreate.pas">
+            <Form>frmUTTransferCreate</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmUTTransfers.pas">
+            <Form>frmUTTransfers</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmEQInternalOrders.pas">
+            <Form>frmEQInternalOrders</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmQuickReports.pas">
+            <Form>frmQuickReports</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmEQInternalOrderCreate.pas">
+            <Form>frmEQInternalOrderCreate</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmJournal.pas">
+            <Form>frmJournal</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmEQTransactionHistory.pas">
+            <Form>frmEQTransactionHistory</Form>
+        </DCCReference>
+        <DCCReference Include="ufrmEmailStatement.pas">
+            <Form>frmEmailStatement</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmEQShareTransfer.pas">
+            <Form>frmEQShareTransfer</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmUTReports.pas">
+            <Form>frmUTReports</Form>
+        </DCCReference>
+        <DCCReference Include="UPRJournal.pas">
+            <Form>frmPRJournal</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMOrder.pas">
+            <Form>frmMMOrder</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMDealAuditTrailList.pas">
+            <Form>frmMMDealAuditTrailList</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMQuickReports.pas">
+            <Form>frmMMQuickReports</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMEndOfDay.pas">
+            <Form>frmMMEndOfDay</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmAgent.pas">
+            <Form>frmAgent</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmAgentRate.pas">
+            <Form>frmAgentRate</Form>
+        </DCCReference>
+        <DCCReference Include="UDateParams.pas">
+            <Form>frmDateParam</Form>
+        </DCCReference>
+        <DCCReference Include="UReportDate.pas">
+            <Form>frmReportDate</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmTransactionSchedule.pas">
+            <Form>frmTransactionSchedule</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMCounterpartyRates.pas">
+            <Form>frmMMCounterpartyRates</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmDashboard.pas">
+            <Form>frmDashBoard</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmEmailer.pas">
+            <Form>frmEmailer</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMDealNotes.pas">
+            <Form>frmMMDealNoteList</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMDealTermination.pas">
+            <Form>frmMMDealTermination</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMDealSettlement.pas">
+            <Form>frmMMDealSettlement</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMOrderRejection.pas">
+            <Form>frmMMOrderRejection</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMOrderConfirmation.pas">
+            <Form>frmMMOrderConfirmation</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMOrderList.pas">
+            <Form>frmMMOrderList</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMSetup.pas">
+            <Form>frmMMSetup</Form>
+        </DCCReference>
+        <DCCReference Include="UdtmMMHelper.pas">
+            <Form>dtmMMHelper</Form>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="UfrmMMDealAllocate.pas">
+            <Form>frmMMDealAllocate</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMBondAllocationOrderItem.pas">
+            <Form>frmMMBondAllocationOrderItem</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMAllocationOrderList.pas">
+            <Form>frmMMAllocationOrderList</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmEQInternalOrder.pas">
+            <Form>frmEQInternalOrder</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMAllocationOrderPlacement.pas">
+            <Form>frmMMAllocationOrderPlacement</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMRunningDealList.pas">
+            <Form>frmMMRunningDealList</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMSecurityList.pas">
+            <Form>frmMMSecurityList</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMSecurity.pas">
+            <Form>frmMMSecurity</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMMaturityList.pas">
+            <Form>frmMMMaturityList</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMPortfolio.pas">
+            <Form>frmMMPortfolio</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmAccountSearch.pas">
+            <Form>frmAccountSearch</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMEndOfMonth.pas">
+            <Form>frmMMEndOfMonth</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMInterestRates.pas">
+            <Form>frmMMInterestRates</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMSplash.pas">
+            <Form>frmMMSplash</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMBondAllocationOrder.pas">
+            <Form>frmMMBondAllocationOrder</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmAccount.pas">
+            <Form>frmAccount</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmUTFundSetup.pas">
+            <Form>frmUTFundSetup</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmUTQuickReports.pas">
+            <Form>frmUTQuickReports</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmUTTradingDiary.pas">
+            <Form>frmUTTradingDiary</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmUTTradingDiaryCreate.pas">
+            <Form>frmUTTradingDiaryCreate</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmUTStopOrders.pas">
+            <Form>frmUTStopOrders</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmUTStopOrderDetailsCreate.pas">
+            <Form>frmUTStopOrderDetailsCreate</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmClient.pas">
+            <Form>frmClient</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmClientList.pas">
+            <Form>frmClientList</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmCounterpartySearch.pas">
+            <Form>frmCounterpartySearch</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmContact.pas">
+            <Form>frmContact</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmSignatory.pas">
+            <Form>frmSignatory</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmCompany.pas">
+            <Form>frmCompany</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmBranch.pas">
+            <Form>frmBranch</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmBankAccount.pas">
+            <Form>frmBankAccount</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmSystemAccount.pas">
+            <Form>frmSystemAccount</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmUser.pas">
+            <Form>frmUser</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmUserList.pas">
+            <Form>frmUserList</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmUserGroup.pas">
+            <Form>frmUserGroup</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmUserGroupList.pas">
+            <Form>frmUserGroupList</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmEQInternalOrderItem.pas">
+            <Form>frmEQInternalOrderItem</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmCounterparty.pas">
+            <Form>frmCounterparty</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmEQTransaction.pas">
+            <Form>frmEQTransaction</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmStockBroker.pas">
+            <Form>frmStockBroker</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMAllocationOrderItem.pas">
+            <Form>frmMMAllocationOrderItem</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmLock.pas">
+            <Form>frmLock</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmQuery.pas">
+            <Form>frmQuery</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmAccountDetail.pas">
+            <Form>frmAccountDetail</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMAllocationOrder.pas">
+            <Form>frmMMAllocationOrder</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmUTExternal.pas">
+            <Form>frmUTExternal</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmSigScan.pas">
+            <Form>frmSigScan</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmCurrency.pas">
+            <Form>frmCurrency</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmRejectionReason.pas">
+            <Form>frmRejectionReason</Form>
+        </DCCReference>
+        <DCCReference Include="UPRPropertySearch.pas">
+            <Form>frmPRPropertySearch</Form>
+        </DCCReference>
+        <DCCReference Include="UPRTenantSearch.pas">
+            <Form>frmPRTenantSearch</Form>
+        </DCCReference>
+        <DCCReference Include="UPRTransaction.pas">
+            <Form>frmPRTransaction</Form>
+        </DCCReference>
+        <DCCReference Include="UPRTransactionList.pas">
+            <Form>frmPRTransactionList</Form>
+        </DCCReference>
+        <DCCReference Include="UPRTrustAccountTransaction.pas">
+            <Form>frmPRTrustAccountTransaction</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmUTGratuityEmployer.pas">
+            <Form>frmUTGratuityEmployer</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmJointAccount.pas">
+            <Form>frmJointAccount</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmUTBankActivities.pas">
+            <Form>frmUTBankActivities</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmUTStopOrderDDACC.pas">
+            <Form>frmUTStopOrderDDACC</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmBarcEPayment.pas">
+            <Form>frmBarcEPayment</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmEQRightsIssue.pas">
+            <Form>frmEQRightsIssue</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmEQRightsIssueAllocation.pas">
+            <Form>frmEQRightsIssueAllocation</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmEQRightsIssueCreate.pas">
+            <Form>frmEQRightsIssueCreate</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmEQRightsIssueSettle.pas">
+            <Form>frmEQRightsIssueSettle</Form>
+        </DCCReference>
+        <DCCReference Include="UPRExpenseListing.pas">
+            <Form>frmPRExpenseListing</Form>
+        </DCCReference>
+        <DCCReference Include="UPRProcessRentals.pas">
+            <Form>frmPRProcessRentals</Form>
+        </DCCReference>
+        <DCCReference Include="UPRPropertyDeals.pas">
+            <Form>frmPRPropertyDealList</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmUTTransactionList.pas">
+            <Form>frmUTTransactionList</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmAgentRateList.pas">
+            <Form>frmAgentRateList</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmDiary.pas">
+            <Form>frmDiary</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmEQScrip.pas">
+            <Form>frmEQScrip</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmEQScripManualDischarge.pas">
+            <Form>frmEQScripManualDischarge</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmEQBatchScrip.pas">
+            <Form>frmEQBatchScrip</Form>
+        </DCCReference>
+        <DCCReference Include="UAuditTrail.pas">
+            <Form>frmAuditTrail</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmEQOrderItemConfirm.pas">
+            <Form>frmEQOrderItemConfirm</Form>
+        </DCCReference>
+        <DCCReference Include="UPRPortfolio.pas">
+            <Form>frmPRPortfolio</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmAccountList.pas">
+            <Form>frmAccountList</Form>
+        </DCCReference>
+        <DCCReference Include="UPRPropertyPurchaseDealList.pas">
+            <Form>frmPRPropertyPurchaseDealList</Form>
+        </DCCReference>
+        <DCCReference Include="UPRUnitIssueList.pas">
+            <Form>frmPRUnitIssueList</Form>
+        </DCCReference>
+        <DCCReference Include="UPRLeaseRentCreate.pas">
+            <Form>frmPRLeaseRentCreate</Form>
+        </DCCReference>
+        <DCCReference Include="UPRUnitPrice.pas">
+            <Form>frmPRUnitPrice</Form>
+        </DCCReference>
+        <DCCReference Include="UPRIncomeDistributionList.pas">
+            <Form>frmPRIncomeDistributionList</Form>
+        </DCCReference>
+        <DCCReference Include="UPRIncomeDistributionCreate.pas">
+            <Form>frmPRIncomeDistributionCreate</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMJournal.pas">
+            <Form>frmMMJournal</Form>
+        </DCCReference>
+        <DCCReference Include="UPRConveyors.pas">
+            <Form>frmPRConveyors</Form>
+        </DCCReference>
+        <DCCReference Include="UPRPropertyManager.pas">
+            <Form>frmPRPropertyManager</Form>
+        </DCCReference>
+        <DCCReference Include="UPREvaluators.pas">
+            <Form>frmPREvaluators</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMBond.pas">
+            <Form>frmMMBond</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMBondAllocationOrderPlacement.pas">
+            <Form>frmMMBondAllocationOrderPlacement</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMBondCoupon.pas">
+            <Form>frmMMBondCoupon</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMBondDeal2AllocationOrder.pas">
+            <Form>frmMMBondDeal2AllocationOrder</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMBondDealList.pas">
+            <Form>frmMMBondDealList</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMBondDealSettlement.pas">
+            <Form>frmMMBondDealSettlement</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMBondList.pas">
+            <Form>frmMMBondList</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMBondRates.pas">
+            <Form>frmMMBondRates</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMBondScripDischarge.pas">
+            <Form>frmMMBondScripDischarge</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMBondScripList.pas">
+            <Form>frmMMBondScripList</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMBondScripRegistration.pas">
+            <Form>frmMMBondScripRegistration</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMBondScripTransfer.pas">
+            <Form>frmMMBondScripTransfer</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMClientPortfolio.pas">
+            <Form>frmMMClientPortfolio</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMDealRates.pas">
+            <Form>frmMMDealRates</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMLegend.pas">
+            <Form>frmMMLegend</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMBondCouponRedeem.pas">
+            <Form>frmMMBondCouponRedeem</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmUTUnitTrustConsolidation.pas">
+            <Form>frmUTUnitTrustConsolidation</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmCreateUnitConsolidation.pas">
+            <Form>frmCreateUnitConsolidation</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmUTLedgerFees.pas">
+            <Form>frmUTLedgerFees</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmUTLedgerFeesCreate.pas">
+            <Form>frmUTLedgerFeesCreate</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmUTDistributionCreate.pas">
+            <Form>frmUTDistributionCreate</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMAccountInterestList.pas">
+            <Form>frmMMAccountInterestList</Form>
+        </DCCReference>
+        <DCCReference Include="Validation.pas"/>
+        <DCCReference Include="UfrmMMAllocationAuthorisation.pas">
+            <Form>frmMMAllocationAuthorisation</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMPlacementAuthorisation.pas">
+            <Form>frmMMPlacementAuthorisation</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMDealerAuthorisation.pas">
+            <Form>frmMMDealerAuthorisation</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmEQScripManualDischargeListing.pas">
+            <Form>frmEQScripManualDischargeListing</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmImportSearch.pas">
+            <Form>frmImportSearch</Form>
+        </DCCReference>
+        <DCCReference Include="UPRExpense.pas">
+            <Form>frmPRPropertyExpense</Form>
+        </DCCReference>
+        <DCCReference Include="UPRNewPropertyDeal.pas">
+            <Form>frmPRPropertyDeal</Form>
+        </DCCReference>
+        <DCCReference Include="UPRPropertyDetails.pas">
+            <Form>frmPRProperty</Form>
+        </DCCReference>
+        <DCCReference Include="UPRPropertyPurchaseDeal.pas">
+            <Form>frmPRPropertyPurchaseDeal</Form>
+        </DCCReference>
+        <DCCReference Include="UPRUnitIssue.pas">
+            <Form>frmPRCreateUnitIssue</Form>
+        </DCCReference>
+        <DCCReference Include="UPRLeaseCreate.pas">
+            <Form>frmPRLeaseCreate</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmEQBatchAllocate.pas">
+            <Form>frmEQBatchAllocate</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmEQBatchSettle.pas">
+            <Form>frmEQBatchSettle</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMBackDatedTransactions.pas">
+            <Form>frmMMBackDatedTransactions</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmMMCashForecast.pas">
+            <Form>frmMMCashForecast</Form>
+        </DCCReference>
+        <DCCReference Include="UPRTenant.pas">
+            <Form>frmPRTenant</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmEQOtherAssetCreate.pas">
+            <Form>frmEQOtherAssetCreate</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmTargetAnalysis.pas">
+            <Form>frmTargetAnalysis</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmTargetAnalysisSetup.pas">
+            <Form>frmTargetAnalysisSetup</Form>
+        </DCCReference>
+        <DCCReference Include="UfrmFundsUnderMgt.pas">
+            <Form>frmFundsUnderMgt</Form>
+        </DCCReference>
+        <BuildConfiguration Include="Debug">
+            <Key>Cfg_2</Key>
+            <CfgParent>Base</CfgParent>
+        </BuildConfiguration>
+        <BuildConfiguration Include="Base">
+            <Key>Base</Key>
+        </BuildConfiguration>
+        <BuildConfiguration Include="Release">
+            <Key>Cfg_1</Key>
+            <CfgParent>Base</CfgParent>
+        </BuildConfiguration>
+    </ItemGroup>
+    <Import Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')" Project="$(BDS)\Bin\CodeGear.Delphi.Targets"/>
+    <ProjectExtensions>
+        <Borland.Personality>Delphi.Personality.12</Borland.Personality>
+        <Borland.ProjectType>VCLApplication</Borland.ProjectType>
+        <BorlandProject>
+            <Delphi.Personality>
+                <Source>
+                    <Source Name="MainSource">GSAM.dpr</Source>
+                </Source>
+                <VersionInfo>
+                    <VersionInfo Name="IncludeVerInfo">True</VersionInfo>
+                    <VersionInfo Name="AutoIncBuild">False</VersionInfo>
+                    <VersionInfo Name="MajorVer">0</VersionInfo>
+                    <VersionInfo Name="MinorVer">5</VersionInfo>
+                    <VersionInfo Name="Release">6</VersionInfo>
+                    <VersionInfo Name="Build">34</VersionInfo>
+                    <VersionInfo Name="Debug">False</VersionInfo>
+                    <VersionInfo Name="PreRelease">False</VersionInfo>
+                    <VersionInfo Name="Special">False</VersionInfo>
+                    <VersionInfo Name="Private">False</VersionInfo>
+                    <VersionInfo Name="DLL">False</VersionInfo>
+                    <VersionInfo Name="Locale">1033</VersionInfo>
+                    <VersionInfo Name="CodePage">1252</VersionInfo>
+                </VersionInfo>
+                <VersionInfoKeys>
+                    <VersionInfoKeys Name="CompanyName">9</VersionInfoKeys>
+                    <VersionInfoKeys Name="FileDescription"/>
+                    <VersionInfoKeys Name="FileVersion">0.5.6.34</VersionInfoKeys>
+                    <VersionInfoKeys Name="InternalName"/>
+                    <VersionInfoKeys Name="LegalCopyright"/>
+                    <VersionInfoKeys Name="LegalTrademarks"/>
+                    <VersionInfoKeys Name="OriginalFilename">GSAM.exe</VersionInfoKeys>
+                    <VersionInfoKeys Name="ProductName">GS Asset Manager</VersionInfoKeys>
+                    <VersionInfoKeys Name="ProductVersion">0.5.6.34</VersionInfoKeys>
+                    <VersionInfoKeys Name="Comments"/>
+                </VersionInfoKeys>
+                <Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\bcboffice2k160.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\bcbofficexp160.bpl">Embarcadero C++Builder Office XP Servers Package</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k160.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp160.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+                </Excluded_Packages>
+            </Delphi.Personality>
+            <Platforms>
+                <Platform value="Win32">True</Platform>
+                <Platform value="Win64">False</Platform>
+            </Platforms>
+            <ModelSupport>False</ModelSupport>
+        </BorlandProject>
+        <ProjectFileVersion>12</ProjectFileVersion>
+    </ProjectExtensions>
+    <Import Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')" Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj"/>
+</Project>

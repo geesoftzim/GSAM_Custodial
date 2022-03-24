@@ -1,0 +1,94 @@
+object frmSplash: TfrmSplash
+  Left = 285
+  Top = 184
+  BorderIcons = []
+  BorderStyle = bsNone
+  Caption = 'GSAM'
+  ClientHeight = 220
+  ClientWidth = 500
+  Color = clWhite
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poDesktopCenter
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object CurvyPanel1: TCurvyPanel
+    Left = 0
+    Top = 0
+    Width = 500
+    Height = 220
+    Align = alClient
+    TabOrder = 0
+    ExplicitLeft = 344
+    ExplicitTop = 184
+    ExplicitWidth = 200
+    ExplicitHeight = 100
+    object lbl: TLabel
+      Left = 0
+      Top = 103
+      Width = 500
+      Height = 19
+      Alignment = taCenter
+      AutoSize = False
+      Caption = '...'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -16
+      Font.Name = 'Calibri'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lblS: TLabel
+      Left = 0
+      Top = 146
+      Width = 500
+      Height = 19
+      Alignment = taCenter
+      AutoSize = False
+      Caption = '...'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -16
+      Font.Name = 'Calibri'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label4: TLabel
+      Left = -2
+      Top = 7
+      Width = 500
+      Height = 41
+      Alignment = taCenter
+      AutoSize = False
+      Caption = 'GS Custodial'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMedGray
+      Font.Height = -27
+      Font.Name = 'Calibri'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lblVer: TLabel
+      Left = -2
+      Top = 54
+      Width = 500
+      Height = 23
+      Alignment = taCenter
+      AutoSize = False
+      Caption = 'version'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMedGray
+      Font.Height = -19
+      Font.Name = 'Calibri'
+      Font.Style = []
+      ParentFont = False
+    end
+  end
+end

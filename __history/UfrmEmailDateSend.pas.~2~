@@ -1,0 +1,192 @@
+unit UfrmEmailDateSend;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Data.Win.ADODB;
+
+type
+  TForm1 = class(TForm)
+    spEmailSendOnDate: TADOStoredProc;
+    spEmailSendOnDateName: TStringField;
+    spEmailSendOnDateEmailDate: TDateTimeField;
+    procedure ExecuteSend(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+uses  UdtmMain, UfrmQuickReports, UfrmAccountSearch,
+  UfrmUTQuickReports;
+
+{$R *.dfm}
+
+procedure TfrmEmailDateSend.ExecuteSend(Sender: TObject);
+var
+  StatCount, CurPos : Integer;
+  StatURL , CCAddress: String;
+  CounterpartyID : String[20]; // TAU
+  StartYear : string[4];
+  StartMonth : string[2];
+  StartDay : String[2];
+  EndYear : string[4];
+  EndMonth : string[2];
+  EndDay : String[2];
+  Year, Month, Day : Word;
+  PostData : TStringList;
+  NavParam: OleVariant;
+  Attachment: TIdAttachmentFile;
+  SSL: TIdSSLIOHandlerSocketOpenSSL;
+  MailFrom: String;
+  MailTo: String;
+  MailSubject: String;
+  SendMail: Boolean;
+begin
+    CurPos := 0;
+    POSTData := TStringList.create;
+
+     with spStatementAccountListing do
+    begin
+        close;
+        Parameters.ParamByName('@ValueDate').Value := edtStatEndDate.Date;
+        Parameters.ParamByName('@CustodialGroup').Value := lkpCustodialGroupS.EditValue;
+        Parameters.ParamByName('@NameFrom').Value := edtNameFrom.Text;
+        Parameters.ParamByName('@NameTo').Value := edtNameTo.Text;
+        Parameters.ParamByName('@Equities').Value := rbEQ.Checked;
+        Parameters.ParamByName('@UnitTrust').Value := rbUT.Checked;
+        Parameters.ParamByName('@Consolidated').Value := rbConsolidated.Checked;
+        Parameters.ParamByName('@ManagedClient').Value := chkMnged.Checked;
+        if chkMnged.Visible then
+            Parameters.ParamByName('@All').Value := 0
+        else
+            Parameters.ParamByName('@All').Value := 1;
+        if rbEmailStatements.Checked and not rbPaperStatements.Checked then
+            Parameters.ParamByName('@EmailOnly').Value := 1
+        else
+            Parameters.ParamByName('@EmailOnly').Value := 0;
+        Parameters.ParamByName('@EmailAllClients').Value := rbclientnotifs.Checked;
+        ExecProc;
+        Open;
+        First;
+        StatCount := spStatementAccountListing.RecordCount;
+    end;
+
+    pbStatProgress.Properties.Max := StatCount;
+    pbStatProgress.Position := CurPos;
+
+    if not rbPaperStatements.Checked and not rbEmailStatements.Checked and not rbclientnotifs.Checked then
+    begin
+        MessageBox(Self.Handle, 'Please select one or both of ''Paper'' and ''Email''.', 'Insufficient or invalid data...', MB_OK or MB_ICONEXCLAMATION);
+        Exit;
+    end;
+
+    if not chkTrxn.Checked and not chkPort.Checked and not rbclientnotifs.Checked then
+    begin
+        MessageBox(Self.Handle, 'Please select one or both of ''Transactions'' and ''Portfolio''.', 'Insufficient or invalid data...', MB_OK or MB_ICONEXCLAMATION);
+        Exit;
+    end;
+
+    //printing the statements
+    while not spStatementAccountListing.Eof do
+    begin
+        if rbclientnotifs.Checked and
+           (spStatementAccountListingEmailAddress.Value <> '') then
+        begin
+            if dtmMain.StringParameter('Default E-mail From')<>'' then
+                  MailFrom := dtmMain.StringParameter('Default E-mail From')
+             else if dtmMain.StringParameter('SMTP Username') <> '' then
+                  MailFrom := dtmMain.StringParameter('SMTP Username')
+             else
+                 MailFrom := '';
+
+            MailTo :=
+                spStatementAccountListingEmailAddress.Value + ',' +
+                spStatementAccountListingEmailAddress2.Value + ',' +
+                dtmmain.StringParameter('Default Statement CC');
+            MailSubject := Edit2.Text;// + spStatementAccountListingClientNo.Value;
+            dtmMain.SetStringParameter('E-mail Statement Attachment', dteAttachment.Text);
+            dtmMain.EmailText(Edit1.Text, MailFrom, MailTo, dtmMain.StringParameter('SMTP Password'), MailSubject, True);
+            dtmMain.SetStringParameter('E-mail Statement Attachment', '');
+        end;
+
+
+
+        if not rbclientnotifs.Checked and rbEmailStatements.Checked and
+           (spStatementAccountListingEmailStatement.Value) and
+           ((spStatementAccountListingEmailAddress.Value <> '') or (spStatementAccountListingEmailAddress.Value <> '')) then
+        begin
+            MailFrom := txtEmailFrom.Text;
+            MailTo :=
+                spStatementAccountListingEmailAddress.Value + ',' +
+                spStatementAccountListingEmailAddress2.Value + ',' +
+                dtmmain.StringParameter('Default Statement CC');
+            MailSubject := 'STATEMENT - ' + spStatementAccountListingClientNo.Value;
+            SendMail := True;
+        end else
+            SendMail := False;
+
+        if not rbclientnotifs.Checked then begin
+
+        pbStatProgress.Properties.Text := 'Printing (' + spStatementAccountListingClientNo.Value + ')';
+
+        with frmUTQuickReports do
+        begin
+            with spRptConsolidated do
+            begin
+                Close;
+                Parameters.ParamByName('@ClientID').Value :=  spStatementAccountListingID.Value;
+                Parameters.ParamByName('@StartDate').Value := edtStatStartDate.Date;
+                Parameters.ParamByName('@EndDate').Value := edtStatEndDate.Date;
+                Parameters.ParamByName('@EQ').Value := (rbEQ.Checked Or rbConsolidated.Checked);
+                Parameters.ParamByName('@MM').Value := (rbMM.Checked Or rbConsolidated.Checked);;
+                Parameters.ParamByName('@UT').Value := (rbUT.Checked Or rbConsolidated.Checked);;
+                Parameters.ParamByName('@Trxn').Value := chkTrxn.Checked;
+                Parameters.ParamByName('@Port').Value := chkPort.Checked;
+                ExecProc;
+                Open;
+            end;
+
+            if rbPaperStatements.Checked and not spStatementAccountListingHoldStatement.Value then
+                dtmMain.PrintReport(QRConsolidated);
+
+            if SendMail then begin
+                dtmMain.SetStringParameter('E-mail Statement Attachment', dteAttachment.Text);
+                dtmMain.EmailReport(QRConsolidated, MailFrom, MailTo, dtmMain.StringParameter('SMTP Password'), MailSubject, True);
+                dtmMain.SetStringParameter('E-mail Statement Attachment', '');
+            end;
+        end;
+        with cmdSetStatementPrinted do
+        begin
+            Parameters.ParamByName('@AccountID').value := spStatementAccountListingID.value;
+            execute;
+        end;
+    end;
+        Curpos := CurPos + 1;
+        spStatementAccountListing.Next;
+        pbStatProgress.Position := CurPos;
+        Application.ProcessMessages;
+
+    end;
+
+
+    if rbclientnotifs.Checked then
+        MessageBox(Self.Handle, 'Emails Have been Sent Succefuly.', 'Successfully...', MB_ICONINFORMATION or MB_OK)
+    else begin
+        with spClearPrintedAccounts do
+        begin
+            ExecProc;
+        end;
+        MessageBox(Self.Handle, 'Statement printing complete.', 'Completed...', MB_ICONINFORMATION or MB_OK);
+    end;
+    pbStatProgress.Properties.Text := '';
+    pbStatProgress.Position := 0;
+    dteAttachment.Clear;
+end;
+
+end.
