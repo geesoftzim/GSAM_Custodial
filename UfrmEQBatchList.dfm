@@ -379,7 +379,7 @@ object frmEQBatchList: TfrmEQBatchList
         Height = 548
         Align = alClient
         TabOrder = 0
-        Properties.ActivePage = tshBatchInfoDetails
+        Properties.ActivePage = tshAllocations
         Properties.CustomButtons.Buttons = <>
         ClientRectBottom = 546
         ClientRectLeft = 2

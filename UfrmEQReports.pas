@@ -1619,6 +1619,70 @@ type
     spEQBrokerNoteAllocationsPrice: TFloatField;
     spEQBrokerNoteAllocationsBookPrice: TFloatField;
     spEQBrokerNoteAllocationsDealTotal: TFloatField;
+    cxLabel15: TcxLabel;
+    lkpCurrencyAccBal: TcxLookupComboBox;
+    tblCurrencyAccBal: TADOTable;
+    tblCurrencyAccBalID: TAutoIncField;
+    tblCurrencyAccBalCurrCode: TStringField;
+    tblCurrencyAccBalName: TStringField;
+    tblCurrencyAccBalCreationDate: TDateTimeField;
+    tblCurrencyAccBalActive: TBooleanField;
+    tblCurrencyAccBalPaymentsName: TStringField;
+    tblCurrencyAccBalPaymentsSmallDenomination: TStringField;
+    tblCurrencyAccBalMMYearLength: TIntegerField;
+    dsCurrencyAccBal: TDataSource;
+    cxLabel16: TcxLabel;
+    lkpCurrencyCapG: TcxLookupComboBox;
+    tblCurrencyCapG: TADOTable;
+    dsCurrencyCapG: TDataSource;
+    tblCurrencyCapGID: TAutoIncField;
+    tblCurrencyCapGCurrCode: TStringField;
+    tblCurrencyCapGName: TStringField;
+    tblCurrencyCapGCreationDate: TDateTimeField;
+    tblCurrencyCapGActive: TBooleanField;
+    tblCurrencyCapGPaymentsName: TStringField;
+    tblCurrencyCapGPaymentsSmallDenomination: TStringField;
+    tblCurrencyCapGMMYearLength: TIntegerField;
+    cxLabel17: TcxLabel;
+    lkpCurrencyCliH: TcxLookupComboBox;
+    tblCurrencyCliH: TADOTable;
+    tblCurrencyCliHID: TAutoIncField;
+    tblCurrencyCliHCurrCode: TStringField;
+    tblCurrencyCliHName: TStringField;
+    tblCurrencyCliHCreationDate: TDateTimeField;
+    tblCurrencyCliHActive: TBooleanField;
+    tblCurrencyCliHPaymentsName: TStringField;
+    tblCurrencyCliHPaymentsSmallDenomination: TStringField;
+    tblCurrencyCliHMMYearLength: TIntegerField;
+    dsCurrencyCliH: TDataSource;
+    cxLabel18: TcxLabel;
+    lkpCurrencyHis: TcxLookupComboBox;
+    tblCurrencyHis: TADOTable;
+    tblCurrencyHisID: TAutoIncField;
+    tblCurrencyHisCurrCode: TStringField;
+    tblCurrencyHisName: TStringField;
+    tblCurrencyHisCreationDate: TDateTimeField;
+    tblCurrencyHisActive: TBooleanField;
+    tblCurrencyHisPaymentsName: TStringField;
+    tblCurrencyHisPaymentsSmallDenomination: TStringField;
+    tblCurrencyHisMMYearLength: TIntegerField;
+    dsCurrencyHis: TDataSource;
+    cxLabel19: TcxLabel;
+    lkpCurrencyNMIR: TcxLookupComboBox;
+    lkpCurrencyNMI: TcxLookupComboBox;
+    cxLabel20: TcxLabel;
+    tblCurrencyNMI: TADOTable;
+    tblCurrencyNMIID: TAutoIncField;
+    tblCurrencyNMICurrCode: TStringField;
+    tblCurrencyNMIName: TStringField;
+    tblCurrencyNMICreationDate: TDateTimeField;
+    tblCurrencyNMIActive: TBooleanField;
+    tblCurrencyNMIPaymentsName: TStringField;
+    tblCurrencyNMIPaymentsSmallDenomination: TStringField;
+    tblCurrencyNMIMMYearLength: TIntegerField;
+    dsCurrencyNMI: TDataSource;
+    tblCurrencyNMIR: TADOTable;
+    dsCurrencyNMIR: TDataSource;
     procedure PrintCapitalGains;
     procedure PrintHistoryReport;
     procedure PrintTakeOns;
@@ -1774,6 +1838,8 @@ begin
             Close;
             Parameters.ParamByName('@StartDate').Value := dtNMIStartDate.Date;
             Parameters.ParamByName('@EndDate').Value := dtNMIEndDate.Date;
+              Parameters.ParamByName('@CurrencyID').Value := lkpCurrencyNMIR.EditValue;
+
             Prepared := True;
             ExecProc;
             Open;
@@ -1793,6 +1859,8 @@ begin
             //Parameters.ParamByName('@AccountID').value := spBasicAccountDetailsID.Value;
             Parameters.ParamByName('@StartDate').value := dtClientNMIStartDate.Date;
             Parameters.ParamByName('@EndDate').value := dtClientNMIEndDate.Date;
+            Parameters.ParamByName('@CurrencyID').value := lkpCurrencyNMI.EditValue;
+
             Prepared := True;
             ExecProc;
             Open;
@@ -1808,6 +1876,7 @@ begin
             Parameters.ParamByName('@AccountID').value := spBasicAccountDetailsID.Value;
             Parameters.ParamByName('@StartDate').value := dtClientNMIStartDate.Date;
             Parameters.ParamByName('@EndDate').value := dtClientNMIEndDate.Date;
+            Parameters.ParamByName('@CurrencyID').value := lkpCurrencyNMI.EditValue;
             Prepared := True;
             ExecProc;
             Open;
@@ -1980,8 +2049,11 @@ begin  //Client Holdings by counter tab is selected
                 Parameters.ParamByName('@OrderBy').value := 'Counter'
             else if rdCHByClient.Checked then
                 Parameters.ParamByName('@OrderBy').value := 'Client Name'
-            else
+            else BEGIN
                 Parameters.ParamByName('@OrderBy').value := 'Client No.';
+            END;
+                Parameters.ParamByName('@CurrencyID').value := lkpCurrencyCliH.EditValue;
+
             Open;
         end;
 
@@ -2062,8 +2134,11 @@ begin
 
             if chkAccBalByName.checked then
                 Parameters.ParamByName('@OrderBy').Value := 'Client Name'
-            else
+            else  begin
                 Parameters.ParamByName('@OrderBy').Value := 'Client No.';
+
+            end;
+               Parameters.ParamByName('@CurrencyID').Value := lkpCurrencyAccBal.EditValue;
 
             Open;
         end;
@@ -2202,9 +2277,12 @@ begin
             if rdHistoryByValueDate.Checked  then
             begin
                 Parameters.ParamByName('@ValueBy').Value := 'ValueDate';
-            end else begin
+            end
+            else
+            begin
                 Parameters.ParamByName('@ValueBy').Value := 'CreationDate';
             end;
+            Parameters.ParamByName('@CurrencyID').Value := lkpCurrencyHis.EditValue;
 
             Prepared := True;
             Open;
@@ -2231,8 +2309,12 @@ begin
             Parameters.ParamByName('@EndDate').value := edtCapGainsEndDate.Date;
             if not chkCapGainsAllDealTypes.Checked then
                 Parameters.ParamByName('@DealType').value := lkpCapGainsDealType.EditValue
-            else
+            else   begin
                 Parameters.ParamByName('@DealType').value := 0;
+
+            end;
+            Parameters.ParamByName('@CurrencyID').value := lkpCurrencyCapG.EditValue;
+
             Open;
         end;
 
@@ -2620,6 +2702,13 @@ begin
     dtmMain.EnsureDataAccess(tblCustodialGroup);
     tblCustodialGroup.Filter := 'MoneyMarket = 0';
     tblCustodialGroup.Sort := 'Name ASC';
+
+     dtmMain.EnsureDataAccess(tblCurrencyAccBal);
+     dtmMain.EnsureDataAccess(tblCurrencyCapG);
+     dtmMain.EnsureDataAccess(tblCurrencyCliH);
+     dtmMain.EnsureDataAccess(tblCurrencyHis);
+       dtmMain.EnsureDataAccess(tblCurrencyNMI);
+     dtmMain.EnsureDataAccess(tblCurrencyNMIR);
 
     dteScripRegStart.Date := Today - 30;
     edtTakeOnStartDate.Date := Date;

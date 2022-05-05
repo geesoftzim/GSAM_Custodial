@@ -515,8 +515,8 @@ object frmEQBatchCreate: TfrmEQBatchCreate
       end
     end
     object chkCSDCharge: TcxCheckBox
-      Left = 105
-      Top = 256
+      Left = 103
+      Top = 252
       Caption = 'CSD Charge'
       ParentFont = False
       Style.StyleController = frmMain.escEdits
@@ -936,6 +936,7 @@ object frmEQBatchCreate: TfrmEQBatchCreate
     object lkpBroker: TcxLookupComboBox
       Left = 90
       Top = 76
+      Enabled = False
       ParentFont = False
       Properties.KeyFieldNames = 'ID'
       Properties.ListColumns = <
@@ -943,7 +944,7 @@ object frmEQBatchCreate: TfrmEQBatchCreate
           FieldName = 'Name'
         end>
       Properties.ListOptions.SyncMode = True
-      Properties.ListSource = dsStockBroker
+      Properties.ListSource = dsStockbrokerF
       Properties.OnChange = lkpBrokerPropertiesChange
       Style.StyleController = frmMain.escEdits
       TabOrder = 22
@@ -1006,7 +1007,7 @@ object frmEQBatchCreate: TfrmEQBatchCreate
     end
     object lkpCurrency: TcxLookupComboBox
       Left = 90
-      Top = 130
+      Top = 24
       ParentFont = False
       Properties.KeyFieldNames = 'ID'
       Properties.ListColumns = <
@@ -1017,12 +1018,13 @@ object frmEQBatchCreate: TfrmEQBatchCreate
       Properties.OnChange = lkpCurrencyPropertiesChange
       Style.StyleController = frmMain.escEdits
       TabOrder = 27
+      OnExit = lkpCurrencyExit
       Width = 178
     end
     object cxLabel3: TcxLabel
       Left = 5
       Top = 133
-      Caption = 'Currency'
+      Caption = 'Counter'
       ParentFont = False
       Style.LookAndFeel.NativeStyle = True
       Style.StyleController = frmMain.escLabels
@@ -1033,9 +1035,9 @@ object frmEQBatchCreate: TfrmEQBatchCreate
     end
   end
   object cxLabel1: TcxLabel
-    Left = 5
+    Left = 8
     Top = 24
-    Caption = 'Counter'
+    Caption = 'Currency'
     ParentFont = False
     Style.LookAndFeel.NativeStyle = True
     Style.StyleController = frmMain.escLabels
@@ -1046,14 +1048,15 @@ object frmEQBatchCreate: TfrmEQBatchCreate
   end
   object lkpCounter: TcxLookupComboBox
     Left = 90
-    Top = 22
+    Top = 130
+    Enabled = False
     ParentFont = False
     Properties.KeyFieldNames = 'ID'
     Properties.ListColumns = <
       item
         FieldName = 'ShortName'
       end>
-    Properties.ListSource = dsCounter
+    Properties.ListSource = dsCounterF
     Style.StyleController = frmMain.escEdits
     TabOrder = 4
     Width = 175
@@ -1240,7 +1243,7 @@ object frmEQBatchCreate: TfrmEQBatchCreate
         Value = Null
       end
       item
-        Name = '@BrokerID'
+        Name = '@AccountID'
         Attributes = [paNullable]
         DataType = ftLargeint
         Precision = 19
@@ -2301,5 +2304,235 @@ object frmEQBatchCreate: TfrmEQBatchCreate
     DataSet = tblCurrency
     Left = 200
     Top = 408
+  end
+  object spEQBrokerAccountListNew: TADOStoredProc
+    Connection = dtmMain.cnnMain
+    CursorType = ctStatic
+    ProcedureName = 'spEQBrokerAccountListNew;1'
+    Parameters = <
+      item
+        Name = '@CurrencyID'
+        DataType = ftInteger
+        Value = Null
+      end
+      item
+        Name = '@CustodialGroup'
+        DataType = ftInteger
+        Value = Null
+      end
+      item
+        Name = '@BrokerID'
+        DataType = ftInteger
+        Value = Null
+      end>
+    Left = 320
+    Top = 336
+    object spEQBrokerAccountListNewID: TLargeintField
+      FieldName = 'ID'
+      ReadOnly = True
+    end
+    object spEQBrokerAccountListNewName: TStringField
+      FieldName = 'Name'
+      Size = 150
+    end
+    object spEQBrokerAccountListNewAccountID: TLargeintField
+      FieldName = 'AccountID'
+      ReadOnly = True
+    end
+  end
+  object spCounter: TADOStoredProc
+    Connection = dtmMain.cnnMain
+    CursorType = ctStatic
+    ProcedureName = 'spCounter;1'
+    Parameters = <
+      item
+        Name = '@CurrencyID'
+        DataType = ftInteger
+        Value = Null
+      end>
+    Left = 360
+    Top = 112
+    object spCounterID: TAutoIncField
+      FieldName = 'ID'
+      ReadOnly = True
+    end
+    object spCounterName: TStringField
+      FieldName = 'Name'
+      Size = 50
+    end
+    object spCounterShortName: TStringField
+      FieldName = 'ShortName'
+      Size = 50
+    end
+    object spCounterTransferSecretaryID: TIntegerField
+      FieldName = 'TransferSecretaryID'
+    end
+    object spCounterIssuedShares: TLargeintField
+      FieldName = 'IssuedShares'
+    end
+    object spCounterCounterIndustryType: TIntegerField
+      FieldName = 'CounterIndustryType'
+    end
+    object spCounterCounterCategoryType: TIntegerField
+      FieldName = 'CounterCategoryType'
+    end
+    object spCounterObjectName: TStringField
+      FieldName = 'ObjectName'
+      Size = 50
+    end
+    object spCounterActive: TBooleanField
+      FieldName = 'Active'
+    end
+    object spCounterUserID: TLargeintField
+      FieldName = 'UserID'
+    end
+    object spCounterUserName: TStringField
+      FieldName = 'UserName'
+      Size = 128
+    end
+    object spCounterCurrencyID: TIntegerField
+      FieldName = 'CurrencyID'
+    end
+  end
+  object dsCounterF: TDataSource
+    DataSet = spCounter
+    Left = 336
+    Top = 40
+  end
+  object spStockbroker: TADOStoredProc
+    Connection = dtmMain.cnnMain
+    CursorType = ctStatic
+    ProcedureName = 'spStockbroker;1'
+    Parameters = <
+      item
+        Name = '@CurrencyID'
+        DataType = ftInteger
+        Value = Null
+      end
+      item
+        Name = '@CustodialGroup'
+        DataType = ftInteger
+        Value = Null
+      end>
+    Left = 432
+    Top = 88
+    object spStockbrokerID: TLargeintField
+      FieldName = 'ID'
+      ReadOnly = True
+    end
+    object spStockbrokerName: TStringField
+      FieldName = 'Name'
+      Size = 150
+    end
+    object spStockbrokerAccountNo: TStringField
+      FieldName = 'AccountNo'
+      Size = 100
+    end
+    object spStockbrokerPhysicalAddress: TStringField
+      FieldName = 'PhysicalAddress'
+      Size = 50
+    end
+    object spStockbrokerPhysicalAddress2: TStringField
+      FieldName = 'PhysicalAddress2'
+      Size = 50
+    end
+    object spStockbrokerPhysicalAddress3: TStringField
+      FieldName = 'PhysicalAddress3'
+      Size = 50
+    end
+    object spStockbrokerPhysicalCity: TIntegerField
+      FieldName = 'PhysicalCity'
+    end
+    object spStockbrokerPhysicalCountry: TIntegerField
+      FieldName = 'PhysicalCountry'
+    end
+    object spStockbrokerPostalAddress: TStringField
+      FieldName = 'PostalAddress'
+      Size = 50
+    end
+    object spStockbrokerPostalAddress2: TStringField
+      FieldName = 'PostalAddress2'
+      Size = 50
+    end
+    object spStockbrokerPostalAddress3: TStringField
+      FieldName = 'PostalAddress3'
+      Size = 50
+    end
+    object spStockbrokerPostalCity: TIntegerField
+      FieldName = 'PostalCity'
+    end
+    object spStockbrokerPostalCountry: TIntegerField
+      FieldName = 'PostalCountry'
+    end
+    object spStockbrokerBankAccountNo: TStringField
+      FieldName = 'BankAccountNo'
+      Size = 50
+    end
+    object spStockbrokerPhoneNo: TStringField
+      FieldName = 'PhoneNo'
+      Size = 15
+    end
+    object spStockbrokerPhoneNo2: TStringField
+      FieldName = 'PhoneNo2'
+      Size = 15
+    end
+    object spStockbrokerFaxNo: TStringField
+      FieldName = 'FaxNo'
+      Size = 15
+    end
+    object spStockbrokerEmailAddress: TStringField
+      FieldName = 'EmailAddress'
+      Size = 100
+    end
+    object spStockbrokerBankID: TIntegerField
+      FieldName = 'BankID'
+    end
+    object spStockbrokerBankAccountType: TIntegerField
+      FieldName = 'BankAccountType'
+    end
+    object spStockbrokerAccountBalance: TFMTBCDField
+      FieldName = 'AccountBalance'
+      Precision = 38
+      Size = 10
+    end
+    object spStockbrokerCounterpartyType: TIntegerField
+      FieldName = 'CounterpartyType'
+    end
+    object spStockbrokerCustodialGroup: TIntegerField
+      FieldName = 'CustodialGroup'
+    end
+    object spStockbrokerClientNo: TStringField
+      FieldName = 'ClientNo'
+      Size = 200
+    end
+    object spStockbrokerVATRegistrationNo: TStringField
+      FieldName = 'VATRegistrationNo'
+      Size = 200
+    end
+    object spStockbrokerUsername: TStringField
+      FieldName = 'Username'
+      Size = 200
+    end
+    object spStockbrokerActive: TBooleanField
+      FieldName = 'Active'
+    end
+    object spStockbrokerLicenceNo: TStringField
+      FieldName = 'LicenceNo'
+      Size = 200
+    end
+    object spStockbrokerPhoneNo3: TStringField
+      FieldName = 'PhoneNo3'
+      Size = 200
+    end
+    object spStockbrokerCommission: TFMTBCDField
+      FieldName = 'Commission'
+      Precision = 38
+      Size = 5
+    end
+  end
+  object dsStockbrokerF: TDataSource
+    DataSet = spStockbroker
+    Left = 280
+    Top = 48
   end
 end

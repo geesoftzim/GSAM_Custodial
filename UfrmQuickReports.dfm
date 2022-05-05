@@ -103837,6 +103837,7 @@ object frmQuickReports: TfrmQuickReports
         DataType = ftInteger
         Direction = pdReturnValue
         Precision = 10
+        Value = Null
       end
       item
         Name = '@CounterpartyID'
@@ -104303,6 +104304,11 @@ object frmQuickReports: TfrmQuickReports
         DataType = ftString
         Size = 200
         Value = 'Client Name'
+      end
+      item
+        Name = '@CurrencyID'
+        DataType = ftInteger
+        Value = Null
       end>
     Left = 721
     Top = 158
@@ -104586,6 +104592,11 @@ object frmQuickReports: TfrmQuickReports
         Attributes = [paNullable]
         DataType = ftString
         Size = 200
+        Value = Null
+      end
+      item
+        Name = '@CurrencyID'
+        DataType = ftInteger
         Value = Null
       end>
     Left = 504
@@ -107434,6 +107445,11 @@ object frmQuickReports: TfrmQuickReports
         Attributes = [paNullable]
         Size = 100
         Value = Null
+      end
+      item
+        Name = '@CurrencyID'
+        DataType = ftInteger
+        Value = Null
       end>
     Left = 1080
     Top = 26
@@ -107790,6 +107806,11 @@ object frmQuickReports: TfrmQuickReports
         DataType = ftInteger
         Precision = 10
         Value = Null
+      end
+      item
+        Name = '@CurrencyID'
+        DataType = ftInteger
+        Value = Null
       end>
     Left = 44
     Top = 88
@@ -108062,6 +108083,11 @@ object frmQuickReports: TfrmQuickReports
         Name = '@EndDate'
         Attributes = [paNullable]
         DataType = ftDateTime
+        Value = Null
+      end
+      item
+        Name = '@CurrencyID'
+        DataType = ftInteger
         Value = Null
       end>
     Left = 881
@@ -109339,6 +109365,11 @@ object frmQuickReports: TfrmQuickReports
         Attributes = [paNullable]
         DataType = ftDateTime
         Value = Null
+      end
+      item
+        Name = '@CurrencyID'
+        DataType = ftInteger
+        Value = Null
       end>
     Left = 992
     Top = 208
@@ -109364,6 +109395,11 @@ object frmQuickReports: TfrmQuickReports
         Name = '@EndDate'
         Attributes = [paNullable]
         DataType = ftDateTime
+        Value = Null
+      end
+      item
+        Name = '@CurrencyID'
+        DataType = ftInteger
         Value = Null
       end>
     Left = 816

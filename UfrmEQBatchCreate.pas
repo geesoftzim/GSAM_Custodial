@@ -307,6 +307,56 @@ type
     tblCurrencyPaymentsSmallDenomination: TStringField;
     tblCurrencyMMYearLength: TIntegerField;
     chkTaxLess: TcxCheckBox;
+    spEQBrokerAccountListNew: TADOStoredProc;
+    spEQBrokerAccountListNewID: TLargeintField;
+    spEQBrokerAccountListNewName: TStringField;
+    spEQBrokerAccountListNewAccountID: TLargeintField;
+    spCounter: TADOStoredProc;
+    dsCounterF: TDataSource;
+    spCounterID: TAutoIncField;
+    spCounterName: TStringField;
+    spCounterShortName: TStringField;
+    spCounterTransferSecretaryID: TIntegerField;
+    spCounterIssuedShares: TLargeintField;
+    spCounterCounterIndustryType: TIntegerField;
+    spCounterCounterCategoryType: TIntegerField;
+    spCounterObjectName: TStringField;
+    spCounterActive: TBooleanField;
+    spCounterUserID: TLargeintField;
+    spCounterUserName: TStringField;
+    spCounterCurrencyID: TIntegerField;
+    spStockbroker: TADOStoredProc;
+    spStockbrokerID: TLargeintField;
+    spStockbrokerName: TStringField;
+    spStockbrokerAccountNo: TStringField;
+    spStockbrokerPhysicalAddress: TStringField;
+    spStockbrokerPhysicalAddress2: TStringField;
+    spStockbrokerPhysicalAddress3: TStringField;
+    spStockbrokerPhysicalCity: TIntegerField;
+    spStockbrokerPhysicalCountry: TIntegerField;
+    spStockbrokerPostalAddress: TStringField;
+    spStockbrokerPostalAddress2: TStringField;
+    spStockbrokerPostalAddress3: TStringField;
+    spStockbrokerPostalCity: TIntegerField;
+    spStockbrokerPostalCountry: TIntegerField;
+    spStockbrokerBankAccountNo: TStringField;
+    spStockbrokerPhoneNo: TStringField;
+    spStockbrokerPhoneNo2: TStringField;
+    spStockbrokerFaxNo: TStringField;
+    spStockbrokerEmailAddress: TStringField;
+    spStockbrokerBankID: TIntegerField;
+    spStockbrokerBankAccountType: TIntegerField;
+    spStockbrokerAccountBalance: TFMTBCDField;
+    spStockbrokerCounterpartyType: TIntegerField;
+    spStockbrokerCustodialGroup: TIntegerField;
+    spStockbrokerClientNo: TStringField;
+    spStockbrokerVATRegistrationNo: TStringField;
+    spStockbrokerUsername: TStringField;
+    spStockbrokerActive: TBooleanField;
+    spStockbrokerLicenceNo: TStringField;
+    spStockbrokerPhoneNo3: TStringField;
+    spStockbrokerCommission: TFMTBCDField;
+    dsStockbrokerF: TDataSource;
     procedure GetExternalOrderItem(ExternalOrderItemID : Int64);
     procedure GetCustodialGroup(CustodialGroupID : Int64);
     procedure FormShow(Sender: TObject);
@@ -328,6 +378,7 @@ type
     procedure lkpCurrencyPropertiesChange(Sender: TObject);
     procedure chkTaxLessExit(Sender: TObject);
     procedure chkTaxLessClick(Sender: TObject);
+    procedure lkpCurrencyExit(Sender: TObject);
   private
     { Private declarations }
     bCalculating: Boolean;
@@ -458,6 +509,9 @@ begin
          HideZeroValues;
          bCalculating := false;
     end;
+
+
+
 end;
 
 procedure TfrmEQBatchCreate.actSaveExecute(Sender: TObject);
@@ -478,6 +532,15 @@ begin
         Prepared := True;
         ExecProc;
     end;
+
+       with spEQBrokerAccountListNew do
+      begin
+       Close;
+       Parameters.ParamByName('@CurrencyID').Value := lkpCurrency.EditValue;
+       Parameters.ParamByName('@CustodialGroup').Value := lkpCustodialGroup.EditValue;
+       Parameters.ParamByName('@BrokerID').Value := lkpBroker.EditValue;
+       Open;
+      end;
 
     if spEQBatchNoExists.Parameters.ParamByName('@RETURN_VALUE').Value = 1 then
     begin
@@ -515,13 +578,13 @@ begin
         Close;
         Parameters.ParamByName('@OrderItemID').value := spEQExternalOrderItemViewItemID.Value;
         Parameters.ParamByName('@BatchType').value := lkpOrderType.EditValue;
-        Parameters.ParamByName('@BrokerID').Value := lkpBroker.EditValue;
+        Parameters.ParamByName('@AccountID').Value := spEQBrokerAccountListNewAccountID.Value;//lkpBroker.EditValue;
         Parameters.ParamByName('@BatchNo').Value := edtBrokersNote.Text;
         Parameters.ParamByName('@ValueDate').Value := dteBatchValueDate.Date;
         Parameters.ParamByName('@CounterID').Value := lkpCounter.EditValue;
         Parameters.ParamByName('@Quantity').Value := StrToInt64(edtQuantity.Text);
         Parameters.ParamByName('@Price').Value := dtmMain.Decomma(edtPrice.text);//StrToFloat(edtPrice.text);
-        Parameters.ParamByName('@CurrencyID').Value := lkpCurrency.EditValue;
+
         Parameters.ParamByName('@Tax').Value := spEQBatchCalculateTax.Value;
         Parameters.ParamByName('@VAT').Value := spEQBatchCalculateVAT.Value;
         Parameters.ParamByName('@TranCharge').Value := spEQBatchCalculateTranCharge.Value;
@@ -540,7 +603,8 @@ begin
         Parameters.ParamByName('@CSDCharge').Value := spEQBatchCalculateCSDCharge.Value;
         Parameters.ParamByName('@RTGSCharge').Value := spEQBatchCalculateRTGSCharge.Value;
         Parameters.ParamByName('@TransferCharge').Value := spEQBatchCalculateTransferCharge.Value;
-        Parameters.ParamByName('@TransferCharge').Value := spEQBatchCalculateTransferCharge.Value;        Prepared := True;
+        Parameters.ParamByName('@CurrencyID').Value := lkpCurrency.EditValue;
+        Prepared := True;
         Open;
         NewBatchID := Parameters.ParamByName('@RETURN_VALUE').Value
     end;
@@ -704,6 +768,29 @@ begin
         edtBrokerCommission.Text := tblStockBrokerCommission.AsString
     else
         edtBrokerCommission.Text := FloatToStr(dtmMain.NumericParameter('Stockbrokers commission'));
+end;
+
+procedure TfrmEQBatchCreate.lkpCurrencyExit(Sender: TObject);
+begin
+  with spCounter do
+      begin
+       Close;
+       Parameters.ParamByName('@CurrencyID').Value := lkpCurrency.EditValue;
+
+       Open;
+      end;
+
+      lkpCounter.Enabled := True;
+        with spStockbroker do
+      begin
+       Close;
+       Parameters.ParamByName('@CurrencyID').Value := lkpCurrency.EditValue;
+       Parameters.ParamByName('@CustodialGroup').Value := lkpCustodialGroup.EditValue;
+
+       Open;
+      end;
+        lkpBroker.Enabled := True;
+
 end;
 
 procedure TfrmEQBatchCreate.lkpCurrencyPropertiesChange(Sender: TObject);

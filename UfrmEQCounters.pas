@@ -20,7 +20,21 @@ uses
   RzTabs, ActnList,  Menus, AdvMenus,
     DateUtils, Grids, BaseGrid, AdvGrid, AdvObj, dxSkinsCore,
   cxPCdxBarPopupMenu, cxNavigator, VclTee.TeeGDIPlus, Vcl.ComCtrls, dxCore,
-  cxDateUtils, System.Actions;
+  cxDateUtils, System.Actions, dxSkinBlack, dxSkinBlue, dxSkinBlueprint,
+  dxSkinCaramel, dxSkinCoffee, dxSkinDarkRoom, dxSkinDarkSide,
+  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinFoggy,
+  dxSkinGlassOceans, dxSkinHighContrast, dxSkiniMaginary, dxSkinLilian,
+  dxSkinLiquidSky, dxSkinLondonLiquidSky, dxSkinMcSkin, dxSkinMetropolis,
+  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
+  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Silver,
+  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
+  dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinPumpkin, dxSkinSeven,
+  dxSkinSevenClassic, dxSkinSharp, dxSkinSharpPlus, dxSkinSilver,
+  dxSkinSpringTime, dxSkinStardust, dxSkinSummer2008, dxSkinTheAsphaltWorld,
+  dxSkinsDefaultPainters, dxSkinValentine, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, dxSkinVS2010,
+  dxSkinWhiteprint, dxSkinXmas2008Blue, dxBarBuiltInMenu;
 
 type
   TfrmEQCounters = class(TForm)
@@ -441,6 +455,26 @@ type
     spEQGetCounterIDID: TAutoIncField;
     spEQCounterPriceSet: TADOStoredProc;
     spEQCounterPriceDelete: TADOStoredProc;
+    cxLabel4: TcxLabel;
+    lkpCurrency: TcxDBLookupComboBox;
+    tblCurrency: TADOTable;
+    tblCurrencyID: TAutoIncField;
+    tblCurrencyCurrCode: TStringField;
+    tblCurrencyName: TStringField;
+    tblCurrencyCreationDate: TDateTimeField;
+    tblCurrencyActive: TBooleanField;
+    tblCurrencyPaymentsName: TStringField;
+    tblCurrencyPaymentsSmallDenomination: TStringField;
+    tblCurrencyMMYearLength: TIntegerField;
+    dsCurrency: TDataSource;
+    tblCounterUserName: TStringField;
+    tblCounterCurrencyID: TIntegerField;
+    tblCounterLKPShortName: TStringField;
+    tblCounterLKPTransferSecretaryID: TIntegerField;
+    tblCounterLKPCounterCategoryType: TIntegerField;
+    tblCounterLKPObjectName: TStringField;
+    tblCounterLKPUserName: TStringField;
+    tblCounterLKPCurrencyID: TIntegerField;
     procedure FormShow(Sender: TObject);
     procedure actNewExecute(Sender: TObject);
     procedure actEditExecute(Sender: TObject);
@@ -531,6 +565,7 @@ begin
     tblCounterPrice.Sort := '[Date] DESC';
     dtmMain.EnsureDataAccess(tblCounter);
     tblCounter.Sort := 'ShortName ASC';
+     dtmMain.EnsureDataAccess(tblCurrency);
 
     dtmMain.EditViewOptions;
     dtmMain.SaveViewOptions;

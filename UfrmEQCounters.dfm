@@ -30,14 +30,12 @@ object frmEQCounters: TfrmEQCounters
     Properties.ActivePage = tshShareDetails
     Properties.CustomButtons.Buttons = <>
     OnChange = pgeSharesChange
-    ExplicitWidth = 589
     ClientRectBottom = 500
     ClientRectLeft = 2
     ClientRectRight = 720
     ClientRectTop = 28
     object tshShareDetails: TcxTabSheet
       Caption = 'Counters'
-      ExplicitWidth = 585
       object Splitter2: TSplitter
         Left = 181
         Top = 0
@@ -119,15 +117,13 @@ object frmEQCounters: TfrmEQCounters
         Height = 472
         Align = alClient
         TabOrder = 1
-        ExplicitWidth = 399
         object cvPanel2: TPanel
           Left = 1
           Top = 1
           Width = 530
-          Height = 206
+          Height = 230
           Align = alTop
           TabOrder = 0
-          ExplicitWidth = 397
           object Label12: TcxLabel
             Left = 9
             Top = 19
@@ -177,8 +173,8 @@ object frmEQCounters: TfrmEQCounters
             Transparent = True
           end
           object Label31: TcxLabel
-            Left = 8
-            Top = 125
+            Left = 5
+            Top = 124
             Caption = 'Transfer'#13'Secretary'
             ParentFont = False
             Style.LookAndFeel.NativeStyle = True
@@ -189,8 +185,8 @@ object frmEQCounters: TfrmEQCounters
             Transparent = True
           end
           object Label32: TcxLabel
-            Left = 9
-            Top = 159
+            Left = 5
+            Top = 154
             Caption = 'Issued Shares'
             ParentFont = False
             Style.LookAndFeel.NativeStyle = True
@@ -280,7 +276,7 @@ object frmEQCounters: TfrmEQCounters
           end
           object chkCounterActive: TcxDBCheckBox
             Left = 78
-            Top = 182
+            Top = 202
             Caption = 'Active'
             DataBinding.DataField = 'Active'
             DataBinding.DataSource = dsCounter
@@ -288,17 +284,45 @@ object frmEQCounters: TfrmEQCounters
             Style.StyleController = frmMain.escEdits
             TabOrder = 6
             Transparent = True
-            Width = 150
+          end
+          object cxLabel4: TcxLabel
+            Left = 8
+            Top = 182
+            Caption = 'Currency'
+            ParentFont = False
+            Style.LookAndFeel.NativeStyle = True
+            Style.StyleController = frmMain.escLabels
+            StyleDisabled.LookAndFeel.NativeStyle = True
+            StyleFocused.LookAndFeel.NativeStyle = True
+            StyleHot.LookAndFeel.NativeStyle = True
+            Transparent = True
+          end
+          object lkpCurrency: TcxDBLookupComboBox
+            Left = 78
+            Top = 181
+            DataBinding.DataField = 'CurrencyID'
+            DataBinding.DataSource = dsCounter
+            ParentFont = False
+            Properties.KeyFieldNames = 'ID'
+            Properties.ListColumns = <
+              item
+                FieldName = 'CurrCode'
+              end>
+            Properties.ListSource = dsCurrency
+            Style.StyleController = frmMain.escEdits
+            TabOrder = 14
+            Width = 197
           end
         end
         object cvPanel1: TPanel
           Left = 1
-          Top = 207
+          Top = 231
           Width = 530
-          Height = 264
+          Height = 240
           Align = alClient
           TabOrder = 1
-          ExplicitWidth = 397
+          ExplicitTop = 207
+          ExplicitHeight = 264
           object AdvPanel4: TAdvPanel
             Left = 1
             Top = 1
@@ -315,7 +339,7 @@ object frmEQCounters: TfrmEQCounters
             ParentFont = False
             TabOrder = 0
             UseDockManager = True
-            Version = '2.3.0.0'
+            Version = '2.4.2.0'
             AutoHideChildren = False
             BorderColor = clNone
             Caption.Color = 15658734
@@ -332,6 +356,7 @@ object frmEQCounters: TfrmEQCounters
             Caption.Visible = True
             CollapsColor = clNone
             CollapsDelay = 0
+            DoubleBuffered = True
             HoverColor = clBlack
             HoverFontColor = clBlack
             ShadowColor = clBlack
@@ -347,20 +372,16 @@ object frmEQCounters: TfrmEQCounters
             StatusBar.GradientDirection = gdVertical
             Styler = frmMain.pstMain
             Text = ''
-            ExplicitTop = 76
-            ExplicitWidth = 395
             FullHeight = 0
           end
           object grdPriceHistoryMain: TcxGrid
             Left = 1
             Top = 19
             Width = 528
-            Height = 244
+            Height = 220
             Align = alClient
             TabOrder = 1
-            ExplicitTop = 94
-            ExplicitWidth = 395
-            ExplicitHeight = 169
+            ExplicitHeight = 244
             object grdPriceHistory: TcxGridDBBandedTableView
               Navigator.Buttons.CustomButtons = <>
               DataController.DataSource = dsCounterPrice
@@ -414,7 +435,6 @@ object frmEQCounters: TfrmEQCounters
     object tshPerformance: TcxTabSheet
       Caption = 'Performance'
       ImageIndex = 33
-      ExplicitWidth = 585
       object AdvDockPanel1: TAdvDockPanel
         Left = 0
         Top = 0
@@ -426,8 +446,7 @@ object frmEQCounters: TfrmEQCounters
         Persistence.Enabled = False
         ToolBarStyler = frmMain.fstMain
         UseRunTimeHeight = False
-        Version = '6.0.2.1'
-        ExplicitWidth = 585
+        Version = '6.3.3.2'
       end
       object grdCounterPerfMain: TcxGrid
         Left = 0
@@ -436,7 +455,6 @@ object frmEQCounters: TfrmEQCounters
         Height = 459
         Align = alClient
         TabOrder = 1
-        ExplicitWidth = 326
         object grdCounterPerf: TcxGridDBBandedTableView
           PopupMenu = pmnuPerfPup
           Navigator.Buttons.CustomButtons = <>
@@ -571,7 +589,6 @@ object frmEQCounters: TfrmEQCounters
         Height = 459
         Align = alRight
         TabOrder = 2
-        ExplicitLeft = 334
         object cht: TDBChart
           Left = 1
           Top = 1
@@ -591,18 +608,12 @@ object frmEQCounters: TfrmEQCounters
           Title.Text.Strings = (
             'Share Price Graph')
           Title.AdjustFrame = False
-          BottomAxis.LabelsFormat.TextAlignment = taCenter
           Chart3DPercent = 5
-          DepthAxis.LabelsFormat.TextAlignment = taCenter
-          DepthTopAxis.LabelsFormat.TextAlignment = taCenter
           LeftAxis.LabelsFormat.Font.Color = clWhite
-          LeftAxis.LabelsFormat.TextAlignment = taCenter
           Legend.LegendStyle = lsSeries
           Legend.Shadow.HorizSize = 0
           Legend.Shadow.VertSize = 0
           Legend.TextStyle = ltsRightValue
-          RightAxis.LabelsFormat.TextAlignment = taCenter
-          TopAxis.LabelsFormat.TextAlignment = taCenter
           Zoom.Pen.Mode = pmNotXor
           Align = alClient
           BevelOuter = bvNone
@@ -663,7 +674,6 @@ object frmEQCounters: TfrmEQCounters
             TabOrder = 0
             Transparent = True
             OnClick = skchkShowPointsClick
-            Width = 143
           end
           object skchk3D: TcxCheckBox
             Left = 26
@@ -674,7 +684,6 @@ object frmEQCounters: TfrmEQCounters
             TabOrder = 1
             Transparent = True
             OnClick = skchk3DClick
-            Width = 143
           end
           object skchkShowLgn: TcxCheckBox
             Left = 26
@@ -686,7 +695,6 @@ object frmEQCounters: TfrmEQCounters
             TabOrder = 2
             Transparent = True
             OnClick = skchkShowLgnClick
-            Width = 143
           end
           object skchkShowValues: TcxCheckBox
             Left = 26
@@ -697,7 +705,6 @@ object frmEQCounters: TfrmEQCounters
             TabOrder = 3
             Transparent = True
             OnClick = skchkShowValuesClick
-            Width = 143
           end
           object skchkStairs: TcxCheckBox
             Left = 26
@@ -708,7 +715,6 @@ object frmEQCounters: TfrmEQCounters
             TabOrder = 4
             Transparent = True
             OnClick = skchkStairsClick
-            Width = 143
           end
           object sksedLineWidth: TcxSpinEdit
             Left = 84
@@ -777,12 +783,10 @@ object frmEQCounters: TfrmEQCounters
         Height = 459
         AlignSplitter = salRight
         Control = expnlPriceHistory
-        ExplicitLeft = 326
       end
     end
     object tshPriceInput: TcxTabSheet
       Caption = 'Price Input'
-      ExplicitWidth = 585
       object cvPanel4: TPanel
         Left = 0
         Top = 0
@@ -790,7 +794,6 @@ object frmEQCounters: TfrmEQCounters
         Height = 36
         Align = alTop
         TabOrder = 0
-        ExplicitWidth = 585
         object Label3: TcxLabel
           Left = 9
           Top = 9
@@ -997,6 +1000,10 @@ object frmEQCounters: TfrmEQCounters
         FixedFont.Style = [fsBold]
         Flat = True
         FloatFormat = '%.2f'
+        HoverButtons.Buttons = <>
+        HoverButtons.Position = hbLeftFromColumnLeft
+        HTMLSettings.ImageFolder = 'images'
+        HTMLSettings.ImageBaseName = 'img'
         PrintSettings.DateFormat = 'dd/mm/yyyy'
         PrintSettings.Font.Charset = DEFAULT_CHARSET
         PrintSettings.Font.Color = clWindowText
@@ -1062,9 +1069,15 @@ object frmEQCounters: TfrmEQCounters
         SearchFooter.HintHighlight = 'Highlight occurences'
         SearchFooter.MatchCaseCaption = 'Match case'
         SortSettings.DefaultFormat = ssAutomatic
-        Version = '7.2.8.0'
+        Version = '7.9.0.3'
         WordWrap = False
-        ExplicitWidth = 585
+        ColWidths = (
+          64
+          64
+          64
+          64
+          64
+          64)
         RowHeights = (
           21
           21
@@ -1080,7 +1093,6 @@ object frmEQCounters: TfrmEQCounters
     end
     object tshIndexes: TcxTabSheet
       Caption = 'Indexes / Indicators'
-      ExplicitWidth = 585
       object grdIndMain: TcxGrid
         Left = 0
         Top = 0
@@ -1164,7 +1176,6 @@ object frmEQCounters: TfrmEQCounters
         Height = 472
         Align = alClient
         TabOrder = 1
-        ExplicitWidth = 404
         object pgeIndexValue: TcxPageControl
           Left = 1
           Top = 138
@@ -1174,7 +1185,6 @@ object frmEQCounters: TfrmEQCounters
           TabOrder = 0
           Properties.ActivePage = tshPriceHistory
           Properties.CustomButtons.Buttons = <>
-          ExplicitWidth = 402
           ClientRectBottom = 331
           ClientRectLeft = 2
           ClientRectRight = 533
@@ -1182,7 +1192,6 @@ object frmEQCounters: TfrmEQCounters
           object tshPriceHistory: TcxTabSheet
             Caption = 'History'
             TabVisible = False
-            ExplicitWidth = 398
             object grdIndexValueMain: TcxGrid
               Left = 0
               Top = 0
@@ -1190,7 +1199,6 @@ object frmEQCounters: TfrmEQCounters
               Height = 329
               Align = alClient
               TabOrder = 0
-              ExplicitWidth = 398
               object grdIndexValue: TcxGridDBBandedTableView
                 PopupMenu = pmnuIndexValuePup
                 Navigator.Buttons.CustomButtons = <>
@@ -1297,7 +1305,6 @@ object frmEQCounters: TfrmEQCounters
           object tshAddEditPrice: TcxTabSheet
             Caption = 'Add / Edit'
             TabVisible = False
-            ExplicitWidth = 398
             object Label34: TcxLabel
               Left = 8
               Top = 39
@@ -1355,8 +1362,7 @@ object frmEQCounters: TfrmEQCounters
           Persistence.Enabled = False
           ToolBarStyler = frmMain.fstMain
           UseRunTimeHeight = False
-          Version = '6.0.2.1'
-          ExplicitWidth = 402
+          Version = '6.3.3.2'
           object AdvToolBar6: TAdvToolBar
             Left = 3
             Top = 1
@@ -1395,7 +1401,7 @@ object frmEQCounters: TfrmEQCounters
               ImageIndex = 0
               ParentFont = False
               Position = daTop
-              Version = '6.0.2.1'
+              Version = '6.3.3.2'
             end
             object AdvToolBarButton22: TAdvToolBarButton
               Left = 101
@@ -1416,7 +1422,7 @@ object frmEQCounters: TfrmEQCounters
               ImageIndex = 2
               ParentFont = False
               Position = daTop
-              Version = '6.0.2.1'
+              Version = '6.3.3.2'
             end
             object AdvToolBarButton23: TAdvToolBarButton
               Left = 125
@@ -1437,7 +1443,7 @@ object frmEQCounters: TfrmEQCounters
               ImageIndex = 3
               ParentFont = False
               Position = daTop
-              Version = '6.0.2.1'
+              Version = '6.3.3.2'
             end
             object AdvToolBarButton24: TAdvToolBarButton
               Left = 9
@@ -1458,7 +1464,7 @@ object frmEQCounters: TfrmEQCounters
               ImageIndex = 5
               ParentFont = False
               Position = daTop
-              Version = '6.0.2.1'
+              Version = '6.3.3.2'
             end
             object AdvToolBarSeparator10: TAdvToolBarSeparator
               Left = 33
@@ -1500,7 +1506,7 @@ object frmEQCounters: TfrmEQCounters
               ImageIndex = 4
               ParentFont = False
               Position = daTop
-              Version = '6.0.2.1'
+              Version = '6.3.3.2'
             end
             object btnEditIndexValue: TAdvToolBarButton
               Left = 67
@@ -1521,7 +1527,7 @@ object frmEQCounters: TfrmEQCounters
               ImageIndex = 1
               ParentFont = False
               Position = daTop
-              Version = '6.0.2.1'
+              Version = '6.3.3.2'
             end
           end
         end
@@ -1532,7 +1538,6 @@ object frmEQCounters: TfrmEQCounters
           Height = 76
           Align = alTop
           TabOrder = 2
-          ExplicitWidth = 402
           object Label33: TcxLabel
             Left = 8
             Top = 13
@@ -1565,7 +1570,6 @@ object frmEQCounters: TfrmEQCounters
             Style.StyleController = frmMain.escEdits
             TabOrder = 1
             Transparent = True
-            Width = 110
           end
         end
         object AdvPanel3: TAdvPanel
@@ -1584,7 +1588,7 @@ object frmEQCounters: TfrmEQCounters
           ParentFont = False
           TabOrder = 3
           UseDockManager = True
-          Version = '2.3.0.0'
+          Version = '2.4.2.0'
           AutoHideChildren = False
           BorderColor = clNone
           Caption.Color = 15658734
@@ -1601,6 +1605,7 @@ object frmEQCounters: TfrmEQCounters
           Caption.Visible = True
           CollapsColor = clNone
           CollapsDelay = 0
+          DoubleBuffered = True
           HoverColor = clBlack
           HoverFontColor = clBlack
           ShadowColor = clBlack
@@ -1616,7 +1621,6 @@ object frmEQCounters: TfrmEQCounters
           StatusBar.GradientDirection = gdVertical
           Styler = frmMain.pstMain
           Text = ''
-          ExplicitWidth = 402
           FullHeight = 0
         end
       end
@@ -1624,7 +1628,6 @@ object frmEQCounters: TfrmEQCounters
     object tshViewOptions: TcxTabSheet
       Caption = 'View Options'
       ImageIndex = 1
-      ExplicitWidth = 585
       object AdvPanelGroup1: TAdvPanel
         Left = 0
         Top = 0
@@ -1643,7 +1646,7 @@ object frmEQCounters: TfrmEQCounters
         ShowHint = False
         TabOrder = 0
         UseDockManager = True
-        Version = '2.3.0.0'
+        Version = '2.4.2.0'
         AutoHideChildren = False
         BorderColor = clNone
         Caption.Color = 15658734
@@ -1660,6 +1663,7 @@ object frmEQCounters: TfrmEQCounters
         Caption.Visible = True
         CollapsColor = clNone
         CollapsDelay = 0
+        DoubleBuffered = True
         HoverColor = clBlack
         HoverFontColor = clBlack
         ShadowColor = clBlack
@@ -1675,7 +1679,6 @@ object frmEQCounters: TfrmEQCounters
         StatusBar.GradientDirection = gdVertical
         Styler = frmMain.pstMain
         Text = ''
-        ExplicitWidth = 585
         FullHeight = 0
         object chkViewClosed: TcxDBCheckBox
           Left = 8
@@ -1686,7 +1689,6 @@ object frmEQCounters: TfrmEQCounters
           Style.StyleController = frmMain.escEdits
           TabOrder = 0
           Transparent = True
-          Width = 253
         end
       end
       object AdvPanelGroup2: TAdvPanel
@@ -1707,7 +1709,7 @@ object frmEQCounters: TfrmEQCounters
         ShowHint = False
         TabOrder = 1
         UseDockManager = True
-        Version = '2.3.0.0'
+        Version = '2.4.2.0'
         AutoHideChildren = False
         BorderColor = clNone
         Caption.Color = 15658734
@@ -1724,6 +1726,7 @@ object frmEQCounters: TfrmEQCounters
         Caption.Visible = True
         CollapsColor = clNone
         CollapsDelay = 0
+        DoubleBuffered = True
         HoverColor = clBlack
         HoverFontColor = clBlack
         ShadowColor = clBlack
@@ -1739,7 +1742,6 @@ object frmEQCounters: TfrmEQCounters
         StatusBar.GradientDirection = gdVertical
         Styler = frmMain.pstMain
         Text = ''
-        ExplicitWidth = 585
         FullHeight = 0
         object Label7: TcxLabel
           Left = 12
@@ -1799,7 +1801,6 @@ object frmEQCounters: TfrmEQCounters
           Style.StyleController = frmMain.escEdits
           TabOrder = 0
           Transparent = True
-          Width = 251
         end
         object chkViewDays: TcxDBCheckBox
           Left = 8
@@ -1811,7 +1812,6 @@ object frmEQCounters: TfrmEQCounters
           Style.StyleController = frmMain.escEdits
           TabOrder = 1
           Transparent = True
-          Width = 259
         end
         object cxDBDateEdit4: TcxDBDateEdit
           Left = 22
@@ -1852,7 +1852,6 @@ object frmEQCounters: TfrmEQCounters
           Style.StyleController = frmMain.escEdits
           TabOrder = 5
           Transparent = True
-          Width = 150
         end
         object cxDBDateEdit1: TcxDBDateEdit
           Left = 152
@@ -1893,7 +1892,7 @@ object frmEQCounters: TfrmEQCounters
         ShowHint = False
         TabOrder = 2
         UseDockManager = True
-        Version = '2.3.0.0'
+        Version = '2.4.2.0'
         AutoHideChildren = False
         BorderColor = clNone
         Caption.Color = 15658734
@@ -1910,6 +1909,7 @@ object frmEQCounters: TfrmEQCounters
         Caption.Visible = True
         CollapsColor = clNone
         CollapsDelay = 0
+        DoubleBuffered = True
         HoverColor = clBlack
         HoverFontColor = clBlack
         ShadowColor = clBlack
@@ -1925,7 +1925,6 @@ object frmEQCounters: TfrmEQCounters
         StatusBar.GradientDirection = gdVertical
         Styler = frmMain.pstMain
         Text = ''
-        ExplicitWidth = 585
         FullHeight = 0
         object Label8: TcxLabel
           Left = 8
@@ -1949,7 +1948,6 @@ object frmEQCounters: TfrmEQCounters
           Style.StyleController = frmMain.escEdits
           TabOrder = 0
           Transparent = True
-          Width = 85
         end
         object cxButton3: TcxButton
           Left = 184
@@ -2001,8 +1999,7 @@ object frmEQCounters: TfrmEQCounters
     Persistence.Enabled = False
     ToolBarStyler = frmMain.fstMain
     UseRunTimeHeight = False
-    Version = '6.0.2.1'
-    ExplicitWidth = 589
+    Version = '6.3.3.2'
     object AdvToolBar1: TAdvToolBar
       Left = 3
       Top = 1
@@ -2042,7 +2039,7 @@ object frmEQCounters: TfrmEQCounters
         ImageIndex = 0
         ParentFont = False
         Position = daTop
-        Version = '6.0.2.1'
+        Version = '6.3.3.2'
       end
       object btnEdit: TAdvToolBarButton
         Left = 67
@@ -2063,7 +2060,7 @@ object frmEQCounters: TfrmEQCounters
         ImageIndex = 1
         ParentFont = False
         Position = daTop
-        Version = '6.0.2.1'
+        Version = '6.3.3.2'
       end
       object AdvToolBarButton4: TAdvToolBarButton
         Left = 101
@@ -2084,7 +2081,7 @@ object frmEQCounters: TfrmEQCounters
         ImageIndex = 2
         ParentFont = False
         Position = daTop
-        Version = '6.0.2.1'
+        Version = '6.3.3.2'
       end
       object AdvToolBarButton7: TAdvToolBarButton
         Left = 125
@@ -2105,7 +2102,7 @@ object frmEQCounters: TfrmEQCounters
         ImageIndex = 3
         ParentFont = False
         Position = daTop
-        Version = '6.0.2.1'
+        Version = '6.3.3.2'
       end
       object btnRefresh: TAdvToolBarButton
         Left = 9
@@ -2126,7 +2123,7 @@ object frmEQCounters: TfrmEQCounters
         ImageIndex = 5
         ParentFont = False
         Position = daTop
-        Version = '6.0.2.1'
+        Version = '6.3.3.2'
       end
       object AdvToolBarSeparator5: TAdvToolBarSeparator
         Left = 33
@@ -2161,7 +2158,7 @@ object frmEQCounters: TfrmEQCounters
         ImageIndex = 4
         ParentFont = False
         Position = daTop
-        Version = '6.0.2.1'
+        Version = '6.3.3.2'
       end
       object AdvToolBarSeparator1: TAdvToolBarSeparator
         Left = 149
@@ -2189,7 +2186,7 @@ object frmEQCounters: TfrmEQCounters
         ImageIndex = 12
         ParentFont = False
         Position = daTop
-        Version = '6.0.2.1'
+        Version = '6.3.3.2'
       end
       object AdvToolBarSeparator2: TAdvToolBarSeparator
         Left = 183
@@ -2209,6 +2206,7 @@ object frmEQCounters: TfrmEQCounters
         DataType = ftInteger
         Direction = pdReturnValue
         Precision = 10
+        Value = Null
       end
       item
         Name = '@CounterpartyID'
@@ -2519,6 +2517,13 @@ object frmEQCounters: TfrmEQCounters
     end
     object tblCounterUserID: TLargeintField
       FieldName = 'UserID'
+    end
+    object tblCounterUserName: TStringField
+      FieldName = 'UserName'
+      Size = 128
+    end
+    object tblCounterCurrencyID: TIntegerField
+      FieldName = 'CurrencyID'
     end
   end
   object dsCounter: TDataSource
@@ -2904,7 +2909,7 @@ object frmEQCounters: TfrmEQCounters
   end
   object pmnuPerfPup: TAdvPopupMenu
     MenuStyler = frmMain.mstMain
-    Version = '2.5.4.3'
+    Version = '2.6.1.1'
     Left = 216
     Top = 270
     object CreateAllocations1: TMenuItem
@@ -2920,7 +2925,7 @@ object frmEQCounters: TfrmEQCounters
   end
   object pmnuNew: TAdvPopupMenu
     MenuStyler = frmMain.mstMain
-    Version = '2.5.4.3'
+    Version = '2.6.1.1'
     Left = 388
     Top = 142
     object mnuNewShare: TMenuItem
@@ -2977,6 +2982,27 @@ object frmEQCounters: TfrmEQCounters
     end
     object tblCounterLKPUserID: TLargeintField
       FieldName = 'UserID'
+    end
+    object tblCounterLKPShortName: TStringField
+      FieldName = 'ShortName'
+      Size = 50
+    end
+    object tblCounterLKPTransferSecretaryID: TIntegerField
+      FieldName = 'TransferSecretaryID'
+    end
+    object tblCounterLKPCounterCategoryType: TIntegerField
+      FieldName = 'CounterCategoryType'
+    end
+    object tblCounterLKPObjectName: TStringField
+      FieldName = 'ObjectName'
+      Size = 50
+    end
+    object tblCounterLKPUserName: TStringField
+      FieldName = 'UserName'
+      Size = 128
+    end
+    object tblCounterLKPCurrencyID: TIntegerField
+      FieldName = 'CurrencyID'
     end
   end
   object dsCounterLKP: TDataSource
@@ -3236,7 +3262,7 @@ object frmEQCounters: TfrmEQCounters
   end
   object AdvPopupMenu2: TAdvPopupMenu
     MenuStyler = frmMain.mstMain
-    Version = '2.5.4.3'
+    Version = '2.6.1.1'
     Left = 356
     Top = 144
     object MenuItem7: TMenuItem
@@ -3260,7 +3286,7 @@ object frmEQCounters: TfrmEQCounters
   end
   object AdvPopupMenu3: TAdvPopupMenu
     MenuStyler = frmMain.mstMain
-    Version = '2.5.4.3'
+    Version = '2.6.1.1'
     Left = 388
     Top = 178
     object mnuEditShare: TMenuItem
@@ -3293,7 +3319,7 @@ object frmEQCounters: TfrmEQCounters
   end
   object AdvPopupMenu4: TAdvPopupMenu
     MenuStyler = frmMain.mstMain
-    Version = '2.5.4.3'
+    Version = '2.6.1.1'
     Left = 426
     Top = 180
     object mnuDeleteShare: TMenuItem
@@ -3412,7 +3438,7 @@ object frmEQCounters: TfrmEQCounters
   end
   object pmnuIndexValuePup: TAdvPopupMenu
     MenuStyler = frmMain.mstMain
-    Version = '2.5.4.3'
+    Version = '2.6.1.1'
     Left = 272
     Top = 378
     object New1: TMenuItem
@@ -3533,6 +3559,7 @@ object frmEQCounters: TfrmEQCounters
         DataType = ftInteger
         Direction = pdReturnValue
         Precision = 10
+        Value = Null
       end
       item
         Name = '@CounterID'
@@ -3550,7 +3577,7 @@ object frmEQCounters: TfrmEQCounters
       item
         Name = '@Price'
         Attributes = [paNullable]
-        DataType = ftFMTBcd
+        DataType = ftBCD
         NumericScale = 10
         Precision = 38
         Value = Null
@@ -3558,7 +3585,7 @@ object frmEQCounters: TfrmEQCounters
       item
         Name = '@BidPrice'
         Attributes = [paNullable]
-        DataType = ftFMTBcd
+        DataType = ftBCD
         NumericScale = 10
         Precision = 38
         Value = Null
@@ -3566,7 +3593,7 @@ object frmEQCounters: TfrmEQCounters
       item
         Name = '@OfferPrice'
         Attributes = [paNullable]
-        DataType = ftFMTBcd
+        DataType = ftBCD
         NumericScale = 10
         Precision = 38
         Value = Null
@@ -3590,6 +3617,7 @@ object frmEQCounters: TfrmEQCounters
         DataType = ftInteger
         Direction = pdReturnValue
         Precision = 10
+        Value = Null
       end
       item
         Name = '@CounterID'
@@ -3606,5 +3634,46 @@ object frmEQCounters: TfrmEQCounters
       end>
     Left = 382
     Top = 322
+  end
+  object tblCurrency: TADOTable
+    Connection = dtmMain.cnnMain
+    CursorType = ctStatic
+    TableName = 'tblCurrency'
+    Left = 520
+    Top = 217
+    object tblCurrencyID: TAutoIncField
+      FieldName = 'ID'
+      ReadOnly = True
+    end
+    object tblCurrencyCurrCode: TStringField
+      FieldName = 'CurrCode'
+      Size = 10
+    end
+    object tblCurrencyName: TStringField
+      FieldName = 'Name'
+      Size = 50
+    end
+    object tblCurrencyCreationDate: TDateTimeField
+      FieldName = 'CreationDate'
+    end
+    object tblCurrencyActive: TBooleanField
+      FieldName = 'Active'
+    end
+    object tblCurrencyPaymentsName: TStringField
+      FieldName = 'PaymentsName'
+      Size = 100
+    end
+    object tblCurrencyPaymentsSmallDenomination: TStringField
+      FieldName = 'PaymentsSmallDenomination'
+      Size = 100
+    end
+    object tblCurrencyMMYearLength: TIntegerField
+      FieldName = 'MMYearLength'
+    end
+  end
+  object dsCurrency: TDataSource
+    DataSet = tblCurrency
+    Left = 352
+    Top = 280
   end
 end

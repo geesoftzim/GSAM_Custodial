@@ -328,7 +328,7 @@ object frmClient: TfrmClient
     Font.Style = []
     ParentFont = False
     TabOrder = 1
-    Properties.ActivePage = tshClient
+    Properties.ActivePage = tshReports
     Properties.CustomButtons.Buttons = <>
     ClientRectBottom = 465
     ClientRectLeft = 2
@@ -1341,7 +1341,6 @@ object frmClient: TfrmClient
         Height = 117
         Align = alTop
         TabOrder = 1
-        ExplicitTop = 352
         object Label81: TcxLabel
           Left = 10
           Top = 30
@@ -6223,6 +6222,7 @@ object frmClient: TfrmClient
         Name = '@ZSEAccNo'
         Attributes = [paNullable]
         DataType = ftString
+        Size = -1
         Value = Null
       end
       item
