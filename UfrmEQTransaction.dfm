@@ -774,7 +774,7 @@ object frmEQTransaction: TfrmEQTransaction
     end
     object chkCSD: TcxCheckBox
       Left = 244
-      Top = 278
+      Top = 284
       Caption = 'CSD Charge'
       ParentFont = False
       Style.StyleController = frmMain.escEdits

@@ -781,9 +781,10 @@ object frmEQTransaction: TfrmEQTransaction
       TabOrder = 29
       Transparent = True
       OnClick = chkCSDClick
+      OnExit = chkCSDExit
     end
     object chkIndividual: TcxCheckBox
-      Left = 238
+      Left = 247
       Top = 78
       Caption = 'Corporate'
       ParentFont = False
@@ -1033,8 +1034,8 @@ object frmEQTransaction: TfrmEQTransaction
     Text = ''
     FullHeight = 0
     object btnSave: TcxButton
-      Left = 406
-      Top = 9
+      Left = 405
+      Top = 6
       Width = 75
       Height = 25
       Action = actSave
@@ -1516,6 +1517,11 @@ object frmEQTransaction: TfrmEQTransaction
         Name = '@Property'
         Attributes = [paNullable]
         DataType = ftBoolean
+        Value = Null
+      end
+      item
+        Name = '@ParentID'
+        DataType = ftLargeint
         Value = Null
       end>
     Left = 182
@@ -2358,30 +2364,6 @@ object frmEQTransaction: TfrmEQTransaction
       FieldName = 'Corporate'
     end
   end
-  object spGetChargeAmount: TADOStoredProc
-    Connection = dtmMain.cnnMain
-    CursorType = ctStatic
-    ProcedureName = 'spGetChargeAmount;1'
-    Parameters = <
-      item
-        Name = '@chargeName'
-        DataType = ftString
-        Size = 500
-        Value = Null
-      end
-      item
-        Name = '@Amount'
-        DataType = ftFloat
-        Precision = 10
-        Size = 38
-        Value = Null
-      end>
-    Left = 40
-    Top = 184
-    object spGetChargeAmountNumericValue: TFloatField
-      FieldName = 'NumericValue'
-    end
-  end
   object spCheckPension: TADOStoredProc
     Connection = dtmMain.cnnMain
     CursorType = ctStatic
@@ -2435,5 +2417,32 @@ object frmEQTransaction: TfrmEQTransaction
       FieldName = 'AccountID'
       ReadOnly = True
     end
+  end
+  object spGetChargeAmount: TADOStoredProc
+    Connection = dtmMain.cnnMain
+    ProcedureName = 'spGetChargeAmount;1'
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Size = 10
+        Value = 0
+      end
+      item
+        Name = '@chargeName'
+        DataType = ftString
+        Size = 500
+        Value = Null
+      end
+      item
+        Name = '@Amount'
+        DataType = ftFloat
+        Precision = 10
+        Size = 38
+        Value = Null
+      end>
+    Left = 176
+    Top = 304
   end
 end

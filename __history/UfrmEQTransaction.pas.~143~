@@ -324,7 +324,6 @@ type
     chkCSD: TcxCheckBox;
     chkIndividual: TcxCheckBox;
     spBasicAccountDetailsCorporate: TIntegerField;
-    spGetChargeAmount: TADOStoredProc;
     spCheckPension: TADOStoredProc;
     spCheckPensionPension: TIntegerField;
     spGetTransactionType: TADOStoredProc;
@@ -334,7 +333,7 @@ type
     spAccountID: TADOStoredProc;
     spAccountIDAccountID: TLargeintField;
     chkNewCheck: TcxCheckBox;
-    spGetChargeAmountNumericValue: TFloatField;
+    spGetChargeAmount: TADOStoredProc;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure actSaveExecute(Sender: TObject);
@@ -361,6 +360,7 @@ type
     procedure calculations(Sender: TObject);
     procedure chkRTGSClick(Sender: TObject);
     procedure chkInternalClick(Sender: TObject);
+    procedure chkCSDExit(Sender: TObject);
 
   private
     { Private declarations }
@@ -586,7 +586,11 @@ var
     TenoredAmount : Double;
     TransactionType : integer;
     ParentTransactionID : Integer;
+    one: double;
+
+    two: integer;
 begin
+
         if Trim(txtNetAmount.Text) = '' then
         begin
             MessageDlg('Net Amount is blank.', mtError, [mbOK], 0);
@@ -659,8 +663,10 @@ begin
 
           begin
                     begin
-                        with spTransactionCreateEx do begin
-                            Parameters.ParamByName('@AccountID').Value := spBasicAccountDetailsID.Value;
+                        with spTransactionCreateEx do
+
+                        begin
+                        Parameters.ParamByName('@AccountID').Value := spBasicAccountDetailsID.Value;
                             Parameters.ParamByName('@BalancingAccountID').Value := lkpBalAccount.EditValue;
                             Parameters.ParamByName('@TransactionType').Value := lkpTrxnType.EditValue;
                             Parameters.ParamByName('@PaymentType').Value := lkpPaymentType.EditValue;
@@ -685,11 +691,14 @@ begin
                             Prepared := True;
                             ExecProc;
                         end;
+
                         TransactionID := spTransactionCreateEx.Parameters.ParamByName('@RETURN_VALUE').Value;
                         ParentTransactionID := TransactionID;
                         // TAU
-                        if edtAccountName.Text <> '' then begin
-                            with spTransactionScheduleUpdatePayee do begin
+                        if edtAccountName.Text <> '' then
+                        begin
+                            with spTransactionScheduleUpdatePayee do
+                             begin
                                 Parameters.ParamByName('@TransactionID').Value := TransactionID;
                                 Parameters.ParamByName('@BankID').Value := lkpBranchName.EditValue;
                                 Parameters.ParamByName('@BankAccountName').Value := edtAccountName.Text;
@@ -699,8 +708,10 @@ begin
                             end;
                         end;
 
-                        if lkpSignatory.EditValue <> null then begin
-                            with spTransactionScheduleSignatory do begin
+                        if lkpSignatory.EditValue <> null then
+                        begin
+                            with spTransactionScheduleSignatory do
+                            begin
                                 Parameters.ParamByName('@TransactionID').Value := TransactionID;
                                 Parameters.ParamByName('@SignatoryID').Value := lkpSignatory.EditValue;
                                 Prepared := True;
@@ -709,213 +720,254 @@ begin
                         end;
 
                         if (rdbDebit.Checked and dtmMain.tblMMSetupPrintScheduleOnDebit.Value)
-                        or (rdbCredit.Checked and dtmMain.tblMMSetupPrintScheduleOnCredit.Value) then begin
-                            with frmQuickReports.spTransactionScheduleView do begin
+                        or (rdbCredit.Checked and dtmMain.tblMMSetupPrintScheduleOnCredit.Value) then
+                        begin
+                            with frmQuickReports.spTransactionScheduleView do
+                            begin
                                 Close;
                                 Parameters.ParamByName('@TransactionID').Value := TransactionID;
                                 Open;
                             end;
                             frmQuickReports.QRTransactionSchedule.Preview;
-                        end else begin
+                        end
+                        else
+                        begin
                             MessageDlg('Transaction created successfully.', mtInformation, [mbOk], 0);
                         end;
-                    end;
 
-            if lkpTrxnType.EditingValue = 7 then
-               begin
-                with spCheckPension do
-                 begin
-                  close;
-                    Parameters.ParamByName('@ClientName').Value := dxeClient.Text;
-                    Prepared;
-                    open;
-                 end;
+                    end;   //ANY OTHER TRANSACTION ENDS HERE
 
-                 if spCheckPensionPension.Value = 0 then
+                  if lkpTrxnType.EditingValue = 7 then
+
                    begin
-                      if chkIndividual.Checked and chkRTGS.Checked and lkpCurrency.EditValue =1 then
-                     begin
-                         with spGetTransactionType do
-                          begin
-                           close;
-                            Parameters.ParamByName('@Name').Value := 'Corporate RTGS Charge';
-                            Prepared;
-                            open;
-                          end;
-                         TransactionType := spGetTransactionTypeType.Value ;
-                     end;
-                      if chkIndividual.Checked and chkRTGS.Checked and lkpCurrency.EditValue = 9 then
-                     begin
-                         with spGetTransactionType do
-                          begin
-                           close;
-                            Parameters.ParamByName('@Name').Value := 'Corporate RTGS Charge USD';
-                            Prepared;
-                            open;
-                          end;
-                         TransactionType := spGetTransactionTypeType.Value ;
-                     end;
-                     if chkIndividual.Checked and chkInternal.Checked and lkpCurrency.EditValue = 1 then
-                     begin
-                         with spGetTransactionType do
-                          begin
-                           close;
-                            Parameters.ParamByName('@Name').Value := 'Corporate Internal Transfer Charge';
-                            Prepared;
-                            open;
-                          end;
-                         TransactionType := spGetTransactionTypeType.Value ;
-                     end;
-                      if chkIndividual.Checked and chkInternal.Checked and lkpCurrency.EditValue = 9 then
-                     begin
-                         with spGetTransactionType do
-                          begin
-                           close;
-                            Parameters.ParamByName('@Name').Value := 'Corporate Internal Transfer Charge USD';
-                            Prepared;
-                            open;
-                          end;
-                         TransactionType := spGetTransactionTypeType.Value ;
-                     end;
 
-                   end
-                   else
-                   begin
-                      if chkIndividual.Checked and chkRTGS.Checked  and lkpCurrency.EditValue = 1 then
-                     begin
-                        with spGetTransactionType do
-                          begin
-                           close;
-                            Parameters.ParamByName('@Name').Value :=  'Pension RTGS Charge';
-                            Prepared;
-                            open;
-                          end;
-                        TransactionType := spGetTransactionTypeType.Value ;
-                     end;
-                      if chkIndividual.Checked and chkRTGS.Checked  and lkpCurrency.EditValue = 9 then
-                     begin
-                        with spGetTransactionType do
-                          begin
-                           close;
-                            Parameters.ParamByName('@Name').Value :=  'Pension RTGS Charge USD';
-                            Prepared;
-                            open;
-                          end;
-                        TransactionType := spGetTransactionTypeType.Value ;
-                     end;
+                      with spCheckPension do
+                       begin
+                        close;
+                          Parameters.ParamByName('@ClientName').Value := dxeClient.Text;
+                          Prepared;
+                          open;
+                       end;
 
-                     if chkIndividual.Checked and chkInternal.Checked  and lkpCurrency.EditValue = 1 then
-                     begin
-                         with spGetTransactionType do
-                          begin
-                           close;
-                            Parameters.ParamByName('@Name').Value :=  'Pension Internal Transfer Charge';
-                            Prepared;
-                            open;
-                          end;
-                         TransactionType := spGetTransactionTypeType.Value ;
-                     end;
-                      if chkIndividual.Checked and chkInternal.Checked and lkpCurrency.EditValue = 9 then
-                     begin
-                         with spGetTransactionType do
-                          begin
-                           close;
-                            Parameters.ParamByName('@Name').Value :=  'Pension Internal Transfer Charge USD';
-                            Prepared;
-                            open;
-                          end;
-                         TransactionType := spGetTransactionTypeType.Value ;
-                     end;
-                   end;
+                      if spCheckPensionPension.Value = 0 then
 
-                  if (chkIndividual.Checked = false) and chkRTGS.Checked and lkpCurrency.EditValue = 1  then
-                 begin
-                  showmessage('17');
-                    with spGetTransactionType do
-                          begin
-                           close;
-                            Parameters.ParamByName('@Name').Value := 'Individual RTGS Charge';
-                            Prepared;
-                            open;
-                          end;
-                    TransactionType := spGetTransactionTypeType.Value ;
-                 end;
-                  if (chkIndividual.Checked = false) and chkRTGS.Checked and lkpCurrency.EditValue = 9  then
-                 begin
-                  showmessage('18');
-                    with spGetTransactionType do
-                          begin
-                           close;
-                            Parameters.ParamByName('@Name').Value := 'Individual RTGS Charge USD';
-                            Prepared;
-                            open;
-                          end;
-                    TransactionType := spGetTransactionTypeType.Value ;
-                 end;
+                       begin
+                          if chkIndividual.Checked and chkRTGS.Checked and lkpCurrency.EditValue =1 then
+                           begin
 
-                 if (chkIndividual.Checked = false) and chkInternal.Checked and lkpCurrency.EditValue = 1  then
-                 begin
-                  showmessage('19');
-                           with spGetTransactionType do
-                          begin
-                           close;
-                            Parameters.ParamByName('@Name').Value := 'Individual Internal Transfer Charge';
-                            Prepared;
-                            open;
-                          end;
-                      TransactionType := spGetTransactionTypeType.Value ;
-                 end;
-                 if (chkIndividual.Checked = false) and chkInternal.Checked  and lkpCurrency.EditValue = 9  then
-                 begin
-                  showmessage('20');
-                           with spGetTransactionType do
-                          begin
-                           close;
-                            Parameters.ParamByName('@Name').Value := 'Individual Internal Transfer Charge USD';
-                            Prepared;
-                            open;
-                          end;
-                      TransactionType := spGetTransactionTypeType.Value ;
-                 end;
-                  if chkRTGS.Checked = true then
-                  begin
-                   charge := RTGScharge;
-                  end
-                  else
-                  if chkInternal.Checked = true then
-                  begin
-                   charge := Icharge;
-                  end;
+                               with spGetTransactionType do
+                                begin
+                                 close;
+                                  Parameters.ParamByName('@Name').Value := 'Corporate RTGS Charge';
+                                  Prepared;
+                                  open;
+                                end;
 
-                 begin
-                 with spTransactionCreateEx do begin
-                            Parameters.ParamByName('@AccountID').Value := spBasicAccountDetailsID.Value;
-                            Parameters.ParamByName('@BalancingAccountID').Value := lkpBalAccount.EditValue;//AccountID;
-                            Parameters.ParamByName('@TransactionType').Value := TransactionType;
-                            Parameters.ParamByName('@PaymentType').Value := lkpPaymentType.EditValue;
-                            Parameters.ParamByName('@ValueDate').Value := dteTrxnValueDate.Date;
-                            Parameters.ParamByName('@Instruction').Value := txtComment.Text;//dxmPaymentInstruction.Text;
-                            Parameters.ParamByName('@Equities').Value := True;//dxmPaymentInstruction.Text;
-                            Parameters.ParamByName('@UnitTrust').Value := False;//dxmPaymentInstruction.Text;
-                            if rdbCredit.Checked then
+                               TransactionType := spGetTransactionTypeType.Value ;
+
+                           end;
+
+                          if chkIndividual.Checked and chkRTGS.Checked and lkpCurrency.EditValue = 9 then
+                           begin
+                               with spGetTransactionType do
+                                begin
+                                 close;
+                                  Parameters.ParamByName('@Name').Value := 'Corporate RTGS Charge USD';
+                                  Prepared;
+                                  open;
+                                end;
+
+                               TransactionType := spGetTransactionTypeType.Value ;
+
+                           end;
+
+                         if chkIndividual.Checked and chkInternal.Checked and lkpCurrency.EditValue = 1 then
+
+                           begin
+                               with spGetTransactionType do
+                                begin
+                                 close;
+                                  Parameters.ParamByName('@Name').Value := 'Corporate Internal Transfer Charge';
+                                  Prepared;
+                                  open;
+                                end;
+
+                               TransactionType := spGetTransactionTypeType.Value ;
+
+                           end;
+
+                          if chkIndividual.Checked and chkInternal.Checked and lkpCurrency.EditValue = 9 then
+
+                           begin
+                               with spGetTransactionType do
+                                begin
+                                 close;
+                                  Parameters.ParamByName('@Name').Value := 'Corporate Internal Transfer Charge USD';
+                                  Prepared;
+                                  open;
+                                end;
+                               TransactionType := spGetTransactionTypeType.Value ;
+                           end;
+
+                       end
+
+                       else
+
+                       begin
+                          if chkIndividual.Checked and chkRTGS.Checked  and lkpCurrency.EditValue = 1 then
+
+                           begin
+                              with spGetTransactionType do
+                                begin
+                                 close;
+                                  Parameters.ParamByName('@Name').Value :=  'Pension RTGS Charge';
+                                  Prepared;
+                                  open;
+                                end;
+
+                              TransactionType := spGetTransactionTypeType.Value ;
+                           end;
+
+                            if chkIndividual.Checked and chkRTGS.Checked  and lkpCurrency.EditValue = 9 then
+                           begin
+
+                              with spGetTransactionType do
+                                begin
+                                 close;
+                                  Parameters.ParamByName('@Name').Value :=  'Pension RTGS Charge USD';
+                                  Prepared;
+                                  open;
+                                end;
+
+                              TransactionType := spGetTransactionTypeType.Value ;
+
+                           end;
+
+                           if chkIndividual.Checked and chkInternal.Checked  and lkpCurrency.EditValue = 1 then
+                           begin
+
+                               with spGetTransactionType do
+                                begin
+                                 close;
+                                  Parameters.ParamByName('@Name').Value :=  'Pension Internal Transfer Charge';
+                                  Prepared;
+                                  open;
+                                end;
+
+                               TransactionType := spGetTransactionTypeType.Value ;
+                           end;
+
+                          if chkIndividual.Checked and chkInternal.Checked and lkpCurrency.EditValue = 9 then
+                           begin
+
+                               with spGetTransactionType do
+                                begin
+                                 close;
+                                  Parameters.ParamByName('@Name').Value :=  'Pension Internal Transfer Charge USD';
+                                  Prepared;
+                                  open;
+                                end;
+                               TransactionType := spGetTransactionTypeType.Value ;
+                           end;
+
+                       end;
+
+                      if (chkIndividual.Checked = false) and chkRTGS.Checked and lkpCurrency.EditValue = 1  then
+                       begin
+
+                          with spGetTransactionType do
                             begin
-                                Parameters.ParamByName('@CreditAmount').Value := dtmMain.Decomma(edtAmount.Text);
-                                Parameters.ParamByName('@DebitAmount').Value := Null;
-                            end else if rdbDebit.Checked then
-                            begin
-                                Parameters.ParamByName('@CreditAmount').Value := Null;
-                                Parameters.ParamByName('@DebitAmount').Value := charge; //charge
+                             close;
+                              Parameters.ParamByName('@Name').Value := 'Individual RTGS Charge';
+                              Prepared;
+                              open;
                             end;
-                            // TAU
-                            Parameters.ParamByName('@ReferenceTransactionID').Value := Null;
-                            Parameters.ParamByName('@Tenor').Value := 0;
-                            Parameters.ParamByName('@CurrencyID').Value := lkpCurrency.EditValue;
-                            Parameters.ParamByName('@ConversionRate').Value := dtmMain.Decomma(edtRate.Text);
-                            Parameters.ParamByName('@ParentID').Value := ParentTransactionID ;
-                            Prepared := True;
-                            ExecProc;
+                          TransactionType := spGetTransactionTypeType.Value ;
+                       end;
+
+                      if (chkIndividual.Checked = false) and chkRTGS.Checked and lkpCurrency.EditValue = 9  then
+                       begin
+
+                          with spGetTransactionType do
+                            begin
+                             close;
+                              Parameters.ParamByName('@Name').Value := 'Individual RTGS Charge USD';
+                              Prepared;
+                              open;
+                            end;
+
+                          TransactionType := spGetTransactionTypeType.Value ;
+                       end;
+
+                       if (chkIndividual.Checked = false) and chkInternal.Checked and lkpCurrency.EditValue = 1  then
+                       begin
+
+                             with spGetTransactionType do
+                            begin
+                             close;
+                              Parameters.ParamByName('@Name').Value := 'Individual Internal Transfer Charge';
+                              Prepared;
+                              open;
+                            end;
+                            TransactionType := spGetTransactionTypeType.Value ;
+                       end;
+
+                       if (chkIndividual.Checked = false) and chkInternal.Checked  and lkpCurrency.EditValue = 9  then
+                       begin
+
+                             with spGetTransactionType do
+                            begin
+                             close;
+                              Parameters.ParamByName('@Name').Value := 'Individual Internal Transfer Charge USD';
+                              Prepared;
+                              open;
+                            end;
+
+                            TransactionType := spGetTransactionTypeType.Value ;
+                       end;
+
+                        if chkRTGS.Checked = true then
+                        begin
+                         charge := RTGScharge;
+                        end
+                        else
+                        if chkInternal.Checked = true then
+                        begin
+                         charge := Icharge;
                         end;
-                        TransactionID := spTransactionCreateEx.Parameters.ParamByName('@RETURN_VALUE').Value;
+
+                       begin
+
+                        with spTransactionCreateEx do
+                            begin
+                              Parameters.ParamByName('@AccountID').Value := spBasicAccountDetailsID.Value;
+                                  Parameters.ParamByName('@BalancingAccountID').Value := lkpBalAccount.EditValue;//AccountID;
+                                  Parameters.ParamByName('@TransactionType').Value := TransactionType;
+                                  Parameters.ParamByName('@PaymentType').Value := lkpPaymentType.EditValue;
+                                  Parameters.ParamByName('@ValueDate').Value := dteTrxnValueDate.Date;
+                                  Parameters.ParamByName('@Instruction').Value := txtComment.Text;//dxmPaymentInstruction.Text;
+                                  Parameters.ParamByName('@Equities').Value := True;//dxmPaymentInstruction.Text;
+                                  Parameters.ParamByName('@UnitTrust').Value := False;//dxmPaymentInstruction.Text;
+                                  if rdbCredit.Checked then
+                                  begin
+                                      Parameters.ParamByName('@CreditAmount').Value := dtmMain.Decomma(edtAmount.Text);
+                                      Parameters.ParamByName('@DebitAmount').Value := Null;
+                                  end else if rdbDebit.Checked then
+                                  begin
+                                      Parameters.ParamByName('@CreditAmount').Value := Null;
+                                      Parameters.ParamByName('@DebitAmount').Value := charge; //charge
+                                  end;
+                                  // TAU
+                                  Parameters.ParamByName('@ReferenceTransactionID').Value := Null;
+                                  Parameters.ParamByName('@Tenor').Value := 0;
+                                  Parameters.ParamByName('@CurrencyID').Value := lkpCurrency.EditValue;
+                                  Parameters.ParamByName('@ConversionRate').Value := dtmMain.Decomma(edtRate.Text);
+                                  Parameters.ParamByName('@ParentID').Value := ParentTransactionID ;
+                                  Prepared := True;
+                                  ExecProc;
+                              end;
+
+                              TransactionID := spTransactionCreateEx.Parameters.ParamByName('@RETURN_VALUE').Value;
 
                         // TAU
                        // if edtAccountName.Text <> '' then begin
@@ -929,28 +981,34 @@ begin
                             end;
                        // end;
 
-                        if lkpSignatory.EditValue <> null then begin
-                            with spTransactionScheduleSignatory do begin
-                                Parameters.ParamByName('@TransactionID').Value := TransactionID;
-                                Parameters.ParamByName('@SignatoryID').Value := lkpSignatory.EditValue;
-                                Prepared := True;
-                                ExecProc;
+                            if lkpSignatory.EditValue <> null then begin
+                                with spTransactionScheduleSignatory do begin
+                                    Parameters.ParamByName('@TransactionID').Value := TransactionID;
+                                    Parameters.ParamByName('@SignatoryID').Value := lkpSignatory.EditValue;
+                                    Prepared := True;
+                                    ExecProc;
+                                end;
                             end;
-                        end;
 
-                        if (rdbDebit.Checked and dtmMain.tblMMSetupPrintScheduleOnDebit.Value)
-                        or (rdbCredit.Checked and dtmMain.tblMMSetupPrintScheduleOnCredit.Value) then begin
-                            with frmQuickReports.spTransactionScheduleView do begin
-                                Close;
-                                Parameters.ParamByName('@TransactionID').Value := TransactionID;
-                                Open;
+                            if (rdbDebit.Checked and dtmMain.tblMMSetupPrintScheduleOnDebit.Value)
+                            or (rdbCredit.Checked and dtmMain.tblMMSetupPrintScheduleOnCredit.Value) then
+                            begin
+                                with frmQuickReports.spTransactionScheduleView do
+                                begin
+                                    Close;
+                                    Parameters.ParamByName('@TransactionID').Value := TransactionID;
+                                    Open;
+                                end;
+                                //frmQuickReports.QRTransactionSchedule.Preview;
+                            end
+                            else
+                            begin
+                                MessageDlg('Transaction created successfully.', mtInformation, [mbOk], 0);
                             end;
-                            //frmQuickReports.QRTransactionSchedule.Preview;
-                        end else begin
-                            MessageDlg('Transaction created successfully.', mtInformation, [mbOk], 0);
-                        end;
-                    end;
-               end;
+
+                          end;
+
+                   end;  //END OF TRANSACTION TYPE 7
 
                with spCheckPension do
                  begin
@@ -961,25 +1019,32 @@ begin
                  end;
 
                if chkCSD.Checked = true then
+
                begin
+
                  CSDBankAccountName := 'CSD Charge';
                  CSDBankAccountNumber := '113221300015';
 
                  if spCheckPensionPension.Value = 0 then
+
                    begin
                      if chkIndividual.Checked and lkpCurrency.EditValue = 1  then
-                         begin
-                         showmessage('1');
-                            with spGetChargeAmount do
-                            begin
-                            close;
-                            Parameters.ParamByName('@chargeName').Value := 'Corporate CSD Charge';
-                            Parameters.ParamByName('@Amount').Value := edtAmount.Text;
-                            Prepared;
-                            open;
 
-                            end;
-                             showmessage('2');
+                         begin
+
+                            with spGetChargeAmount do
+
+                              begin
+                              close;
+                              Parameters.ParamByName('@chargeName').Value := 'Corporate CSD Charge';
+                              Parameters.ParamByName('@Amount').Value := edtAmount.Text;
+                              //Prepared;
+                               Prepared := True;
+                            ExecProc;
+                              //open;
+
+                              end;
+                                 one  :=  spGetChargeAmount.Parameters.ParamByName('@RETURN_VALUE').Value;
 
                             with spGetTransactionType do
                               begin
@@ -988,21 +1053,27 @@ begin
                                 Prepared;
                                 open;
                               end;
-
+                              //showmessage('corporate csd');
                             TransactionType := spGetTransactionTypeType.Value ;
+                            two := TransactionType;
                          end;
 
                          if chkIndividual.Checked and lkpCurrency.EditValue = 9  then
-                         begin
-                            with spGetChargeAmount do
-                            begin
-                            close;
-                            Parameters.ParamByName('@chargeName').Value := 'Corporate CSD Charge USD';
-                            Parameters.ParamByName('@Amount').Value := edtAmount.Text;
-                            Prepared;
-                            open;
 
-                            end;
+                         begin
+
+                            with spGetChargeAmount do
+                              begin
+                              close;
+                              Parameters.ParamByName('@chargeName').Value := 'Corporate CSD Charge USD';
+                              Parameters.ParamByName('@Amount').Value := edtAmount.Text;
+                              //Prepared;
+                             // open;
+                              Prepared := True;
+                            ExecProc;
+
+                              end;
+                                 one  :=  spGetChargeAmount.Parameters.ParamByName('@RETURN_VALUE').Value;
 
                             with spGetTransactionType do
                               begin
@@ -1013,22 +1084,30 @@ begin
                               end;
 
                             TransactionType := spGetTransactionTypeType.Value ;
+                             two := TransactionType;
                          end;
 
-                   end else
+                   end        // END OF CHECK PENSION ZERO
+
+                   else
 
                    begin
-                          if chkIndividual.Checked and lkpCurrency.EditValue = 1 {and chkCSD.Checked} then
+                          if (chkIndividual.Checked) and (lkpCurrency.EditValue = 1) and (chkCSD.Checked) then  //lapha
                          begin
-                            with spGetChargeAmount do
-                            begin
-                            close;
-                            Parameters.ParamByName('@chargeName').Value := 'Pension CSD Charge';
-                            Parameters.ParamByName('@Amount').Value := edtAmount.Text;
-                            Prepared;
-                            open;
 
-                            end;
+                            with spGetChargeAmount do
+
+                              begin
+                              close;
+                              Parameters.ParamByName('@chargeName').Value := 'Pension CSD Charge';
+                              Parameters.ParamByName('@Amount').Value := edtAmount.Text;
+                              {Prepared;
+                              open;     }
+                               Prepared := True;
+                            ExecProc;
+
+                              end;
+                               one  :=  spGetChargeAmount.Parameters.ParamByName('@RETURN_VALUE').Value;
 
                              with spGetTransactionType do
                               begin
@@ -1037,20 +1116,26 @@ begin
                                 Prepared;
                                 open;
                               end;
-
+                           //showmessage('Pension csd');
                             TransactionType := spGetTransactionTypeType.Value ;
+                              two := TransactionType;
                          end;
-                           if chkIndividual.Checked  and lkpCurrency.EditValue = 9 {and chkCSD.Checked} then
-                         begin
-                            with spGetChargeAmount do
-                            begin
-                            close;
-                            Parameters.ParamByName('@chargeName').Value := 'Pension CSD Charge USD';
-                            Parameters.ParamByName('@Amount').Value := edtAmount.Text;
-                            Prepared;
-                            open;
 
-                            end;
+                           if (chkIndividual.Checked)  and (lkpCurrency.EditValue = 9) and (chkCSD.Checked) then //lapha
+
+                         begin
+
+                              with spGetChargeAmount do
+                              begin
+                              close;
+                              Parameters.ParamByName('@chargeName').Value := 'Pension CSD Charge USD';
+                              Parameters.ParamByName('@Amount').Value := edtAmount.Text;
+                             { Prepared;
+                              open;  }
+                                         Prepared := True;
+                            ExecProc;
+                              end;
+                               one  :=  spGetChargeAmount.Parameters.ParamByName('@RETURN_VALUE').Value;
 
                              with spGetTransactionType do
                               begin
@@ -1061,59 +1146,81 @@ begin
                               end;
 
                             TransactionType := spGetTransactionTypeType.Value ;
+                            two := TransactionType;
                          end;
                    end;
 
-                    if chkIndividual.Checked = false and (lkpCurrency.EditValue = 1)  then
-                 begin
-                    with spGetChargeAmount do
-                    begin
-                    close;
-                    Parameters.ParamByName('@chargeName').Value := 'Individual CSD Charge';
-                    Parameters.ParamByName('@Amount').Value := edtAmount.Text;
-                    Prepared;
-                    open;
+                    if (chkIndividual.Checked = false) and lkpCurrency.EditValue = 1  then
+                   begin
 
-                    end;
 
-                     with spGetTransactionType do
-                          begin
-                           close;
-                            Parameters.ParamByName('@Name').Value :=  'Individual CSD Charge';
-                            Prepared;
-                            open;
-                          end;
+                        with spGetChargeAmount do
+                        begin
+                        close;
+                        Parameters.ParamByName('@chargeName').Value := 'Individual CSD Charge';
+                        Parameters.ParamByName('@Amount').Value := edtAmount.Text;
+                        {Prepared;
+                        open; }
+                            Prepared := True;
+                            ExecProc;
+                        end;
+                            //**************************
 
-                    TransactionType := spGetTransactionTypeType.Value ;
-                 end;
+                          one  :=  spGetChargeAmount.Parameters.ParamByName('@RETURN_VALUE').Value;
+
+
+
+                       with spGetTransactionType do
+                        begin
+                         close;
+                          Parameters.ParamByName('@Name').Value :=  'Individual CSD Charge';
+                          Prepared;
+                          open;
+                        end;
+
+                      TransactionType := spGetTransactionTypeType.Value ;
+                     //**************************
+                     two := TransactionType;
+                   end;
+
                  if chkIndividual.Checked = false and (lkpCurrency.EditValue = 9)  then
-                 begin
-                    with spGetChargeAmount do
-                    begin
-                    close;
-                    Parameters.ParamByName('@chargeName').Value := 'Individual CSD Charge USD';
-                    Parameters.ParamByName('@Amount').Value := edtAmount.Text;
-                    Prepared;
-                    open;
 
-                    end;
+                   begin
 
-                     with spGetTransactionType do
-                          begin
-                           close;
-                            Parameters.ParamByName('@Name').Value :=  'Individual CSD Charge USD';
-                            Prepared;
-                            open;
-                          end;
+                      with spGetChargeAmount do
 
-                    TransactionType := spGetTransactionTypeType.Value ;
-                 end;
+                        begin
+                        close;
+                        Parameters.ParamByName('@chargeName').Value := 'Individual CSD Charge USD';
+                        Parameters.ParamByName('@Amount').Value := edtAmount.Text;
+                        //Prepared;
+                        //open;
+                            Prepared := True;
+                            ExecProc;
+                        end;
+
+                        one  :=  spGetChargeAmount.Parameters.ParamByName('@RETURN_VALUE').Value;
+
+                       with spGetTransactionType do
+                        begin
+                         close;
+                          Parameters.ParamByName('@Name').Value :=  'Individual CSD Charge USD';
+                          Prepared;
+                          open;
+                        end;
+
+                      TransactionType := spGetTransactionTypeType.Value ;
+                       two := TransactionType;
+                   end;
 
                   begin
-                        with spTransactionCreateEx do begin
-                            Parameters.ParamByName('@AccountID').Value := spBasicAccountDetailsID.Value;
+                  showmessage(one.ToString);
+                 // showmessage(two.ToString);
+                        with spTransactionCreateEx do
+                        begin
+                         Parameters.ParamByName('@AccountID').Value := spBasicAccountDetailsID.Value;
                             Parameters.ParamByName('@BalancingAccountID').Value := lkpBalAccount.EditValue;//CSDAccountID;
-                            Parameters.ParamByName('@TransactionType').Value := TransactionType;
+                            Parameters.ParamByName('@TransactionType').Value :=  two;//TransactionType;
                             Parameters.ParamByName('@PaymentType').Value := lkpPaymentType.EditValue;
                             Parameters.ParamByName('@ValueDate').Value := dteTrxnValueDate.Date;
                             Parameters.ParamByName('@Instruction').Value := txtComment.Text;//dxmPaymentInstruction.Text;
@@ -1126,9 +1233,10 @@ begin
                             end else if rdbDebit.Checked then
                             begin
                                 Parameters.ParamByName('@CreditAmount').Value := Null;
-                                Parameters.ParamByName('@DebitAmount').Value := spGetChargeAmountNumericValue.Value; //charge
+                                Parameters.ParamByName('@DebitAmount').Value := one;//spGetChargeAmount.Parameters.ParamByName('@RETURN_VALUE').Value ; //charge
                             end;
                             // TAU
+
                             Parameters.ParamByName('@ReferenceTransactionID').Value := Null;
                             Parameters.ParamByName('@Tenor').Value := 0;
                             Parameters.ParamByName('@CurrencyID').Value := lkpCurrency.EditValue;
@@ -1141,17 +1249,19 @@ begin
 
                         // TAU
                        // if edtAccountName.Text <> '' then begin
-                            with spTransactionScheduleUpdatePayee do begin
-                                Parameters.ParamByName('@TransactionID').Value := TransactionID;
-                                Parameters.ParamByName('@BankID').Value := 69;
-                                Parameters.ParamByName('@BankAccountName').Value := CSDBankAccountName;
-                                Parameters.ParamByName('@BankAccountNo').Value := CSDBankAccountNumber;
-                                Prepared := True;
-                                ExecProc;
-                            end;
+                        with spTransactionScheduleUpdatePayee do
+                        begin
+                            Parameters.ParamByName('@TransactionID').Value := TransactionID;
+                            Parameters.ParamByName('@BankID').Value := 69;
+                            Parameters.ParamByName('@BankAccountName').Value := CSDBankAccountName;
+                            Parameters.ParamByName('@BankAccountNo').Value := CSDBankAccountNumber;
+                            Prepared := True;
+                            ExecProc;
+                        end;
                        // end;
 
-                        if lkpSignatory.EditValue <> null then begin
+                        if lkpSignatory.EditValue <> null then
+                        begin
                             with spTransactionScheduleSignatory do begin
                                 Parameters.ParamByName('@TransactionID').Value := TransactionID;
                                 Parameters.ParamByName('@SignatoryID').Value := lkpSignatory.EditValue;
@@ -1161,91 +1271,103 @@ begin
                         end;
 
                         if (rdbDebit.Checked and dtmMain.tblMMSetupPrintScheduleOnDebit.Value)
-                        or (rdbCredit.Checked and dtmMain.tblMMSetupPrintScheduleOnCredit.Value) then begin
-                            with frmQuickReports.spTransactionScheduleView do begin
+                        or (rdbCredit.Checked and dtmMain.tblMMSetupPrintScheduleOnCredit.Value) then
+                        begin
+                            with frmQuickReports.spTransactionScheduleView do
+                            begin
                                 Close;
                                 Parameters.ParamByName('@TransactionID').Value := TransactionID;
                                 Open;
                             end;
                             //frmQuickReports.QRTransactionSchedule.Preview;
-                        end else begin
+                        end
+
+                        else
+
+                        begin
                             MessageDlg('Transaction created successfully.', mtInformation, [mbOk], 0);
                         end;
+
                     end;
 
-               end;
+               end;    //END OF CSD CHECKED
 
 
               if not dtmMain.MMTransactionConfirmMode then
                     Close// TAU actNewExecute(nil)
                else ModalResult := mrOK;
-          end
+
+          end  // NEW CHECK FALSE ENDS
+
           else
+
           begin
             if lkpTrxnType.EditingValue = 7 then
                begin
 
-                with spCheckPension do
-                 begin
-                  close;
-                    Parameters.ParamByName('@ClientName').Value := dxeClient.Text;
-                    Prepared;
-                    open;
-                 end;
-
-                 if spCheckPensionPension.Value = 0 then
+                  with spCheckPension do
                    begin
-                      if chkIndividual.Checked and chkRTGS.Checked and lkpCurrency.EditValue = 1 then
+                    close;
+                      Parameters.ParamByName('@ClientName').Value := dxeClient.Text;
+                      Prepared;
+                      open;
+                   end;
+
+                   if spCheckPensionPension.Value = 0 then
                      begin
-                         with spGetTransactionType do
-                          begin
-                           close;
-                            Parameters.ParamByName('@Name').Value := 'Corporate RTGS Charge';
-                            Prepared;
-                            open;
-                          end;
 
-                         TransactionType := spGetTransactionTypeType.Value ;
-                     end;
-                      if chkIndividual.Checked and chkRTGS.Checked and lkpCurrency.EditValue = 9 then
-                     begin
-                         with spGetTransactionType do
-                          begin
-                           close;
-                            Parameters.ParamByName('@Name').Value := 'Corporate RTGS Charge USD';
-                            Prepared;
-                            open;
-                          end;
+                          if chkIndividual.Checked and chkRTGS.Checked and lkpCurrency.EditValue = 1 then
+                         begin
+                             with spGetTransactionType do
+                              begin
+                               close;
+                                Parameters.ParamByName('@Name').Value := 'Corporate RTGS Charge';
+                                Prepared;
+                                open;
+                              end;
 
-                         TransactionType := spGetTransactionTypeType.Value ;
-                     end;
+                             TransactionType := spGetTransactionTypeType.Value ;
+                         end;
 
-                     if chkIndividual.Checked and chkInternal.Checked and lkpCurrency.EditValue = 1 then
-                     begin
-                         with spGetTransactionType do
-                          begin
-                           close;
-                            Parameters.ParamByName('@Name').Value := 'Corporate Internal Transfer Charge';
-                            Prepared;
-                            open;
-                          end;
+                          if chkIndividual.Checked and chkRTGS.Checked and lkpCurrency.EditValue = 9 then
+                         begin
+                             with spGetTransactionType do
+                              begin
+                               close;
+                                Parameters.ParamByName('@Name').Value := 'Corporate RTGS Charge USD';
+                                Prepared;
+                                open;
+                              end;
 
-                         TransactionType := spGetTransactionTypeType.Value ;
-                     end;
-                     if chkIndividual.Checked and chkInternal.Checked  and lkpCurrency.EditValue = 9 then
-                     begin
-                         with spGetTransactionType do
-                          begin
-                           close;
-                            Parameters.ParamByName('@Name').Value := 'Corporate Internal Transfer Charge USD';
-                            Prepared;
-                            open;
-                          end;
+                             TransactionType := spGetTransactionTypeType.Value ;
+                         end;
 
-                         TransactionType := spGetTransactionTypeType.Value ;
-                     end;
+                         if chkIndividual.Checked and chkInternal.Checked and lkpCurrency.EditValue = 1 then
+                         begin
+                             with spGetTransactionType do
+                              begin
+                               close;
+                                Parameters.ParamByName('@Name').Value := 'Corporate Internal Transfer Charge';
+                                Prepared;
+                                open;
+                              end;
 
-                   end else
+                             TransactionType := spGetTransactionTypeType.Value ;
+                         end;
+                       if chkIndividual.Checked and chkInternal.Checked  and lkpCurrency.EditValue = 9 then
+                       begin
+                           with spGetTransactionType do
+                            begin
+                             close;
+                              Parameters.ParamByName('@Name').Value := 'Corporate Internal Transfer Charge USD';
+                              Prepared;
+                              open;
+                            end;
+
+                           TransactionType := spGetTransactionTypeType.Value ;
+                       end;
+
+                     end else
 
                    begin
 
@@ -1370,10 +1492,9 @@ begin
                    charge := Icharge;
                   end;
 
-                 begin //showMessage(inttostr(TransactionType));
-                 //showMessage(floattostr(Charge));
-                        with spTransactionCreateEx do begin
-                            Parameters.ParamByName('@AccountID').Value := spBasicAccountDetailsID.Value;
+                 begin
+                   with spTransactionCreateEx do begin
+                           Parameters.ParamByName('@AccountID').Value := spBasicAccountDetailsID.Value;
                             Parameters.ParamByName('@BalancingAccountID').Value := lkpBalAccount.EditValue;//AccountID;
                             Parameters.ParamByName('@TransactionType').Value := TransactionType;
                             Parameters.ParamByName('@PaymentType').Value := lkpPaymentType.EditValue;
@@ -1453,17 +1574,18 @@ begin
                    begin
                      if chkIndividual.Checked  and lkpCurrency.EditValue = 1 then
                          begin
-                         showmessage('3');
+
                             with spGetChargeAmount do
                             begin
                             close;
                             Parameters.ParamByName('@chargeName').Value := 'Corporate CSD Charge';
                             Parameters.ParamByName('@Amount').Value := edtAmount.Text;
-                            Prepared;
-                            open;
-
+                           // Prepared;
+                            //open;
+                              Prepared := True;
+                            ExecProc;
                             end;
-                            showmessage('4');
+
 
                             with spGetTransactionType do
                               begin
@@ -1482,9 +1604,10 @@ begin
                             close;
                             Parameters.ParamByName('@chargeName').Value := 'Corporate CSD Charge USD';
                             Parameters.ParamByName('@Amount').Value := edtAmount.Text;
-                            Prepared;
-                            open;
-
+                            //Prepared;
+                            //open;
+                             Prepared := True;
+                            ExecProc;
                             end;
 
                             with spGetTransactionType do
@@ -1508,9 +1631,10 @@ begin
                             close;
                             Parameters.ParamByName('@chargeName').Value := 'Pension CSD Charge';
                             Parameters.ParamByName('@Amount').Value := edtAmount.Text;
-                            Prepared;
-                            open;
-
+                            //Prepared;
+                            //open;
+                              Prepared := True;
+                            ExecProc;
                             end;
 
                              with spGetTransactionType do
@@ -1530,9 +1654,10 @@ begin
                             close;
                             Parameters.ParamByName('@chargeName').Value := 'Pension CSD Charge USD';
                             Parameters.ParamByName('@Amount').Value := edtAmount.Text;
-                            Prepared;
-                            open;
-
+                           // Prepared;
+                           // open;
+                              Prepared := True;
+                            ExecProc;
                             end;
 
                              with spGetTransactionType do
@@ -1554,9 +1679,10 @@ begin
                     close;
                     Parameters.ParamByName('@chargeName').Value := 'Individual CSD Charge';
                     Parameters.ParamByName('@Amount').Value := edtAmount.Text;
-                    Prepared;
-                    open;
-
+                    //Prepared;
+                    //open;
+                     Prepared := True;
+                            ExecProc;
                     end;
 
                      with spGetTransactionType do
@@ -1576,9 +1702,10 @@ begin
                     close;
                     Parameters.ParamByName('@chargeName').Value := 'Individual CSD Charge USD';
                     Parameters.ParamByName('@Amount').Value := edtAmount.Text;
-                    Prepared;
-                    open;
-
+                    //Prepared;
+                    //open;
+                      Prepared := True;
+                            ExecProc;
                     end;
 
                      with spGetTransactionType do
@@ -1594,7 +1721,7 @@ begin
 
                   begin
                         with spTransactionCreateEx do begin
-                            Parameters.ParamByName('@AccountID').Value := spBasicAccountDetailsID.Value;
+                              Parameters.ParamByName('@AccountID').Value := spBasicAccountDetailsID.Value;
                             Parameters.ParamByName('@BalancingAccountID').Value := lkpBalAccount.EditValue;//CSDAccountID;
                             Parameters.ParamByName('@TransactionType').Value := TransactionType;
                             Parameters.ParamByName('@PaymentType').Value := lkpPaymentType.EditValue;
@@ -1609,7 +1736,7 @@ begin
                             end else if rdbDebit.Checked then
                             begin
                                 Parameters.ParamByName('@CreditAmount').Value := Null;
-                                Parameters.ParamByName('@DebitAmount').Value := spGetChargeAmountNumericValue.Value; //charge
+                                Parameters.ParamByName('@DebitAmount').Value := spGetChargeAmount.Parameters.ParamByName('@RETURN_VALUE').Value ; //charge
                             end;
                             // TAU
                             Parameters.ParamByName('@ReferenceTransactionID').Value := Null;
@@ -2048,17 +2175,19 @@ if chkCSD.Checked = TRUE then
                if chkIndividual.Checked  then
 
                    begin
-                   showmessage('5');
+
                       with spGetChargeAmount do
                       begin
                       close;
                       Parameters.ParamByName('@chargeName').Value := 'Corporate CSD Charge';
                       Parameters.ParamByName('@Amount').Value := edtAmount.Text;
-                      Prepared;
-                      open;
+                     // Prepared;
+                     // open;
+                      Prepared := True;
+                            ExecProc;
                       end;
-                      showmessage('6');
-                      CSDcharge :=  spGetChargeAmountNumericValue.Value;
+
+                      CSDcharge :=  spGetChargeAmount.Parameters.ParamByName('@RETURN_VALUE').Value;
                    end;
              end
              else
@@ -2070,10 +2199,12 @@ if chkCSD.Checked = TRUE then
                       close;
                       Parameters.ParamByName('@chargeName').Value := 'Pension CSD Charge';
                       Parameters.ParamByName('@Amount').Value := edtAmount.Text;
-                      Prepared;
-                      open;
+                      //Prepared;
+                      //open;
+                       Prepared := True;
+                            ExecProc;
                       end;
-                      CSDcharge :=  spGetChargeAmountNumericValue.Value;
+                      CSDcharge :=  spGetChargeAmount.Parameters.ParamByName('@RETURN_VALUE').Value;
                    end;
              end;
         if chkIndividual.Checked = false  then
@@ -2083,10 +2214,12 @@ if chkCSD.Checked = TRUE then
               close;
               Parameters.ParamByName('@chargeName').Value := 'Individual CSD Charge';
               Parameters.ParamByName('@Amount').Value := edtAmount.Text;
-              Prepared;
-              open;
+              //Prepared;
+              //open;
+               Prepared := True;
+                            ExecProc;
               end;
-              CSDcharge :=  spGetChargeAmountNumericValue.Value;
+              CSDcharge :=  spGetChargeAmount.Parameters.ParamByName('@RETURN_VALUE').Value;
            end;
 
                   if chkRTGS.Checked = TRUE then
@@ -2115,11 +2248,13 @@ if chkCSD.Checked = TRUE then
                       close;
                       Parameters.ParamByName('@chargeName').Value := 'Corporate CSD Charge USD';
                       Parameters.ParamByName('@Amount').Value := edtAmount.Text;
-                      Prepared;
-                      open;
+                      //Prepared;
+                      //open;
+                       Prepared := True;
+                            ExecProc;
                       end;
 
-                      CSDcharge :=  spGetChargeAmountNumericValue.Value;
+                      CSDcharge :=  spGetChargeAmount.Parameters.ParamByName('@RETURN_VALUE').Value;
                    end;
              end
              else
@@ -2131,24 +2266,28 @@ if chkCSD.Checked = TRUE then
                       close;
                       Parameters.ParamByName('@chargeName').Value := 'Pension CSD Charge USD';
                       Parameters.ParamByName('@Amount').Value := edtAmount.Text;
-                      Prepared;
-                      open;
+                      //Prepared;
+                     // open;
+                      Prepared := True;
+                            ExecProc;
                       end;
-                      CSDcharge :=  spGetChargeAmountNumericValue.Value;
+                      CSDcharge :=  spGetChargeAmount.Parameters.ParamByName('@RETURN_VALUE').Value;
                    end;
              end;
         if chkIndividual.Checked = false  then
            begin
-            showmessage('10');
+
               with spGetChargeAmount do
               begin
               close;
               Parameters.ParamByName('@chargeName').Value := 'Individual CSD Charge USD';
               Parameters.ParamByName('@Amount').Value := edtAmount.Text;
-              Prepared;
-              open;
+              //Prepared;
+              //open;
+               Prepared := True;
+                            ExecProc;
               end;
-              CSDcharge :=  spGetChargeAmountNumericValue.Value;
+              CSDcharge :=  spGetChargeAmount.Parameters.ParamByName('@RETURN_VALUE').Value;
            end;
 
                   if chkRTGS.Checked = TRUE then
@@ -2187,6 +2326,11 @@ if chkCSD.Checked = TRUE then
 
 end;
 
+procedure TfrmEQTransaction.chkCSDExit(Sender: TObject);
+begin
+//showMessage(CSDcharge.ToString);
+end;
+
 procedure TfrmEQTransaction.chkEditRateClick(Sender: TObject);
 begin
     edtRate.Enabled := chkEditRate.Enabled and chkEditRate.Checked;
@@ -2221,12 +2365,14 @@ begin
                 close;
                 Parameters.ParamByName('@chargeName').Value := 'Corporate RTGS Charge';
                 Parameters.ParamByName('@Amount').Value := edtAmount.Text;
-                Prepared;
-                open;
+               // Prepared;
+               // open;
+                Prepared := True;
+                            ExecProc;
                 end;
                  BankAccountName := 'RTGS Charge';
                  BankAccountNumber := '113322404020';
-                 RTGScharge := spGetChargeAmountNumericValue.Value;
+                 RTGScharge := spGetChargeAmount.Parameters.ParamByName('@RETURN_VALUE').Value;
              end;
 
              if chkIndividual.Checked and chkInternal.Checked then     //corporate & internal
@@ -2236,12 +2382,14 @@ begin
                 close;
                 Parameters.ParamByName('@chargeName').Value := 'Corporate Internal Transfer Charge';
                 Parameters.ParamByName('@Amount').Value := edtAmount.Text;
-                Prepared;
-                open;
+                //Prepared;
+                //open;
+                 Prepared := True;
+                            ExecProc;
                 end;
                 BankAccountName := 'Inernal Transfer Charge';
                 BankAccountNumber := '113321200020';
-                Icharge := spGetChargeAmountNumericValue.Value;
+                Icharge := spGetChargeAmount.Parameters.ParamByName('@RETURN_VALUE').Value;
              end;
 
        end
@@ -2256,12 +2404,14 @@ begin
                 close;
                 Parameters.ParamByName('@chargeName').Value := 'Pension RTGS Charge';
                 Parameters.ParamByName('@Amount').Value := edtAmount.Text;
-                Prepared;
-                open;
+                //Prepared;
+                //open;
+                 Prepared := True;
+                            ExecProc;
                 end;
                  BankAccountName := 'RTGS Charge';
                  BankAccountNumber := '113322404020';
-                 RTGScharge := spGetChargeAmountNumericValue.Value;
+                 RTGScharge := spGetChargeAmount.Parameters.ParamByName('@RETURN_VALUE').Value;
              end;
 
              if chkIndividual.Checked and chkInternal.Checked then  //Pension & Internal
@@ -2271,49 +2421,55 @@ begin
                 close;
                 Parameters.ParamByName('@chargeName').Value := 'Pension Internal Transfer Charge';
                 Parameters.ParamByName('@Amount').Value := edtAmount.Text;
-                Prepared;
-                open;
+                //Prepared;
+                //open;
+                 Prepared := True;
+                            ExecProc;
                 end;
                 BankAccountName := 'Inernal Transfer Charge';
                 BankAccountNumber := '113321200020';
-                Icharge := spGetChargeAmountNumericValue.Value;
+                Icharge := spGetChargeAmount.Parameters.ParamByName('@RETURN_VALUE').Value;
              end;
        end;
 
         if (chkIndividual.Checked = false) and chkRTGS.Checked then    //individual & RTGS
        begin
-        showmessage('11');
+
           with spGetChargeAmount do
           begin
           close;
           Parameters.ParamByName('@chargeName').Value := 'Individual RTGS Charge';
           Parameters.ParamByName('@Amount').Value := edtAmount.Text;
-          Prepared;
-          open;
+          //Prepared;
+         // open;
+          Prepared := True;
+                            ExecProc;
           end;
          BankAccountName := 'RTGS Charge';
          BankAccountNumber := '113322404020';
-         RTGScharge := spGetChargeAmountNumericValue.Value;
+         RTGScharge := spGetChargeAmount.Parameters.ParamByName('@RETURN_VALUE').Value;
        end;
 
        if (chkIndividual.Checked = false) and chkInternal.Checked then  //Individual & Internal
        begin
-        showmessage('12');
+
           with spGetChargeAmount do
           begin
           close;
           Parameters.ParamByName('@chargeName').Value := 'Individual Internal Transfer Charge';
           Parameters.ParamByName('@Amount').Value := edtAmount.Text;
-          Prepared;
-          open;
+          //Prepared;
+          //open;
+           Prepared := True;
+                            ExecProc;
           end;
           BankAccountName := 'Inernal Transfer Charge';
           BankAccountNumber := '113321200020';
-          Icharge := spGetChargeAmountNumericValue.Value;
+          Icharge := spGetChargeAmount.Parameters.ParamByName('@RETURN_VALUE').Value;
        end;
 
-      txtNetAmount.Text := floattostr(dtmMain.Decomma(amount) - spGetChargeAmountNumericValue.Value);
-      charge :=  spGetChargeAmountNumericValue.Value;
+      txtNetAmount.Text := floattostr(dtmMain.Decomma(amount) - spGetChargeAmount.Parameters.ParamByName('@RETURN_VALUE').Value);
+      charge :=  spGetChargeAmount.Parameters.ParamByName('@RETURN_VALUE').Value;
 
 
 
@@ -2349,10 +2505,12 @@ if chkInternal.Checked = true then
                           close;
                           Parameters.ParamByName('@chargeName').Value := 'Corporate Internal Transfer Charge';
                           Parameters.ParamByName('@Amount').Value := edtAmount.Text;
-                          Prepared;
-                          open;
+                          //Prepared;
+                          //open;
+                           Prepared := True;
+                            ExecProc;
                           end;
-                          Icharge := spGetChargeAmountNumericValue.Value;
+                          Icharge := spGetChargeAmount.Parameters.ParamByName('@RETURN_VALUE').Value;
                           BankAccountName := 'Internal Transfer Charge';
                           BankAccountNumber := '113321200020';
                        end;
@@ -2368,31 +2526,35 @@ if chkInternal.Checked = true then
                           close;
                           Parameters.ParamByName('@chargeName').Value := 'Pension Internal Transfer Charge';
                           Parameters.ParamByName('@Amount').Value := edtAmount.Text;
-                          Prepared;
-                          open;
+                          //Prepared;
+                          //open;
+                           Prepared := True;
+                            ExecProc;
                           end;
 
                           BankAccountName := 'Internal Transfer Charge';
                           BankAccountNumber := '113321200020';
-                          Icharge := spGetChargeAmountNumericValue.Value;
+                          Icharge := spGetChargeAmount.Parameters.ParamByName('@RETURN_VALUE').Value;
                        end;
                  end;
 
                  if (chkIndividual.Checked = false) and chkInternal.Checked then  //Individual & Internal
                  begin
-                  showmessage('13');
+
                     with spGetChargeAmount do
                     begin
                     close;
                     Parameters.ParamByName('@chargeName').Value := 'Individual Internal Transfer Charge';
                     Parameters.ParamByName('@Amount').Value := edtAmount.Text;
-                    Prepared;
-                    open;
+                    //Prepared;
+                    //open;
+                     Prepared := True;
+                            ExecProc;
                     end;
 
                     BankAccountName := 'Internal Transfer Charge';
                     BankAccountNumber := '113321200020';
-                    Icharge := spGetChargeAmountNumericValue.Value;
+                    Icharge := spGetChargeAmount.Parameters.ParamByName('@RETURN_VALUE').Value;
                  end;
 
                   if chkCSD.Checked = TRUE then
@@ -2432,10 +2594,12 @@ if chkInternal.Checked = true then
                           close;
                           Parameters.ParamByName('@chargeName').Value := 'Corporate Internal Transfer Charge USD';
                           Parameters.ParamByName('@Amount').Value := edtAmount.Text;
-                          Prepared;
-                          open;
+                          //Prepared;
+                          //open;
+                           Prepared := True;
+                            ExecProc;
                           end;
-                          Icharge := spGetChargeAmountNumericValue.Value;
+                          Icharge := spGetChargeAmount.Parameters.ParamByName('@RETURN_VALUE').Value;
                           BankAccountName := 'Internal Transfer Charge USD';
                           BankAccountNumber := '321200020';
                        end;
@@ -2451,31 +2615,35 @@ if chkInternal.Checked = true then
                           close;
                           Parameters.ParamByName('@chargeName').Value := 'Pension Internal Transfer Charge USD';
                           Parameters.ParamByName('@Amount').Value := edtAmount.Text;
-                          Prepared;
-                          open;
+                          //Prepared;
+                          //open;
+                           Prepared := True;
+                            ExecProc;
                           end;
 
                           BankAccountName := 'Internal Transfer Charge USD';
                           BankAccountNumber := '321200020';
-                          Icharge := spGetChargeAmountNumericValue.Value;
+                          Icharge := spGetChargeAmount.Parameters.ParamByName('@RETURN_VALUE').Value;
                        end;
                  end;
 
                  if (chkIndividual.Checked = false) and chkInternal.Checked then  //Individual & Internal
                  begin
-                  showmessage('14');
+
                     with spGetChargeAmount do
                     begin
                     close;
                     Parameters.ParamByName('@chargeName').Value := 'Individual Internal Transfer Charge USD';
                     Parameters.ParamByName('@Amount').Value := edtAmount.Text;
-                    Prepared;
-                    open;
+                    //Prepared;
+                    //open;
+                     Prepared := True;
+                            ExecProc;
                     end;
 
                     BankAccountName := 'Internal Transfer Charge USD';
                     BankAccountNumber := '321200020';
-                    Icharge := spGetChargeAmountNumericValue.Value;
+                    Icharge := spGetChargeAmount.Parameters.ParamByName('@RETURN_VALUE').Value;
                  end;
 
                   if chkCSD.Checked = TRUE then
@@ -2539,13 +2707,15 @@ if chkRTGS.Checked = true then
                           close;
                           Parameters.ParamByName('@chargeName').Value := 'Corporate RTGS Charge';
                           Parameters.ParamByName('@Amount').Value := edtAmount.Text;
-                          Prepared;
-                          open;
+                          //Prepared;
+                          //open;
+                           Prepared := True;
+                            ExecProc;
                           end;
 
                           BankAccountName := 'RTGS Charge';
                           BankAccountNumber := '113322404020';
-                          RTGScharge :=  spGetChargeAmountNumericValue.Value;
+                          RTGScharge :=  spGetChargeAmount.Parameters.ParamByName('@RETURN_VALUE').Value;
                        end;
                  end
 
@@ -2559,31 +2729,35 @@ if chkRTGS.Checked = true then
                           close;
                           Parameters.ParamByName('@chargeName').Value := 'Pension RTGS Charge';
                           Parameters.ParamByName('@Amount').Value := edtAmount.Text;
-                          Prepared;
-                          open;
+                          //Prepared;
+                          //open;
+                           Prepared := True;
+                            ExecProc;
                           end;
 
                           BankAccountName := 'RTGS Charge';
                           BankAccountNumber := '113322404020';
-                          RTGScharge :=  spGetChargeAmountNumericValue.Value;
+                          RTGScharge :=  spGetChargeAmount.Parameters.ParamByName('@RETURN_VALUE').Value;
                        end;
                  end;
 
                   if (chkIndividual.Checked = false) and chkRTGS.Checked then    //individual & RTGS
                  begin
-                  showmessage('15');
+
                     with spGetChargeAmount do
                     begin
                     close;
                     Parameters.ParamByName('@chargeName').Value := 'Individual RTGS Charge';
                     Parameters.ParamByName('@Amount').Value := edtAmount.Text;
-                    Prepared;
-                    open;
+                    //Prepared;
+                    //open;
+                     Prepared := True;
+                            ExecProc;
                     end;
 
                     BankAccountName := 'RTGS Charge';
                     BankAccountNumber := '113322404020';
-                    RTGScharge :=  spGetChargeAmountNumericValue.Value;
+                    RTGScharge :=  spGetChargeAmount.Parameters.ParamByName('@RETURN_VALUE').Value;
                  end;
 
                  if chkCSD.Checked = TRUE then
@@ -2622,13 +2796,15 @@ if chkRTGS.Checked = true then
                           close;
                           Parameters.ParamByName('@chargeName').Value := 'Corporate RTGS Charge USD';
                           Parameters.ParamByName('@Amount').Value := edtAmount.Text;
-                          Prepared;
-                          open;
+                          //Prepared;
+                          //open;
+                           Prepared := True;
+                            ExecProc;
                           end;
 
                           BankAccountName := 'RTGS Charge USD';
                           BankAccountNumber := '322404020';
-                          RTGScharge :=  spGetChargeAmountNumericValue.Value;
+                          RTGScharge :=  spGetChargeAmount.Parameters.ParamByName('@RETURN_VALUE').Value;
                        end;
                  end
 
@@ -2642,31 +2818,35 @@ if chkRTGS.Checked = true then
                           close;
                           Parameters.ParamByName('@chargeName').Value := 'Pension RTGS Charge USD';
                           Parameters.ParamByName('@Amount').Value := edtAmount.Text;
-                          Prepared;
-                          open;
+                          //Prepared;
+                          //open;
+                           Prepared := True;
+                            ExecProc;
                           end;
 
                           BankAccountName := 'RTGS Charge USD';
                           BankAccountNumber := '322404020';
-                          RTGScharge :=  spGetChargeAmountNumericValue.Value;
+                          RTGScharge :=  spGetChargeAmount.Parameters.ParamByName('@RETURN_VALUE').Value;
                        end;
                  end;
 
                   if (chkIndividual.Checked = false) and chkRTGS.Checked then    //individual & RTGS
                  begin
-                  showmessage('16');
+
                     with spGetChargeAmount do
                     begin
                     close;
                     Parameters.ParamByName('@chargeName').Value := 'Individual RTGS Charge USD';
                     Parameters.ParamByName('@Amount').Value := edtAmount.Text;
-                    Prepared;
-                    open;
+                    //Prepared;
+                    //open;
+                     Prepared := True;
+                            ExecProc;
                     end;
 
                     BankAccountName := 'RTGS Charge USD';
                     BankAccountNumber := '322404020';
-                    RTGScharge :=  spGetChargeAmountNumericValue.Value;
+                    RTGScharge :=  spGetChargeAmount.Parameters.ParamByName('@RETURN_VALUE').Value;
                  end;
 
                  if chkCSD.Checked = TRUE then
