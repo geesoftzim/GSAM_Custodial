@@ -752,7 +752,7 @@ begin
                       if spCheckPensionPension.Value = 0 then
 
                        begin
-                          if chkIndividual.Checked and chkRTGS.Checked and lkpCurrency.EditValue =1 then
+                          if (chkIndividual.Checked) and (chkRTGS.Checked) and (lkpCurrency.EditValue = 1) then
                            begin
 
                                with spGetTransactionType do
@@ -1147,7 +1147,7 @@ begin
                             ExecProc;
                         end;
                             //**************************
-                         showmessage('individual csd charge amount');
+                       //  showmessage('individual csd charge amount');
                         one  :=  spGetChargeAmount.Parameters.ParamByName('@RETURN_VALUE').Value;
 
 
@@ -1162,7 +1162,7 @@ begin
 
                       TransactionType := spGetTransactionTypeType.Value ;
                      //**************************
-                      showmessage('individual csd charge');
+                     // showmessage('individual csd charge');
                      two := TransactionType;
                    end;
 
@@ -1181,7 +1181,7 @@ begin
                             Prepared := True;
                             ExecProc;
                         end;
-                           showmessage('individual csd usd charge amount');
+                          // showmessage('individual csd usd charge amount');
                         one  :=  spGetChargeAmount.Parameters.ParamByName('@RETURN_VALUE').Value;
 
                        with spGetTransactionType do
@@ -1193,7 +1193,7 @@ begin
                         end;
 
                       TransactionType := spGetTransactionTypeType.Value ;
-                       showmessage('individual csd usd charge');
+                     //  showmessage('individual csd usd charge');
                        two := TransactionType;
                    end;
 

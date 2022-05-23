@@ -752,7 +752,7 @@ begin
                       if spCheckPensionPension.Value = 0 then
 
                        begin
-                          if (chkIndividual.Checked) and (chkRTGS.Checked) and (lkpCurrency.EditValue = 1) then
+                          if chkIndividual.Checked and chkRTGS.Checked and lkpCurrency.EditValue =1 then
                            begin
 
                                with spGetTransactionType do
