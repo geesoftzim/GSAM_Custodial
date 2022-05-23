@@ -1683,6 +1683,54 @@ type
     dsCurrencyNMI: TDataSource;
     tblCurrencyNMIR: TADOTable;
     dsCurrencyNMIR: TDataSource;
+    cxLabel21: TcxLabel;
+    lkpCurrencyTO: TcxLookupComboBox;
+    tblCurrencyTO: TADOTable;
+    tblCurrencyTOID: TAutoIncField;
+    tblCurrencyTOCurrCode: TStringField;
+    tblCurrencyTOName: TStringField;
+    tblCurrencyTOCreationDate: TDateTimeField;
+    tblCurrencyTOActive: TBooleanField;
+    tblCurrencyTOPaymentsName: TStringField;
+    tblCurrencyTOPaymentsSmallDenomination: TStringField;
+    tblCurrencyTOMMYearLength: TIntegerField;
+    dsCurrencyTO: TDataSource;
+    lkpCurrencyWD: TcxLookupComboBox;
+    cxLabel22: TcxLabel;
+    tblCurrencyWD: TADOTable;
+    tblCurrencyWDID: TAutoIncField;
+    tblCurrencyWDCurrCode: TStringField;
+    tblCurrencyWDName: TStringField;
+    tblCurrencyWDCreationDate: TDateTimeField;
+    tblCurrencyWDActive: TBooleanField;
+    tblCurrencyWDPaymentsName: TStringField;
+    tblCurrencyWDPaymentsSmallDenomination: TStringField;
+    tblCurrencyWDMMYearLength: TIntegerField;
+    dsCurrencyWD: TDataSource;
+    lkpCurrencyEQCom: TcxLookupComboBox;
+    cxLabel23: TcxLabel;
+    tblCurrencyEQCom: TADOTable;
+    tblCurrencyEQComID: TAutoIncField;
+    tblCurrencyEQComCurrCode: TStringField;
+    tblCurrencyEQComName: TStringField;
+    tblCurrencyEQComCreationDate: TDateTimeField;
+    tblCurrencyEQComActive: TBooleanField;
+    tblCurrencyEQComPaymentsName: TStringField;
+    tblCurrencyEQComPaymentsSmallDenomination: TStringField;
+    tblCurrencyEQComMMYearLength: TIntegerField;
+    dsCurrencyEQCom: TDataSource;
+    lkpCurrencyCom: TcxLookupComboBox;
+    cxLabel24: TcxLabel;
+    tblCurrencyCom: TADOTable;
+    tblCurrencyComID: TAutoIncField;
+    tblCurrencyComCurrCode: TStringField;
+    tblCurrencyComName: TStringField;
+    tblCurrencyComCreationDate: TDateTimeField;
+    tblCurrencyComActive: TBooleanField;
+    tblCurrencyComPaymentsName: TStringField;
+    tblCurrencyComPaymentsSmallDenomination: TStringField;
+    tblCurrencyComMMYearLength: TIntegerField;
+    dsCurrencyCom: TDataSource;
     procedure PrintCapitalGains;
     procedure PrintHistoryReport;
     procedure PrintTakeOns;
@@ -1955,6 +2003,7 @@ begin
             Close;
             Parameters.ParamByName('@StartDate').Value := dtWDStartDate.Date;
             Parameters.ParamByName('@EndDate').Value := dtWDEndDate.Date;
+            Parameters.ParamByName('@CurrencyID').Value := lkpCurrencyWD.EditValue;
             Prepared := True;
             ExecProc;
             Open;
@@ -1995,6 +2044,7 @@ begin
             Parameters.ParamByName('@EndDate').Value := dtCREndDate.Date;
             Parameters.ParamByName('@CustodialGroup').Value := lkpCRCustodialGroup.EditValue;
             Parameters.ParamByName('@AccountTypeName').Value := 'Shares';
+             Parameters.ParamByName('@CurrencyID').Value := lkpCurrencyCom.EditValue;
             Prepared := True;
             ExecProc;
             Open;
@@ -2014,6 +2064,7 @@ begin
             Parameters.ParamByName('@EndDate').Value := dtEQCREndDate.Date;
             Parameters.ParamByName('@CustodialGroup').Value := lkpEQCRCustodialGroup.EditValue;
             Parameters.ParamByName('@AccountTypeName').Value := null;
+            Parameters.ParamByName('@CurrencyID').Value := lkpCurrencyEQCom.EditValue;
             Prepared := True;
             ExecProc;
             Open;
@@ -2101,7 +2152,7 @@ begin  //Client Holdings by counter tab is selected
 
             Parameters.ParamByName('@StartDate').value := edtTakeOnStartDate.Date;
             Parameters.ParamByName('@EndDate').value := edtTakeOnEndDate.Date ;
-
+            Parameters.ParamByName('@CurrencyID').value := lkpCurrencyTO.EditValue;
             Open;
         end;
         dtmMain.ShowReport(QREQTakeOnReport);
@@ -2709,6 +2760,11 @@ begin
      dtmMain.EnsureDataAccess(tblCurrencyHis);
        dtmMain.EnsureDataAccess(tblCurrencyNMI);
      dtmMain.EnsureDataAccess(tblCurrencyNMIR);
+     dtmMain.EnsureDataAccess(tblCurrencyTO);
+      dtmMain.EnsureDataAccess(tblCurrencyWD);
+      dtmMain.EnsureDataAccess(tblCurrencyEQCom);
+      dtmMain.EnsureDataAccess(tblCurrencyCom);
+
 
     dteScripRegStart.Date := Today - 30;
     edtTakeOnStartDate.Date := Date;
@@ -2983,9 +3039,10 @@ begin
               Parameters.ParamByName('@OrderBy').value := 'Counter'
            else if rdCHByClient.Checked then
               Parameters.ParamByName('@OrderBy').value := 'Client Name'
-           else
+           else    begin
               Parameters.ParamByName('@OrderBy').value := 'Client No.';
-
+           end;
+            Parameters.ParamByName('@CurrencyID').value := lkpCurrencyCliH.EditValue;
            Open;
         end;
     end;
@@ -3013,8 +3070,10 @@ begin
             if chkAccBalByName.checked then
                 Parameters.ParamByName('@OrderBy').Value := 'Client Name'
             else
+              begin
                 Parameters.ParamByName('@OrderBy').Value := 'Client No.';
-
+            end;
+              Parameters.ParamByName('@CurrencyID').Value := lkpCurrencyAccBal.EditValue;
             Open;
         end;
     end;
@@ -3212,7 +3271,7 @@ begin
             end else begin
                 Parameters.ParamByName('@ValueBy').Value := 'CreationDate';
             end;
-
+             Parameters.ParamByName('@CurrencyID').Value := lkpCurrencyHis.EditValue;
             Prepared := True;
             Open;
         end;
@@ -3289,6 +3348,7 @@ begin
 
             Parameters.ParamByName('@StartDate').value := edtTakeOnStartDate.Date;
             Parameters.ParamByName('@EndDate').value := edtTakeOnEndDate.Date ;
+               Parameters.ParamByName('@CurrencyID').value := lkpCurrencyTO.EditValue ;
 
             Open;
         end;

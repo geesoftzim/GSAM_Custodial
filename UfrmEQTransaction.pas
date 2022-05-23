@@ -1073,6 +1073,7 @@ begin
                             ExecProc;
 
                               end;
+                                 one  :=  spGetChargeAmount.Parameters.ParamByName('@RETURN_VALUE').Value;
 
                             with spGetTransactionType do
                               begin
@@ -1083,6 +1084,7 @@ begin
                               end;
 
                             TransactionType := spGetTransactionTypeType.Value ;
+                             two := TransactionType;
                          end;
 
                    end        // END OF CHECK PENSION ZERO
@@ -1090,7 +1092,7 @@ begin
                    else
 
                    begin
-                          if chkIndividual.Checked and lkpCurrency.EditValue = 1 {and chkCSD.Checked} then
+                          if (chkIndividual.Checked) and (lkpCurrency.EditValue = 1) and (chkCSD.Checked) then  //lapha
                          begin
 
                             with spGetChargeAmount do
@@ -1119,7 +1121,7 @@ begin
                               two := TransactionType;
                          end;
 
-                           if chkIndividual.Checked  and lkpCurrency.EditValue = 9 {and chkCSD.Checked} then
+                           if (chkIndividual.Checked)  and (lkpCurrency.EditValue = 9) and (chkCSD.Checked) then //lapha
 
                          begin
 
@@ -1197,6 +1199,8 @@ begin
                             ExecProc;
                         end;
 
+                        one  :=  spGetChargeAmount.Parameters.ParamByName('@RETURN_VALUE').Value;
+
                        with spGetTransactionType do
                         begin
                          close;
@@ -1206,6 +1210,7 @@ begin
                         end;
 
                       TransactionType := spGetTransactionTypeType.Value ;
+                       two := TransactionType;
                    end;
 
                   begin

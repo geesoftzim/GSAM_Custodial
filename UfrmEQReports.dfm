@@ -27,7 +27,7 @@ object frmEQReports: TfrmEQReports
     Height = 544
     Align = alClient
     TabOrder = 1
-    Properties.ActivePage = tshNMI
+    Properties.ActivePage = tshDepWith
     Properties.CustomButtons.Buttons = <>
     ClientRectBottom = 542
     ClientRectLeft = 2
@@ -272,8 +272,6 @@ object frmEQReports: TfrmEQReports
         Height = 345
         Align = alClient
         TabOrder = 1
-        ExplicitTop = 165
-        ExplicitHeight = 375
         object grdCH: TcxGridDBBandedTableView
           Navigator.Buttons.CustomButtons = <>
           DataController.DataSource = dsEQCounterpartyHoldingsWithPercentage
@@ -595,8 +593,6 @@ object frmEQReports: TfrmEQReports
         Height = 341
         Align = alClient
         TabOrder = 1
-        ExplicitTop = 169
-        ExplicitHeight = 371
         object grdAccBal: TcxGridDBBandedTableView
           Navigator.Buttons.CustomButtons = <>
           DataController.DataSource = dsRptAccountBalance
@@ -3311,7 +3307,7 @@ object frmEQReports: TfrmEQReports
         Left = 0
         Top = 0
         Width = 849
-        Height = 145
+        Height = 175
         Align = alTop
         TabOrder = 0
         object Label52: TcxLabel
@@ -3450,12 +3446,39 @@ object frmEQReports: TfrmEQReports
           Transparent = True
           OnClick = MatchCbo2Chk
         end
+        object cxLabel21: TcxLabel
+          Left = 12
+          Top = 143
+          Caption = 'Currency'
+          ParentFont = False
+          Style.LookAndFeel.NativeStyle = True
+          Style.StyleController = frmMain.escLabels
+          StyleDisabled.LookAndFeel.NativeStyle = True
+          StyleFocused.LookAndFeel.NativeStyle = True
+          StyleHot.LookAndFeel.NativeStyle = True
+          Transparent = True
+        end
+        object lkpCurrencyTO: TcxLookupComboBox
+          Tag = 1002
+          Left = 102
+          Top = 143
+          ParentFont = False
+          Properties.KeyFieldNames = 'ID'
+          Properties.ListColumns = <
+            item
+              FieldName = 'CurrCode'
+            end>
+          Properties.ListSource = dsCurrencyTO
+          Style.StyleController = frmMain.escEdits
+          TabOrder = 13
+          Width = 189
+        end
       end
       object grdTakeOnsMain: TcxGrid
         Left = 0
-        Top = 145
+        Top = 175
         Width = 849
-        Height = 395
+        Height = 365
         Align = alClient
         TabOrder = 1
         object grdTakeOns: TcxGridDBBandedTableView
@@ -4115,8 +4138,6 @@ object frmEQReports: TfrmEQReports
         Height = 277
         Align = alClient
         TabOrder = 1
-        ExplicitTop = 233
-        ExplicitHeight = 307
         object grdHistoryReport: TcxGridDBBandedTableView
           Navigator.Buttons.CustomButtons = <>
           DataController.DataSource = dsEQHistoryReport
@@ -4842,6 +4863,8 @@ object frmEQReports: TfrmEQReports
       Caption = 'Commissions Report'
       Enabled = False
       TabVisible = False
+      ExplicitLeft = 6
+      ExplicitTop = 3
       object Label66: TcxLabel
         Left = 14
         Top = 51
@@ -4907,6 +4930,32 @@ object frmEQReports: TfrmEQReports
         Style.StyleController = frmMain.escEdits
         TabOrder = 2
         Width = 189
+      end
+      object lkpCurrencyCom: TcxLookupComboBox
+        Left = 103
+        Top = 104
+        ParentFont = False
+        Properties.KeyFieldNames = 'ID'
+        Properties.ListColumns = <
+          item
+            FieldName = 'CurrCode'
+          end>
+        Properties.ListSource = dsCurrencyCom
+        Style.StyleController = frmMain.escEdits
+        TabOrder = 6
+        Width = 187
+      end
+      object cxLabel24: TcxLabel
+        Left = 14
+        Top = 105
+        Caption = 'Currency'
+        ParentFont = False
+        Style.LookAndFeel.NativeStyle = True
+        Style.StyleController = frmMain.escLabels
+        StyleDisabled.LookAndFeel.NativeStyle = True
+        StyleFocused.LookAndFeel.NativeStyle = True
+        StyleHot.LookAndFeel.NativeStyle = True
+        Transparent = True
       end
     end
     object tshAgentComm: TcxTabSheet
@@ -5152,7 +5201,7 @@ object frmEQReports: TfrmEQReports
       TabVisible = False
       object Label75: TcxLabel
         Left = 14
-        Top = 41
+        Top = 38
         Caption = 'End Date'
         ParentFont = False
         Style.LookAndFeel.NativeStyle = True
@@ -5189,6 +5238,32 @@ object frmEQReports: TfrmEQReports
         Style.StyleController = frmMain.escEdits
         TabOrder = 1
         Width = 116
+      end
+      object lkpCurrencyWD: TcxLookupComboBox
+        Left = 104
+        Top = 68
+        ParentFont = False
+        Properties.KeyFieldNames = 'ID'
+        Properties.ListColumns = <
+          item
+            FieldName = 'CurrCode'
+          end>
+        Properties.ListSource = dsCurrencyWD
+        Style.StyleController = frmMain.escEdits
+        TabOrder = 4
+        Width = 187
+      end
+      object cxLabel22: TcxLabel
+        Left = 14
+        Top = 69
+        Caption = 'Currency'
+        ParentFont = False
+        Style.LookAndFeel.NativeStyle = True
+        Style.StyleController = frmMain.escLabels
+        StyleDisabled.LookAndFeel.NativeStyle = True
+        StyleFocused.LookAndFeel.NativeStyle = True
+        StyleHot.LookAndFeel.NativeStyle = True
+        Transparent = True
       end
     end
     object tshAccruedMgtFees: TcxTabSheet
@@ -5357,6 +5432,32 @@ object frmEQReports: TfrmEQReports
         Style.StyleController = frmMain.escEdits
         TabOrder = 2
         Width = 116
+      end
+      object lkpCurrencyEQCom: TcxLookupComboBox
+        Left = 104
+        Top = 104
+        ParentFont = False
+        Properties.KeyFieldNames = 'ID'
+        Properties.ListColumns = <
+          item
+            FieldName = 'CurrCode'
+          end>
+        Properties.ListSource = dsCurrencyEQCom
+        Style.StyleController = frmMain.escEdits
+        TabOrder = 6
+        Width = 187
+      end
+      object cxLabel23: TcxLabel
+        Left = 14
+        Top = 108
+        Caption = 'Currency'
+        ParentFont = False
+        Style.LookAndFeel.NativeStyle = True
+        Style.StyleController = frmMain.escLabels
+        StyleDisabled.LookAndFeel.NativeStyle = True
+        StyleFocused.LookAndFeel.NativeStyle = True
+        StyleHot.LookAndFeel.NativeStyle = True
+        Transparent = True
       end
     end
     object tshClientList: TcxTabSheet
@@ -8220,6 +8321,11 @@ object frmEQReports: TfrmEQReports
         DataType = ftString
         Size = 200
         Value = Null
+      end
+      item
+        Name = '@CurrencyID'
+        DataType = ftInteger
+        Value = Null
       end>
     Left = 494
     Top = 110
@@ -8383,6 +8489,11 @@ object frmEQReports: TfrmEQReports
         DataType = ftString
         Size = 200
         Value = 'Client Name'
+      end
+      item
+        Name = '@CurrencyID'
+        DataType = ftInteger
+        Value = Null
       end>
     Left = 373
     Top = 294
@@ -10399,6 +10510,11 @@ object frmEQReports: TfrmEQReports
         DataType = ftString
         Size = 100
         Value = ''
+      end
+      item
+        Name = '@CurrencyID'
+        DataType = ftInteger
+        Value = Null
       end>
     Left = 284
     Top = 166
@@ -11008,6 +11124,11 @@ object frmEQReports: TfrmEQReports
         Attributes = [paNullable]
         DataType = ftBoolean
         Value = True
+      end
+      item
+        Name = '@CurrencyID'
+        DataType = ftInteger
+        Value = Null
       end>
     Left = 505
     Top = 490
@@ -11723,5 +11844,169 @@ object frmEQReports: TfrmEQReports
     DataSet = tblCurrencyNMIR
     Left = 600
     Top = 352
+  end
+  object tblCurrencyTO: TADOTable
+    Connection = dtmMain.cnnMain
+    CursorType = ctStatic
+    TableName = 'tblCurrency'
+    Left = 504
+    Top = 392
+    object tblCurrencyTOID: TAutoIncField
+      FieldName = 'ID'
+      ReadOnly = True
+    end
+    object tblCurrencyTOCurrCode: TStringField
+      FieldName = 'CurrCode'
+      Size = 10
+    end
+    object tblCurrencyTOName: TStringField
+      FieldName = 'Name'
+      Size = 50
+    end
+    object tblCurrencyTOCreationDate: TDateTimeField
+      FieldName = 'CreationDate'
+    end
+    object tblCurrencyTOActive: TBooleanField
+      FieldName = 'Active'
+    end
+    object tblCurrencyTOPaymentsName: TStringField
+      FieldName = 'PaymentsName'
+      Size = 100
+    end
+    object tblCurrencyTOPaymentsSmallDenomination: TStringField
+      FieldName = 'PaymentsSmallDenomination'
+      Size = 100
+    end
+    object tblCurrencyTOMMYearLength: TIntegerField
+      FieldName = 'MMYearLength'
+    end
+  end
+  object dsCurrencyTO: TDataSource
+    DataSet = tblCurrencyTO
+    Left = 608
+    Top = 360
+  end
+  object tblCurrencyWD: TADOTable
+    Connection = dtmMain.cnnMain
+    CursorType = ctStatic
+    TableName = 'tblCurrency'
+    Left = 592
+    Top = 144
+    object tblCurrencyWDID: TAutoIncField
+      FieldName = 'ID'
+      ReadOnly = True
+    end
+    object tblCurrencyWDCurrCode: TStringField
+      FieldName = 'CurrCode'
+      Size = 10
+    end
+    object tblCurrencyWDName: TStringField
+      FieldName = 'Name'
+      Size = 50
+    end
+    object tblCurrencyWDCreationDate: TDateTimeField
+      FieldName = 'CreationDate'
+    end
+    object tblCurrencyWDActive: TBooleanField
+      FieldName = 'Active'
+    end
+    object tblCurrencyWDPaymentsName: TStringField
+      FieldName = 'PaymentsName'
+      Size = 100
+    end
+    object tblCurrencyWDPaymentsSmallDenomination: TStringField
+      FieldName = 'PaymentsSmallDenomination'
+      Size = 100
+    end
+    object tblCurrencyWDMMYearLength: TIntegerField
+      FieldName = 'MMYearLength'
+    end
+  end
+  object dsCurrencyWD: TDataSource
+    DataSet = tblCurrencyWD
+    Left = 600
+    Top = 224
+  end
+  object tblCurrencyEQCom: TADOTable
+    Connection = dtmMain.cnnMain
+    CursorType = ctStatic
+    TableName = 'tblCurrency'
+    Left = 664
+    Top = 120
+    object tblCurrencyEQComID: TAutoIncField
+      FieldName = 'ID'
+      ReadOnly = True
+    end
+    object tblCurrencyEQComCurrCode: TStringField
+      FieldName = 'CurrCode'
+      Size = 10
+    end
+    object tblCurrencyEQComName: TStringField
+      FieldName = 'Name'
+      Size = 50
+    end
+    object tblCurrencyEQComCreationDate: TDateTimeField
+      FieldName = 'CreationDate'
+    end
+    object tblCurrencyEQComActive: TBooleanField
+      FieldName = 'Active'
+    end
+    object tblCurrencyEQComPaymentsName: TStringField
+      FieldName = 'PaymentsName'
+      Size = 100
+    end
+    object tblCurrencyEQComPaymentsSmallDenomination: TStringField
+      FieldName = 'PaymentsSmallDenomination'
+      Size = 100
+    end
+    object tblCurrencyEQComMMYearLength: TIntegerField
+      FieldName = 'MMYearLength'
+    end
+  end
+  object dsCurrencyEQCom: TDataSource
+    DataSet = tblCurrencyEQCom
+    Left = 584
+    Top = 40
+  end
+  object tblCurrencyCom: TADOTable
+    Connection = dtmMain.cnnMain
+    CursorType = ctStatic
+    TableName = 'tblCurrency'
+    Left = 416
+    Top = 384
+    object tblCurrencyComID: TAutoIncField
+      FieldName = 'ID'
+      ReadOnly = True
+    end
+    object tblCurrencyComCurrCode: TStringField
+      FieldName = 'CurrCode'
+      Size = 10
+    end
+    object tblCurrencyComName: TStringField
+      FieldName = 'Name'
+      Size = 50
+    end
+    object tblCurrencyComCreationDate: TDateTimeField
+      FieldName = 'CreationDate'
+    end
+    object tblCurrencyComActive: TBooleanField
+      FieldName = 'Active'
+    end
+    object tblCurrencyComPaymentsName: TStringField
+      FieldName = 'PaymentsName'
+      Size = 100
+    end
+    object tblCurrencyComPaymentsSmallDenomination: TStringField
+      FieldName = 'PaymentsSmallDenomination'
+      Size = 100
+    end
+    object tblCurrencyComMMYearLength: TIntegerField
+      FieldName = 'MMYearLength'
+    end
+  end
+  object dsCurrencyCom: TDataSource
+    DataSet = tblCurrencyCom
+    Left = 616
+    Top = 368
   end
 end

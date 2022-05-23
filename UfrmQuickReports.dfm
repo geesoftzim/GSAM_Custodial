@@ -821,7 +821,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewPage = False
           ParentFont = False
           Size.Values = (
-            42.333333333333340000
+            42.333333333333330000
             2817.812500000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -3155,7 +3155,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            42.333333333333340000
+            42.333333333333330000
             1846.791666666667000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -3276,7 +3276,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            838.729166666666800000
+            838.729166666666600000
             2717.270833333333000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -5520,7 +5520,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewPage = False
           ParentFont = False
           Size.Values = (
-            42.333333333333340000
+            42.333333333333330000
             2540.000000000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -6543,7 +6543,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            68.791666666666680000
+            68.791666666666660000
             2540.000000000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -7796,7 +7796,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            494.770833333333400000
+            494.770833333333300000
             1905.000000000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -9945,7 +9945,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            616.479166666666800000
+            616.479166666666600000
             2540.000000000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -15822,7 +15822,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewPage = False
           ParentFont = False
           Size.Values = (
-            264.583333333333400000
+            264.583333333333300000
             1905.000000000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -16366,7 +16366,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            584.729166666666800000
+            584.729166666666600000
             2540.000000000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -17424,7 +17424,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            84.666666666666680000
+            84.666666666666660000
             2540.000000000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -18935,7 +18935,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            711.729166666666800000
+            711.729166666666600000
             1905.000000000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -19388,7 +19388,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewPage = False
           ParentFont = False
           Size.Values = (
-            608.541666666666800000
+            608.541666666666600000
             1905.000000000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -20095,7 +20095,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            60.854166666666680000
+            60.854166666666660000
             1905.000000000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -21825,7 +21825,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewPage = False
           ParentFont = False
           Size.Values = (
-            592.666666666666800000
+            592.666666666666600000
             1905.000000000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -23817,7 +23817,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            664.104166666666800000
+            664.104166666666600000
             1905.000000000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -24924,7 +24924,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            42.333333333333340000
+            42.333333333333330000
             1905.000000000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -25299,7 +25299,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            791.104166666666800000
+            791.104166666666600000
             1905.000000000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -25834,7 +25834,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            84.666666666666680000
+            84.666666666666660000
             1905.000000000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -26724,7 +26724,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            584.729166666666800000
+            584.729166666666600000
             2717.270833333333000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -27801,7 +27801,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            870.479166666666800000
+            870.479166666666600000
             2693.458333333333000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -32096,7 +32096,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            415.395833333333400000
+            415.395833333333300000
             1905.000000000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -33402,7 +33402,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            84.666666666666680000
+            84.666666666666660000
             1905.000000000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -34550,7 +34550,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            759.354166666666800000
+            759.354166666666600000
             1905.000000000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -35129,7 +35129,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            672.041666666666800000
+            672.041666666666600000
             1905.000000000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -40587,7 +40587,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            584.729166666666800000
+            584.729166666666600000
             2540.000000000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -43289,7 +43289,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            84.666666666666680000
+            84.666666666666660000
             2540.000000000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -44003,7 +44003,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            42.333333333333340000
+            42.333333333333330000
             2540.000000000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -44591,7 +44591,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            600.604166666666800000
+            600.604166666666600000
             2540.000000000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -45626,7 +45626,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = True
           Size.Values = (
-            42.333333333333340000
+            42.333333333333330000
             2540.000000000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -46060,7 +46060,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            494.770833333333400000
+            494.770833333333300000
             2540.000000000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -47092,7 +47092,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            68.791666666666680000
+            68.791666666666660000
             2540.000000000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -47508,7 +47508,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            494.770833333333400000
+            494.770833333333300000
             2540.000000000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -50500,7 +50500,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            447.145833333333400000
+            447.145833333333300000
             2540.000000000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -55380,7 +55380,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            494.770833333333400000
+            494.770833333333300000
             2540.000000000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -56543,7 +56543,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            854.604166666666800000
+            854.604166666666600000
             1905.000000000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -58241,7 +58241,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            632.354166666666800000
+            632.354166666666600000
             2540.000000000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -59898,7 +59898,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewPage = False
           ParentFont = False
           Size.Values = (
-            518.583333333333400000
+            518.583333333333300000
             1905.000000000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -60684,7 +60684,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            854.604166666666800000
+            854.604166666666600000
             1905.000000000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -61594,7 +61594,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            304.270833333333400000
+            304.270833333333300000
             1905.000000000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -63088,7 +63088,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            391.583333333333400000
+            391.583333333333300000
             1905.000000000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -64521,7 +64521,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            759.354166666666800000
+            759.354166666666600000
             2540.000000000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -65808,7 +65808,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            84.666666666666680000
+            84.666666666666660000
             2540.000000000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -66088,7 +66088,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            42.333333333333340000
+            42.333333333333330000
             2540.000000000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -66984,7 +66984,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewPage = False
           ParentFont = False
           Size.Values = (
-            42.333333333333340000
+            42.333333333333330000
             2817.812500000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -68339,7 +68339,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            542.395833333333400000
+            542.395833333333300000
             2717.270833333333000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -71301,7 +71301,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewPage = False
           ParentFont = False
           Size.Values = (
-            42.333333333333340000
+            42.333333333333330000
             2817.812500000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -72920,7 +72920,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewPage = False
           ParentFont = False
           Size.Values = (
-            42.333333333333340000
+            42.333333333333330000
             2817.812500000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -74417,7 +74417,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewPage = False
           ParentFont = False
           Size.Values = (
-            42.333333333333340000
+            42.333333333333330000
             2817.812500000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -75863,7 +75863,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            494.770833333333400000
+            494.770833333333300000
             2540.000000000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -76772,7 +76772,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            68.791666666666680000
+            68.791666666666660000
             2540.000000000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -78062,7 +78062,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            68.791666666666680000
+            68.791666666666660000
             2540.000000000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -83506,7 +83506,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewPage = False
           ParentFont = False
           Size.Values = (
-            42.333333333333340000
+            42.333333333333330000
             2817.812500000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -85673,7 +85673,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            679.979166666666800000
+            679.979166666666600000
             2717.270833333333000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -86206,7 +86206,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            84.666666666666680000
+            84.666666666666660000
             2717.270833333333000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -86533,7 +86533,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewPage = False
           ParentFont = False
           Size.Values = (
-            447.145833333333400000
+            447.145833333333300000
             1905.000000000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -88603,7 +88603,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewPage = False
           ParentFont = False
           Size.Values = (
-            256.645833333333400000
+            256.645833333333300000
             1846.791666666667000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -88843,7 +88843,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            632.354166666666800000
+            632.354166666666600000
             1905.000000000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -89200,7 +89200,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            84.666666666666680000
+            84.666666666666660000
             1905.000000000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -90327,7 +90327,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            84.666666666666680000
+            84.666666666666660000
             1905.000000000000000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -91153,7 +91153,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            584.729166666666800000
+            584.729166666666600000
             2717.270833333333000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -94491,7 +94491,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            60.854166666666680000
+            60.854166666666660000
             1846.791666666667000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -95661,7 +95661,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            60.854166666666680000
+            60.854166666666660000
             1846.791666666667000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -96857,7 +96857,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            60.854166666666680000
+            60.854166666666660000
             1846.791666666667000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -97999,7 +97999,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewPage = False
           ParentFont = False
           Size.Values = (
-            60.854166666666680000
+            60.854166666666660000
             1846.791666666667000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -99003,7 +99003,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            60.854166666666680000
+            60.854166666666660000
             1846.791666666667000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -102508,7 +102508,7 @@ object frmQuickReports: TfrmQuickReports
               37.041666666666670000
               0.000000000000000000
               37.041666666666670000
-              320.145833333333400000)
+              320.145833333333300000)
             XLColumn = 0
             XLNumFormat = nfGeneral
             Alignment = taLeftJustify
@@ -102820,7 +102820,7 @@ object frmQuickReports: TfrmQuickReports
             Height = 19
             Size.Values = (
               50.270833333333330000
-              343.958333333333400000
+              343.958333333333300000
               539.750000000000000000
               195.791666666666700000)
             XLColumn = 0
@@ -103465,7 +103465,7 @@ object frmQuickReports: TfrmQuickReports
             Height = 15
             Size.Values = (
               39.687500000000000000
-              820.208333333333500000
+              820.208333333333400000
               5.291666666666667000
               140.229166666666700000)
             XLColumn = 0
@@ -103501,7 +103501,7 @@ object frmQuickReports: TfrmQuickReports
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            60.854166666666680000
+            60.854166666666660000
             2717.270833333333000000)
           PreCaluculateBandHeight = False
           KeepOnOnePage = False
@@ -107261,6 +107261,11 @@ object frmQuickReports: TfrmQuickReports
         Attributes = [paNullable]
         DataType = ftBoolean
         Value = True
+      end
+      item
+        Name = '@CurrencyID'
+        DataType = ftInteger
+        Value = Null
       end>
     Left = 817
     Top = 234
@@ -108132,6 +108137,11 @@ object frmQuickReports: TfrmQuickReports
         DataType = ftString
         Size = 45
         Value = Null
+      end
+      item
+        Name = '@CurrencyID'
+        DataType = ftInteger
+        Value = Null
       end>
     Left = 1017
     Top = 144
@@ -108209,6 +108219,11 @@ object frmQuickReports: TfrmQuickReports
         Attributes = [paNullable]
         DataType = ftDateTime
         Value = 36892d
+      end
+      item
+        Name = '@CurrencyID'
+        DataType = ftInteger
+        Value = Null
       end>
     Left = 643
     Top = 134
