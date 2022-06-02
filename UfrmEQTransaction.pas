@@ -2584,7 +2584,7 @@ if chkInternal.Checked = true then
                           end;
                           Icharge := spGetChargeAmount.Parameters.ParamByName('@RETURN_VALUE').Value;
                           BankAccountName := 'Internal Transfer Charge USD';
-                          BankAccountNumber := '321200020';
+                          BankAccountNumber := '113321200020';
                        end;
                  end
 
@@ -2605,7 +2605,7 @@ if chkInternal.Checked = true then
                           end;
 
                           BankAccountName := 'Internal Transfer Charge USD';
-                          BankAccountNumber := '321200020';
+                          BankAccountNumber := '113321200020';
                           Icharge := spGetChargeAmount.Parameters.ParamByName('@RETURN_VALUE').Value;
                        end;
                  end;
@@ -2625,7 +2625,7 @@ if chkInternal.Checked = true then
                     end;
 
                     BankAccountName := 'Internal Transfer Charge USD';
-                    BankAccountNumber := '321200020';
+                    BankAccountNumber := '113321200020';
                     Icharge := spGetChargeAmount.Parameters.ParamByName('@RETURN_VALUE').Value;
                  end;
 
@@ -2786,7 +2786,7 @@ if chkRTGS.Checked = true then
                           end;
 
                           BankAccountName := 'RTGS Charge USD';
-                          BankAccountNumber := '322404020';
+                          BankAccountNumber := '113322404020';
                           RTGScharge :=  spGetChargeAmount.Parameters.ParamByName('@RETURN_VALUE').Value;
                        end;
                  end
@@ -2808,7 +2808,7 @@ if chkRTGS.Checked = true then
                           end;
 
                           BankAccountName := 'RTGS Charge USD';
-                          BankAccountNumber := '322404020';
+                          BankAccountNumber := '113322404020';
                           RTGScharge :=  spGetChargeAmount.Parameters.ParamByName('@RETURN_VALUE').Value;
                        end;
                  end;
@@ -2828,7 +2828,7 @@ if chkRTGS.Checked = true then
                     end;
 
                     BankAccountName := 'RTGS Charge USD';
-                    BankAccountNumber := '322404020';
+                    BankAccountNumber := '113322404020';
                     RTGScharge :=  spGetChargeAmount.Parameters.ParamByName('@RETURN_VALUE').Value;
                  end;
 
