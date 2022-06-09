@@ -30,7 +30,7 @@ object frmEQBatchSettle: TfrmEQBatchSettle
     ParentFont = False
     TabOrder = 0
     UseDockManager = True
-    Version = '2.3.0.0'
+    Version = '2.4.2.0'
     AutoHideChildren = False
     BorderColor = clNone
     Caption.Color = 15658734
@@ -45,6 +45,7 @@ object frmEQBatchSettle: TfrmEQBatchSettle
     Caption.ShadeLight = 255
     CollapsColor = clNone
     CollapsDelay = 0
+    DoubleBuffered = True
     HoverColor = clBlack
     HoverFontColor = clBlack
     ShadowColor = clBlack
@@ -288,7 +289,7 @@ object frmEQBatchSettle: TfrmEQBatchSettle
     ParentFont = False
     TabOrder = 2
     UseDockManager = True
-    Version = '2.3.0.0'
+    Version = '2.4.2.0'
     AutoHideChildren = False
     BorderColor = clNone
     Caption.Color = 15658734
@@ -305,6 +306,7 @@ object frmEQBatchSettle: TfrmEQBatchSettle
     Caption.Visible = True
     CollapsColor = clNone
     CollapsDelay = 0
+    DoubleBuffered = True
     HoverColor = clBlack
     HoverFontColor = clBlack
     ShadowColor = clBlack
@@ -338,7 +340,7 @@ object frmEQBatchSettle: TfrmEQBatchSettle
     ParentFont = False
     TabOrder = 3
     UseDockManager = True
-    Version = '2.3.0.0'
+    Version = '2.4.2.0'
     AutoHideChildren = False
     BorderColor = clNone
     Caption.Color = 15658734
@@ -355,6 +357,7 @@ object frmEQBatchSettle: TfrmEQBatchSettle
     Caption.Visible = True
     CollapsColor = clNone
     CollapsDelay = 0
+    DoubleBuffered = True
     HoverColor = clBlack
     HoverFontColor = clBlack
     ShadowColor = clBlack
@@ -480,7 +483,7 @@ object frmEQBatchSettle: TfrmEQBatchSettle
         item
           FieldName = 'LongAccountNo'
         end>
-      Properties.ListSource = dsBasicBankAccountDetails
+      Properties.ListSource = dsFilteredEQBankAccountDetails
       Style.StyleController = frmMain.escEdits
       TabOrder = 8
       Width = 200
@@ -715,6 +718,13 @@ object frmEQBatchSettle: TfrmEQBatchSettle
     object spEQBatchDetailsCustodialGroupName: TStringField
       FieldName = 'CustodialGroupName'
       Size = 50
+    end
+    object spEQBatchDetailsCurrencyID: TIntegerField
+      FieldName = 'CurrencyID'
+    end
+    object spEQBatchDetailsCurrCode: TStringField
+      FieldName = 'CurrCode'
+      Size = 10
     end
   end
   object dsEQBatchDetails: TDataSource
@@ -1059,5 +1069,82 @@ object frmEQBatchSettle: TfrmEQBatchSettle
     DataSet = spEQBatchCounterpartyType
     Left = 224
     Top = 68
+  end
+  object spFilteredEQBankAccountDetails: TADOStoredProc
+    Connection = dtmMain.cnnMain
+    CursorType = ctStatic
+    ProcedureName = 'spFilteredEQBankAccountDetails;1'
+    Parameters = <
+      item
+        Name = '@CurrencyID'
+        DataType = ftInteger
+        Value = Null
+      end>
+    Left = 352
+    Top = 224
+    object spFilteredEQBankAccountDetailsID: TLargeintField
+      FieldName = 'ID'
+      ReadOnly = True
+    end
+    object spFilteredEQBankAccountDetailsAccountNo: TStringField
+      FieldName = 'AccountNo'
+      Size = 100
+    end
+    object spFilteredEQBankAccountDetailsBankID: TIntegerField
+      FieldName = 'BankID'
+    end
+    object spFilteredEQBankAccountDetailsName: TStringField
+      FieldName = 'Name'
+      Size = 100
+    end
+    object spFilteredEQBankAccountDetailsBranchNo: TStringField
+      FieldName = 'BranchNo'
+      Size = 50
+    end
+    object spFilteredEQBankAccountDetailsLongAccountNo: TStringField
+      FieldName = 'LongAccountNo'
+      ReadOnly = True
+      Size = 203
+    end
+    object spFilteredEQBankAccountDetailsBankAccountNumber: TStringField
+      FieldName = 'BankAccountNumber'
+      Size = 30
+    end
+    object spFilteredEQBankAccountDetailsBranchName: TStringField
+      FieldName = 'BranchName'
+      Size = 50
+    end
+    object spFilteredEQBankAccountDetailsCounterpartyType: TIntegerField
+      FieldName = 'CounterpartyType'
+    end
+    object spFilteredEQBankAccountDetailsCounterpartyTypeName: TStringField
+      FieldName = 'CounterpartyTypeName'
+      Size = 50
+    end
+    object spFilteredEQBankAccountDetailsCustodialGroup: TIntegerField
+      FieldName = 'CustodialGroup'
+    end
+    object spFilteredEQBankAccountDetailsCurrencyID: TIntegerField
+      FieldName = 'CurrencyID'
+    end
+    object spFilteredEQBankAccountDetailsCurrCode: TStringField
+      FieldName = 'CurrCode'
+      Size = 10
+    end
+    object spFilteredEQBankAccountDetailsCustodialGroupName: TStringField
+      FieldName = 'CustodialGroupName'
+      Size = 50
+    end
+    object spFilteredEQBankAccountDetailsAccountBalance: TFMTBCDField
+      FieldName = 'AccountBalance'
+      ReadOnly = True
+      Precision = 38
+      Size = 2
+    end
+  end
+  object dsFilteredEQBankAccountDetails: TDataSource
+    DataSet = spFilteredEQBankAccountDetails
+    Left = 320
+    Top = 176
   end
 end

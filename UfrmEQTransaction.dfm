@@ -160,7 +160,7 @@ object frmEQTransaction: TfrmEQTransaction
     end
     object cxDBTextEdit5: TcxDBTextEdit
       Left = 110
-      Top = 50
+      Top = 48
       DataBinding.DataField = 'ClientNo'
       DataBinding.DataSource = dsBasicAccountDetails
       Enabled = False
@@ -354,6 +354,8 @@ object frmEQTransaction: TfrmEQTransaction
     Color = clWhite
     ParentBackground = False
     TabOrder = 1
+    ExplicitLeft = 8
+    ExplicitTop = 225
     object txtComment: TcxMemo
       Left = 386
       Top = 29
@@ -528,15 +530,15 @@ object frmEQTransaction: TfrmEQTransaction
       Width = 169
     end
     object lkpBalAccount: TcxLookupComboBox
-      Left = 110
-      Top = 204
+      Left = 107
+      Top = 203
       ParentFont = False
       Properties.KeyFieldNames = 'ID'
       Properties.ListColumns = <
         item
           FieldName = 'LongAccountNo'
         end>
-      Properties.ListSource = dsBasicBankAccountDetails
+      Properties.ListSource = dsFilteredEQBanckAccountDetails
       Style.StyleController = frmMain.escEdits
       TabOrder = 7
       Width = 271
@@ -664,7 +666,7 @@ object frmEQTransaction: TfrmEQTransaction
     end
     object lkpCurrency: TcxLookupComboBox
       Left = 110
-      Top = 103
+      Top = 102
       ParentFont = False
       Properties.KeyFieldNames = 'ID'
       Properties.ListColumns = <
@@ -2444,5 +2446,82 @@ object frmEQTransaction: TfrmEQTransaction
       end>
     Left = 176
     Top = 304
+  end
+  object spFilteredEQBankAccountDetails: TADOStoredProc
+    Connection = dtmMain.cnnMain
+    CursorType = ctStatic
+    ProcedureName = 'spFilteredEQBankAccountDetails;1'
+    Parameters = <
+      item
+        Name = '@CurrencyID'
+        DataType = ftInteger
+        Value = Null
+      end>
+    Left = 280
+    Top = 336
+    object spFilteredEQBankAccountDetailsID: TLargeintField
+      FieldName = 'ID'
+      ReadOnly = True
+    end
+    object spFilteredEQBankAccountDetailsAccountNo: TStringField
+      FieldName = 'AccountNo'
+      Size = 100
+    end
+    object spFilteredEQBankAccountDetailsBankID: TIntegerField
+      FieldName = 'BankID'
+    end
+    object spFilteredEQBankAccountDetailsName: TStringField
+      FieldName = 'Name'
+      Size = 100
+    end
+    object spFilteredEQBankAccountDetailsBranchNo: TStringField
+      FieldName = 'BranchNo'
+      Size = 50
+    end
+    object spFilteredEQBankAccountDetailsLongAccountNo: TStringField
+      FieldName = 'LongAccountNo'
+      ReadOnly = True
+      Size = 203
+    end
+    object spFilteredEQBankAccountDetailsBankAccountNumber: TStringField
+      FieldName = 'BankAccountNumber'
+      Size = 30
+    end
+    object spFilteredEQBankAccountDetailsBranchName: TStringField
+      FieldName = 'BranchName'
+      Size = 50
+    end
+    object spFilteredEQBankAccountDetailsCounterpartyType: TIntegerField
+      FieldName = 'CounterpartyType'
+    end
+    object spFilteredEQBankAccountDetailsCounterpartyTypeName: TStringField
+      FieldName = 'CounterpartyTypeName'
+      Size = 50
+    end
+    object spFilteredEQBankAccountDetailsCustodialGroup: TIntegerField
+      FieldName = 'CustodialGroup'
+    end
+    object spFilteredEQBankAccountDetailsCurrencyID: TIntegerField
+      FieldName = 'CurrencyID'
+    end
+    object spFilteredEQBankAccountDetailsCurrCode: TStringField
+      FieldName = 'CurrCode'
+      Size = 10
+    end
+    object spFilteredEQBankAccountDetailsCustodialGroupName: TStringField
+      FieldName = 'CustodialGroupName'
+      Size = 50
+    end
+    object spFilteredEQBankAccountDetailsAccountBalance: TFMTBCDField
+      FieldName = 'AccountBalance'
+      ReadOnly = True
+      Precision = 38
+      Size = 2
+    end
+  end
+  object dsFilteredEQBanckAccountDetails: TDataSource
+    DataSet = spFilteredEQBankAccountDetails
+    Left = 272
+    Top = 392
   end
 end

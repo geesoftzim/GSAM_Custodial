@@ -30,7 +30,7 @@ object frmEQBatchSettle: TfrmEQBatchSettle
     ParentFont = False
     TabOrder = 0
     UseDockManager = True
-    Version = '2.4.2.0'
+    Version = '2.3.0.0'
     AutoHideChildren = False
     BorderColor = clNone
     Caption.Color = 15658734
@@ -45,7 +45,6 @@ object frmEQBatchSettle: TfrmEQBatchSettle
     Caption.ShadeLight = 255
     CollapsColor = clNone
     CollapsDelay = 0
-    DoubleBuffered = True
     HoverColor = clBlack
     HoverFontColor = clBlack
     ShadowColor = clBlack
@@ -289,7 +288,7 @@ object frmEQBatchSettle: TfrmEQBatchSettle
     ParentFont = False
     TabOrder = 2
     UseDockManager = True
-    Version = '2.4.2.0'
+    Version = '2.3.0.0'
     AutoHideChildren = False
     BorderColor = clNone
     Caption.Color = 15658734
@@ -306,7 +305,6 @@ object frmEQBatchSettle: TfrmEQBatchSettle
     Caption.Visible = True
     CollapsColor = clNone
     CollapsDelay = 0
-    DoubleBuffered = True
     HoverColor = clBlack
     HoverFontColor = clBlack
     ShadowColor = clBlack
@@ -340,7 +338,7 @@ object frmEQBatchSettle: TfrmEQBatchSettle
     ParentFont = False
     TabOrder = 3
     UseDockManager = True
-    Version = '2.4.2.0'
+    Version = '2.3.0.0'
     AutoHideChildren = False
     BorderColor = clNone
     Caption.Color = 15658734
@@ -357,7 +355,6 @@ object frmEQBatchSettle: TfrmEQBatchSettle
     Caption.Visible = True
     CollapsColor = clNone
     CollapsDelay = 0
-    DoubleBuffered = True
     HoverColor = clBlack
     HoverFontColor = clBlack
     ShadowColor = clBlack

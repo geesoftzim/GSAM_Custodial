@@ -334,6 +334,23 @@ type
     spAccountIDAccountID: TLargeintField;
     chkNewCheck: TcxCheckBox;
     spGetChargeAmount: TADOStoredProc;
+    spFilteredEQBankAccountDetails: TADOStoredProc;
+    spFilteredEQBankAccountDetailsID: TLargeintField;
+    spFilteredEQBankAccountDetailsAccountNo: TStringField;
+    spFilteredEQBankAccountDetailsBankID: TIntegerField;
+    spFilteredEQBankAccountDetailsName: TStringField;
+    spFilteredEQBankAccountDetailsBranchNo: TStringField;
+    spFilteredEQBankAccountDetailsLongAccountNo: TStringField;
+    spFilteredEQBankAccountDetailsBankAccountNumber: TStringField;
+    spFilteredEQBankAccountDetailsBranchName: TStringField;
+    spFilteredEQBankAccountDetailsCounterpartyType: TIntegerField;
+    spFilteredEQBankAccountDetailsCounterpartyTypeName: TStringField;
+    spFilteredEQBankAccountDetailsCustodialGroup: TIntegerField;
+    spFilteredEQBankAccountDetailsCurrencyID: TIntegerField;
+    spFilteredEQBankAccountDetailsCurrCode: TStringField;
+    spFilteredEQBankAccountDetailsCustodialGroupName: TStringField;
+    spFilteredEQBankAccountDetailsAccountBalance: TFMTBCDField;
+    dsFilteredEQBanckAccountDetails: TDataSource;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure actSaveExecute(Sender: TObject);
@@ -1824,6 +1841,16 @@ begin
     // Synchronise client custodial group with balancing account custodial group
     if vwBasicBankAccountDetails.Locate('CustodialGroup', spBasicAccountDetailsCustodialGroup.Value, []) then begin
         lkpBalAccount.EditValue := vwBasicBankAccountDetailsID.Value;
+    end;
+
+    lkpCurrency.EditValue :=   spBasicAccountDetailsCurrencyID.Value;
+
+
+    with spFilteredEQBankAccountDetails do begin
+        Close;
+        Parameters.ParamByName('@CurrencyID').Value := spBasicAccountDetailsCurrencyID.Value;
+        Prepared := True;
+        Open;
     end;
 end;
 

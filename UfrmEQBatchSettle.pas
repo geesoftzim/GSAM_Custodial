@@ -19,7 +19,10 @@ uses
   dxSkinSevenClassic, dxSkinSharp, dxSkinSharpPlus, dxSkinSilver,
   dxSkinSpringTime, dxSkinStardust, dxSkinSummer2008, dxSkinTheAsphaltWorld,
   dxSkinValentine, dxSkinVS2010, dxSkinWhiteprint, dxSkinXmas2008Blue,
-  Vcl.ComCtrls, dxCore, cxDateUtils, cxImage, System.Actions;
+  Vcl.ComCtrls, dxCore, cxDateUtils, cxImage, System.Actions, dxSkinMetropolis,
+  dxSkinMetropolisDark, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmEQBatchSettle = class(TForm)
@@ -153,6 +156,25 @@ type
     spEQBatchCounterpartyTypeSignature: TBlobField;
     spEQBatchCounterpartyTypeName: TStringField;
     imgSignature: TcxDBImage;
+    spEQBatchDetailsCurrencyID: TIntegerField;
+    spEQBatchDetailsCurrCode: TStringField;
+    spFilteredEQBankAccountDetails: TADOStoredProc;
+    dsFilteredEQBankAccountDetails: TDataSource;
+    spFilteredEQBankAccountDetailsID: TLargeintField;
+    spFilteredEQBankAccountDetailsAccountNo: TStringField;
+    spFilteredEQBankAccountDetailsBankID: TIntegerField;
+    spFilteredEQBankAccountDetailsName: TStringField;
+    spFilteredEQBankAccountDetailsBranchNo: TStringField;
+    spFilteredEQBankAccountDetailsLongAccountNo: TStringField;
+    spFilteredEQBankAccountDetailsBankAccountNumber: TStringField;
+    spFilteredEQBankAccountDetailsBranchName: TStringField;
+    spFilteredEQBankAccountDetailsCounterpartyType: TIntegerField;
+    spFilteredEQBankAccountDetailsCounterpartyTypeName: TStringField;
+    spFilteredEQBankAccountDetailsCustodialGroup: TIntegerField;
+    spFilteredEQBankAccountDetailsCurrencyID: TIntegerField;
+    spFilteredEQBankAccountDetailsCurrCode: TStringField;
+    spFilteredEQBankAccountDetailsCustodialGroupName: TStringField;
+    spFilteredEQBankAccountDetailsAccountBalance: TFMTBCDField;
     procedure actSaveExecute(Sender: TObject);
     procedure actCancelExecute(Sender: TObject);
     procedure Display(BatchID: Integer);
@@ -257,6 +279,14 @@ begin
     if iDefault > 0 then lkpSettlementPaymentType.EditValue := iDefault;
 
     bInserting := True;
+
+     with spFilteredEQBankAccountDetails do begin
+        Close;
+        Parameters.ParamByName('@CurrencyID').Value := spEQBatchDetailsCurrencyID.Value;
+        Prepared := True;
+        Open;
+    end;
+
     ShowModal;
 end;
 
